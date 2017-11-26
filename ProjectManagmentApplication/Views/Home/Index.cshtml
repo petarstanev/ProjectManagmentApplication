@@ -1,31 +1,96 @@
 ﻿@{
     ViewBag.Title = "Home Page";
 }
-
-<div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="http://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
-</div>
-
 <div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
+    <div class="col-md-2" id="menu-column">
+        <h2>Menu</h2>
+        <h3>
+            Boards
+            <br>
+        </h3>
+        <ul class="list-group">
+            <li class="list-group-item">
+                Board 1
+                <br>
+            </li>
+            <li class="list-group-item">
+                Board 2
+                <br>
+            </li>
+        </ul>
+        <h3>
+            Labels
+            <br>
+        </h3>
+        <ul class="list-group">
+            <li class="list-group-item">Label 1</li>
+            <li class="list-group-item">
+                Label 2
+                <br>
+            </li>
+        </ul>
+        <h3>Members</h3>
+        <ul class="list-group">
+            <li class="list-group-item">Member 1</li>
+            <li class="list-group-item">Meber 2</li>
+        </ul>
+        <h3>Deadline</h3>
+        <ul class="list-group">
+            <li class="list-group-item">Due tomorrow</li>
+            <li class="list-group-item">Due nextweek</li>
+            <li class="list-group-item">Overdue</li>
+            <li class="list-group-item">No end date</li>
+        </ul>
+    </div>
+    <div class="col-md-7">
+        <div class="col-md-4">
+            <h3 class="text-center">
+                Column name
+                <br>
+            </h3>
+            <div class="well">
+                <h4>Task name&nbsp;</h4>
+                <p>Task description</p>
+            </div>
+            <div class="well">
+                <h4>Task &nbsp;2 name&nbsp;</h4>
+                <p>Task 2 description</p>
+            </div>
+            <a class="btn btn-block btn-primary btn-sm">Add task<br></a>
+        </div>
+    </div>
+    <div class="col-md-3" id="task-column">
+        <h2 class="text-center">Task name</h2>
+        <h3 contenteditable="true">Task description:</h3>
         <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
+            Example description ....
+            <br>
+            <br>
         </p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
+        <h4>Created by: Member 1</h4>
+        <h4>Assigned to: Member 2</h4>
+        <h4>End date: 1/01/2018</h4>
+        <h4>Images:</h4>
+        <div class="row">
+            <div class="col-md-12">
+                <img src="https://cdn.pixabay.com/photo/2014/06/03/19/38/road-sign-361514_960_720.png"
+                     class="img-responsive col-md-4">
+                <img src="https://cdn.pixabay.com/photo/2014/06/03/19/38/road-sign-361514_960_720.png"
+                     class="img-responsive col-md-4">
+                <img src="https://cdn.pixabay.com/photo/2014/06/03/19/38/road-sign-361514_960_720.png"
+                     class="img-responsive col-md-4">
+            </div>
+        </div>
+        <a class="btn btn-block btn-info btn-sm">Add comment<br></a>
+        <h3 contenteditable="true">Comments:</h3>
+        <a class="btn btn-block btn-sm btn-success">Add comment<br></a>
+        <blockquote>
+            <p>Test comment 1</p>
+            <footer>Member 1</footer>
+        </blockquote>
+        <blockquote>
+            <p>Test comment 2</p>
+            <footer>Member 2</footer>
+        </blockquote>
     </div>
 </div>
