@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using ProjectManagmentApplication.Models;
 using ProjectManagmentApplication.Repository;
+using ProjectManagmentApplication.ViewModels;
 
 namespace ProjectManagmentApplication.Controllers
 {
@@ -45,12 +46,12 @@ namespace ProjectManagmentApplication.Controllers
         // POST: Users/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Register([Bind(Include = "Email,Name,Password,ConfirmPassword")] User user)
+        public ActionResult Register([Bind(Include = "Email,Name,Password,ConfirmPassword")] RegisterUser user)
         {
             if (ModelState.IsValid)
             {
                 UserRepository repo = new UserRepository();
-                repo.AddUser(user);
+                repo.RegisterUser(user);
                 return RedirectToAction("Index");
             }
 

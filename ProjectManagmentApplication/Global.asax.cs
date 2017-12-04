@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using ProjectManagmentApplication.App_Start;
 
 namespace ProjectManagmentApplication
 {
@@ -16,6 +17,7 @@ namespace ProjectManagmentApplication
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+            AutoMapper.Mapper.Initialize(cfg => cfg.AddProfile<AutoMapperConfig>());
         }
     }
 }

@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using AutoMapper;
 using ProjectManagmentApplication.Models;
+using ProjectManagmentApplication.ViewModels;
 
 namespace ProjectManagmentApplication.Repository
 {
@@ -15,9 +17,16 @@ namespace ProjectManagmentApplication.Repository
             Context = new Context();
         }
 
-        public void AddUser(User user)
+        public void RegisterUser(RegisterUser user)
         {
-            Context.Users.Add(user);
+            var config = new MapperConfiguration(cfg => {
+                cfg.CreateMap<RegisterUser, User>();
+            });
+            IMapper iMapper = config.CreateMapper();
+            
+            User modelUser = iMapper.Map<RegisterUser, User>(user);
+
+            Context.Users.Add(modelUser);
             Context.SaveChanges();
         }
 
