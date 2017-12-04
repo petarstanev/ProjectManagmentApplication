@@ -43,8 +43,6 @@ namespace ProjectManagmentApplication.Controllers
         }
 
         // POST: Users/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Register([Bind(Include = "Email,Name,Password,ConfirmPassword")] User user)
@@ -54,6 +52,34 @@ namespace ProjectManagmentApplication.Controllers
                 UserRepository repo = new UserRepository();
                 repo.AddUser(user);
                 return RedirectToAction("Index");
+            }
+
+            return View(user);
+        }
+
+        // GET: Users/Login
+        public ActionResult Login()
+        {
+            return View();
+        }
+
+        // POST: Users/Login
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Login([Bind(Include = "Email,Password")] User user)
+        {
+            if (ModelState.IsValid)
+            {
+                UserRepository repo = new UserRepository();
+                User foundUser = repo.GetByEmailAndPassword(user);
+
+                if (foundUser != null)
+                {
+                    SessionContext sessionContext = new SessionContext();
+                    sessionContext.SetAuthenticationToken(foundUser.UserId.ToString(), false, foundUser);
+                    return RedirectToAction("Index", "Home");
+                }
+                ModelState.AddModelError("Email", "Email or password not matched");
             }
 
             return View(user);

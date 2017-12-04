@@ -21,6 +21,12 @@ namespace ProjectManagmentApplication.Repository
             Context.SaveChanges();
         }
 
+        public bool CheckIfUserExist(User user)
+        {
+            User foundUser = Context.Users.FirstOrDefault(u => u.Email == user.Email & u.Password == user.Password);
+            return foundUser != null;
+        }
+
         public User GetByEmailAndPassword(User user)
         {
             return Context.Users.FirstOrDefault(u => u.Email == user.Email & u.Password == user.Password);
