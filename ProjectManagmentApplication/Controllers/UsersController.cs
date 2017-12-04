@@ -17,6 +17,7 @@ namespace ProjectManagmentApplication.Controllers
         private Context db = new Context();
 
         // GET: Users
+        [Authorize]
         public ActionResult Index()
         {
             return View(db.Users.ToList());
@@ -67,7 +68,7 @@ namespace ProjectManagmentApplication.Controllers
         // POST: Users/Login
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Login([Bind(Include = "Email,Password")] User user)
+        public ActionResult Login([Bind(Include = "Email,Password")] LoginUser user)
         {
             if (ModelState.IsValid)
             {

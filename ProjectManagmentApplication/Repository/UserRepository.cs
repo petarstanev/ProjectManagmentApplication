@@ -36,7 +36,7 @@ namespace ProjectManagmentApplication.Repository
             return foundUser != null;
         }
 
-        public User GetByEmailAndPassword(User user)
+        public User GetByEmailAndPassword(LoginUser user)
         {
             return Context.Users.FirstOrDefault(u => u.Email == user.Email & u.Password == user.Password);
         }
