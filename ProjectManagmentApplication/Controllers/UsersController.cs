@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 using ProjectManagmentApplication.Models;
 using ProjectManagmentApplication.Repository;
 using ProjectManagmentApplication.ViewModels;
@@ -85,6 +86,14 @@ namespace ProjectManagmentApplication.Controllers
             }
 
             return View(user);
+        }
+
+        // POST: Users/Logout
+        [HttpPost]
+        public ActionResult Logout()
+        {
+            FormsAuthentication.SignOut();
+            return RedirectToAction("Index", "Home");
         }
 
         // GET: Users/Edit/5
