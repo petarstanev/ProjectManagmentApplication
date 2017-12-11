@@ -32,6 +32,12 @@ namespace ProjectManagmentApplication.Repository
             Context.SaveChanges();
         }
 
+        public bool CheckEmailIsUnique(RegisterUser user){
+            bool emailExist = Context.Users.Any(u => u.Email == user.Email);
+            return !emailExist;
+        }
+
+
         public bool CheckIfUserExist(User user)
         {
             User foundUser = Context.Users.FirstOrDefault(u => u.Email == user.Email & u.Password == user.Password);

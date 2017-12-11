@@ -53,8 +53,12 @@ namespace ProjectManagmentApplication.Controllers
             if (ModelState.IsValid)
             {
                 UserRepository repo = new UserRepository();
-                repo.RegisterUser(user);
-                return RedirectToAction("Index");
+                if (repo.CheckEmailIsUnique(user))
+                {
+                    repo.RegisterUser(user);
+                    return RedirectToAction("Index");
+                }
+                ModelState.AddModelError("Email", "Email is already registed.");
             }
 
             return View(user);
