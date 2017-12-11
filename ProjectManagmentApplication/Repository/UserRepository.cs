@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using AutoMapper;
+using ProjectManagmentApplication.Helpers;
 using ProjectManagmentApplication.Models;
 using ProjectManagmentApplication.ViewModels;
 
@@ -19,11 +20,12 @@ namespace ProjectManagmentApplication.Repository
 
         public void RegisterUser(RegisterUser user)
         {
+            user.Password = HashingHelper.HashPassword(user.Password);
+
             var config = new MapperConfiguration(cfg => {
                 cfg.CreateMap<RegisterUser, User>();
             });
-            IMapper iMapper = config.CreateMapper();
-            
+            IMapper iMapper = config.CreateMapper();            
             User modelUser = iMapper.Map<RegisterUser, User>(user);
 
             Context.Users.Add(modelUser);
@@ -38,6 +40,7 @@ namespace ProjectManagmentApplication.Repository
 
         public User GetByEmailAndPassword(LoginUser user)
         {
+            user.Password = HashingHelper.HashPassword(user.Password);
             return Context.Users.FirstOrDefault(u => u.Email == user.Email & u.Password == user.Password);
         }
     }

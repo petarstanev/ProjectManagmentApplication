@@ -138,6 +138,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\HashingHelper.cs" />
     <Compile Include="Migrations\201712032220294_InitialCreate.cs" />
     <Compile Include="Migrations\201712032220294_InitialCreate.Designer.cs">
       <DependentUpon>201712032220294_InitialCreate.cs</DependentUpon>
