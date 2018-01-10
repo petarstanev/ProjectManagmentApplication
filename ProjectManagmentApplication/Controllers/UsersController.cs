@@ -78,6 +78,7 @@ namespace ProjectManagmentApplication.Controllers
             if (ModelState.IsValid)
             {
                 UserRepository repo = new UserRepository();
+                
                 User foundUser = repo.GetByEmailAndPassword(user);
 
                 if (foundUser != null)
@@ -87,14 +88,22 @@ namespace ProjectManagmentApplication.Controllers
                     return RedirectToAction("Index", "Home");
                 }
                 ModelState.AddModelError("Email", "Email or password not matched");
+               
             }
 
             return View(user);
         }
 
+        // GET: Users/Logout
+        public ViewResult Logout()
+        {
+            return View();
+        }
+
         // POST: Users/Logout
         [HttpPost]
-        public ActionResult Logout()
+        [ActionName("Logout")]
+        public ActionResult LogoutPost()
         {
             FormsAuthentication.SignOut();
             return RedirectToAction("Index", "Home");

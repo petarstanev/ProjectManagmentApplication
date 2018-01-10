@@ -212,6 +212,7 @@
     <Content Include="Views\Users\Index.cshtml" />
     <Content Include="Views\Users\Login.cshtml" />
     <Content Include="Views\Users\Logout.cshtml" />
+    <Content Include="Views\Users\LogoutPost.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

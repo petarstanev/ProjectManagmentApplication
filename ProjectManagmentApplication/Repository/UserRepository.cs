@@ -46,8 +46,14 @@ namespace ProjectManagmentApplication.Repository
 
         public User GetByEmailAndPassword(LoginUser user)
         {
-            user.Password = HashingHelper.HashPassword(user.Password);
-            return Context.Users.FirstOrDefault(u => u.Email == user.Email & u.Password == user.Password);
+            var config = new MapperConfiguration(cfg => {
+                cfg.CreateMap<LoginUser, User>();
+            });
+            IMapper iMapper = config.CreateMapper();
+            User searchUser = iMapper.Map<LoginUser, User>(user);
+
+            searchUser.Password = HashingHelper.HashPassword(searchUser.Password);
+            return Context.Users.FirstOrDefault(u => u.Email == searchUser.Email && u.Password == searchUser.Password);
         }
     }
 }
