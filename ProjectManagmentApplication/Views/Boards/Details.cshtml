@@ -1,29 +1,18 @@
-﻿@{
+﻿@model ProjectManagmentApplication.ViewModels.BoardViewModel
+
+@{
     ViewBag.Title = "Home Page";
 }
 <div class="row">
     <div class="col-md-2" id="menu-column">
-        <h2>Menu</h2>
+        <h2>@Model.SelectedBoard.Title</h2>
         <h3>
             Boards
             <br>
         </h3>
-        <ul class="list-group">
-            <li class="list-group-item">
-                Board 1
-            </li>
-            <li class="list-group-item">
-                Board 2
-            </li>
-            <li class="list-group-item">
-                <a href="@Url.Action("Create", "Boards")" class="elements">
-                    <span>Create a board</span>
-                </a>
-            </li>
-        </ul>
+        @{Html.RenderPartial("PartialView/BoardListColumn", Model.AllBoards, ViewData);}
         <h3>
             Labels
-            <br>
         </h3>
         <ul class="list-group">
             <li class="list-group-item">Label 1</li>

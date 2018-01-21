@@ -133,6 +133,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\BoardsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Global.asax.cs">
@@ -151,6 +152,18 @@
     <Compile Include="Migrations\201712040059192_testaasdasd.Designer.cs">
       <DependentUpon>201712040059192_testaasdasd.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201801211730174_testtasks.cs" />
+    <Compile Include="Migrations\201801211730174_testtasks.Designer.cs">
+      <DependentUpon>201801211730174_testtasks.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201801211757162_testtasks2.cs" />
+    <Compile Include="Migrations\201801211757162_testtasks2.Designer.cs">
+      <DependentUpon>201801211757162_testtasks2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201801211844204_testtasks3.cs" />
+    <Compile Include="Migrations\201801211844204_testtasks3.Designer.cs">
+      <DependentUpon>201801211844204_testtasks3.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Board.cs" />
     <Compile Include="Models\Column.cs" />
@@ -163,6 +176,7 @@
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\UserRepository.cs" />
+    <Compile Include="ViewModels\BoardViewModel.cs" />
     <Compile Include="ViewModels\LoginUser.cs" />
     <Compile Include="ViewModels\RegisterUser.cs" />
   </ItemGroup>
@@ -213,6 +227,12 @@
     <Content Include="Views\Users\Login.cshtml" />
     <Content Include="Views\Users\Logout.cshtml" />
     <Content Include="Views\Users\LogoutPost.cshtml" />
+    <Content Include="Views\Boards\Create.cshtml" />
+    <Content Include="Views\Boards\Delete.cshtml" />
+    <Content Include="Views\Boards\Details.cshtml" />
+    <Content Include="Views\Boards\Edit.cshtml" />
+    <Content Include="Views\Boards\Index.cshtml" />
+    <Content Include="Views\Boards\PartialView\BoardListColumn.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -238,6 +258,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201712040059192_testaasdasd.resx">
       <DependentUpon>201712040059192_testaasdasd.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201801211730174_testtasks.resx">
+      <DependentUpon>201801211730174_testtasks.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201801211757162_testtasks2.resx">
+      <DependentUpon>201801211757162_testtasks2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201801211844204_testtasks3.resx">
+      <DependentUpon>201801211844204_testtasks3.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

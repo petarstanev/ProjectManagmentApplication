@@ -1,0 +1,15 @@
+﻿@model List<ProjectManagmentApplication.Models.Board>
+<ul class="list-group">
+    @foreach (var item in Model)
+    {
+        <li class="list-group-item">
+            @Html.ActionLink(item.Title, "Details", new { id = item.BoardId })
+        </li>
+    }
+
+    <li class="list-group-item">
+        <a href="@Url.Action("Create", "Boards")" class="elements">
+            <span>Create a board</span>
+        </a>
+    </li>
+</ul>

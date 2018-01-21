@@ -16,8 +16,8 @@ namespace ProjectManagmentApplication.Models
         public User CreatedBy { get; set; }
         public User AssignedTo { get; set; }
         public Column Column { get; set; }
-        public Label Label { get; set; }
-        public List<Comment> Comments { get; set; }
-        public List<Image> Images { get; set; }
+        //public Label Label { get; set; }
+        //public List<Comment> Comments { get; set; }
+        //public List<Image> Images { get; set; }
     }
 }

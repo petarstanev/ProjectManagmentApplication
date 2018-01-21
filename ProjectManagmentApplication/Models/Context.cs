@@ -9,6 +9,14 @@ namespace ProjectManagmentApplication.Models
     public class Context : DbContext
     {
         public DbSet<User> Users { get; set; }
+        public DbSet<Board> Boards { get; set; }
+        public DbSet<Column> Columns { get; set; }
         //public DbSet<Standard> Standards { get; set; }
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            Database.SetInitializer<Context>(null);
+            base.OnModelCreating(modelBuilder);
+        }
     }
 }
