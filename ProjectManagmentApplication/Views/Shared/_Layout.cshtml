@@ -21,9 +21,9 @@
             </div>
             <div id="navbar" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li class="active"><a href="#">Home</a></li>
-                    @*<li><a href="#about">About</a></li>
-                        <li><a href="#contact">Contact</a></li>*@
+                    <li><a href="@Url.Action("Index","Boards")">Boards</a></li>
+                    <li><a href="@Url.Action("Index","Columns")">Columns</a></li>
+                    @*<li><a href="@Url.Action("Index","Boards")">Boards</a></li>*@
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     @if (User.Identity.IsAuthenticated)

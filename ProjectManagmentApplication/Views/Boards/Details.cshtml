@@ -1,4 +1,5 @@
-﻿@model ProjectManagmentApplication.ViewModels.BoardViewModel
+﻿@using ProjectManagmentApplication.Models
+@model ProjectManagmentApplication.ViewModels.BoardViewModel
 
 @{
     ViewBag.Title = "Home Page";
@@ -34,21 +35,24 @@
         </ul>
     </div>
     <div id="board-column" class="col-md-7">
-        <div class="col-md-4">
-            <h3 class="text-center">
-                Column name
-                <br>
-            </h3>
-            <div class="well">
-                <h4>Task name&nbsp;</h4>
-                <p>Task description</p>
+        @Html.ActionLink("Add TEST", "Create", "Columns", new { boardId = Model.SelectedBoard.BoardId }, null)
+        @foreach (Column column in Model.SelectedBoard.Columns)
+        {
+            <div class="col-md-4">
+                <h3 class="text-center">
+                    @column.Title
+                </h3>
+                @*<div class="well">
+                    <h4>Task name&nbsp;</h4>
+                    <p>Task description</p>
+                </div>
+                <div class="well">
+                    <h4>Task &nbsp;2 name&nbsp;</h4>
+                    <p>Task 2 description</p>
+                </div>*@
+                @*<a class="btn btn-block btn-primary btn-sm">Add task<br></a>*@
             </div>
-            <div class="well">
-                <h4>Task &nbsp;2 name&nbsp;</h4>
-                <p>Task 2 description</p>
-            </div>
-            <a class="btn btn-block btn-primary btn-sm">Add task<br></a>
-        </div>
+        }
     </div>
     <div class="col-md-3" id="task-column">
         <h2 class="text-center">Task name</h2>

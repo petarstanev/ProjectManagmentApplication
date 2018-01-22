@@ -134,6 +134,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\BoardsController.cs" />
+    <Compile Include="Controllers\ColumnsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Global.asax.cs">
@@ -233,6 +234,12 @@
     <Content Include="Views\Boards\Edit.cshtml" />
     <Content Include="Views\Boards\Index.cshtml" />
     <Content Include="Views\Boards\PartialView\BoardListColumn.cshtml" />
+    <Content Include="Views\Columns\Create.cshtml" />
+    <Content Include="Views\Columns\Delete.cshtml" />
+    <Content Include="Views\Columns\Details.cshtml" />
+    <Content Include="Views\Columns\Edit.cshtml" />
+    <Content Include="Views\Columns\Index.cshtml" />
+    <Content Include="Views\Columns\IndexInBoard.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
