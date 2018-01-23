@@ -29,7 +29,7 @@ namespace ProjectManagmentApplication.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Board board = db.Boards.Include(e => e.Columns).SingleOrDefault(e => e.BoardId == id);
+            Board board = db.Boards.Include(e => e.Columns.Select(c => c.Tasks)).SingleOrDefault(e => e.BoardId == id);
             if (board == null)
             {
                 return HttpNotFound();

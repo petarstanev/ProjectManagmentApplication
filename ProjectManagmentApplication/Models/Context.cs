@@ -18,5 +18,7 @@ namespace ProjectManagmentApplication.Models
             Database.SetInitializer<Context>(null);
             base.OnModelCreating(modelBuilder);
         }
+
+        public System.Data.Entity.DbSet<ProjectManagmentApplication.Models.Task> Tasks { get; set; }
     }
 }

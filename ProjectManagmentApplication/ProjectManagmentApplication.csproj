@@ -136,6 +136,7 @@
     <Compile Include="Controllers\BoardsController.cs" />
     <Compile Include="Controllers\ColumnsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\TasksController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -144,6 +145,10 @@
     <Compile Include="Migrations\201801231345012_Initial.cs" />
     <Compile Include="Migrations\201801231345012_Initial.Designer.cs">
       <DependentUpon>201801231345012_Initial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201801231419505_forkeyForTaskColumn.cs" />
+    <Compile Include="Migrations\201801231419505_forkeyForTaskColumn.Designer.cs">
+      <DependentUpon>201801231419505_forkeyForTaskColumn.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Board.cs" />
@@ -219,6 +224,11 @@
     <Content Include="Views\Columns\Details.cshtml" />
     <Content Include="Views\Columns\Edit.cshtml" />
     <Content Include="Views\Columns\Index.cshtml" />
+    <Content Include="Views\Tasks\Create.cshtml" />
+    <Content Include="Views\Tasks\Delete.cshtml" />
+    <Content Include="Views\Tasks\Details.cshtml" />
+    <Content Include="Views\Tasks\Edit.cshtml" />
+    <Content Include="Views\Tasks\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -238,6 +248,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201801231345012_Initial.resx">
       <DependentUpon>201801231345012_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201801231419505_forkeyForTaskColumn.resx">
+      <DependentUpon>201801231419505_forkeyForTaskColumn.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

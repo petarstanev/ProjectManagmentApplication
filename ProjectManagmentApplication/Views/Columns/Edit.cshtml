@@ -41,7 +41,7 @@
 }
 
 <div>
-    @Html.ActionLink("Back to Board", "Details", "Boards", new { id = Model.BoardId })
+    @Html.ActionLink("Back to Board", "Details", "Boards", new { id = Model.BoardId }, null)
     <br/>
     @Html.ActionLink("Delete the column", "Delete", new { id = Model.ColumnId })
 </div>

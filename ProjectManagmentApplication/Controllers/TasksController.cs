@@ -10,123 +10,124 @@ using ProjectManagmentApplication.Models;
 
 namespace ProjectManagmentApplication.Controllers
 {
-    public class ColumnsController : Controller
+    public class TasksController : Controller
     {
         private Context db = new Context();
 
-        // GET: Columns
+        // GET: Tasks
         public ActionResult Index()
         {
-            var columns = db.Columns.Include(c => c.Board);
-            return View(columns.ToList());
+            var tasks = db.Tasks.Include(t => t.Column);
+            return View(tasks.ToList());
         }
 
-        // GET: Columns/Details/5
+        // GET: Tasks/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Column column = db.Columns.Find(id);
-            if (column == null)
+            Task task = db.Tasks.Find(id);
+            if (task == null)
             {
                 return HttpNotFound();
             }
-            return View(column);
+            return View(task);
         }
 
-    
-        // GET: Columns/Create
-        public ActionResult Create(int? boardId)
+        // GET: Tasks/Create
+        public ActionResult Create(int? columnId)
         {
-
-            if (boardId != null)
+            if (columnId == null)
             {
-                ViewBag.BoardId = new SelectList(db.Boards, "BoardId", "Title", boardId);
-
+                ViewBag.ColumnId = new SelectList(db.Columns, "ColumnId", "Title");
             }
             else
             {
-                ViewBag.BoardId  = new SelectList(db.Boards, "BoardId", "Title");
+                ViewBag.ColumnId = new SelectList(db.Columns, "ColumnId", "Title", columnId);
             }
             return View();
         }
 
-        // POST: Columns/Create
+        // POST: Tasks/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ColumnId,Title,BoardId")] Column column)
+        public ActionResult Create([Bind(Include = "TaskId,Title,Description,Deadline,Private,ColumnId")] Task task)
         {
             if (ModelState.IsValid)
             {
-                db.Columns.Add(column);
+                db.Tasks.Add(task);
                 db.SaveChanges();
-                return RedirectToAction("Details","Boards",new {id = column.BoardId});
+
+                Column column = db.Columns.Find(task.ColumnId);
+                return RedirectToAction("Details", "Boards", new { id = column.BoardId});
             }
 
-            ViewBag.BoardId = new SelectList(db.Boards, "BoardId", "Title", column.BoardId);
-            return View(column);
+            ViewBag.ColumnId = new SelectList(db.Columns, "ColumnId", "Title", task.ColumnId);
+            return View(task);
         }
-        
-        // GET: Columns/Edit/5
+
+        // GET: Tasks/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Column column = db.Columns.Find(id);
-            if (column == null)
+            Task task = db.Tasks.Find(id);
+            if (task == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.BoardId = new SelectList(db.Boards, "BoardId", "Title", column.BoardId);
-            return View(column);
+            ViewBag.ColumnId = new SelectList(db.Columns, "ColumnId", "Title", task.ColumnId);
+            return View(task);
         }
 
-        // POST: Columns/Edit/5
+        // POST: Tasks/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ColumnId,Title,BoardId")] Column column)
+        public ActionResult Edit([Bind(Include = "TaskId,Title,Description,Deadline,Private,ColumnId")] Task task)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(column).State = EntityState.Modified;
+                db.Entry(task).State = EntityState.Modified;
                 db.SaveChanges();
+                Column column = db.Columns.Find(task.ColumnId);
                 return RedirectToAction("Details", "Boards", new { id = column.BoardId });
             }
-            ViewBag.BoardId = new SelectList(db.Boards, "BoardId", "Title", column.BoardId);
-            return View(column);
+            ViewBag.ColumnId = new SelectList(db.Columns, "ColumnId", "Title", task.ColumnId);
+            return View(task);
         }
 
-        // GET: Columns/Delete/5
+        // GET: Tasks/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Column column = db.Columns.Find(id);
-            if (column == null)
+            Task task = db.Tasks.Find(id);
+            if (task == null)
             {
                 return HttpNotFound();
             }
-            return View(column);
+            return View(task);
         }
 
-        // POST: Columns/Delete/5
+        // POST: Tasks/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Column column = db.Columns.Find(id);
-            db.Columns.Remove(column);
+            Task task = db.Tasks.Find(id);
+            db.Tasks.Remove(task);
             db.SaveChanges();
+            Column column = db.Columns.Find(task.ColumnId);
             return RedirectToAction("Details", "Boards", new { id = column.BoardId });
         }
 

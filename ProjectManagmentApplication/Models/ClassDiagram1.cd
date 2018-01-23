@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
-  <Class Name="ProjectManagmentApplication.Models.Board">
+  <Class Name="ProjectManagmentApplication.Models.Board" Collapsed="true">
     <Position X="2.75" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAEAAAAAAAAAAgAAAAAAAAAAAAAgAAAA=</HashCode>
@@ -8,11 +8,14 @@
     </TypeIdentifier>
   </Class>
   <Class Name="ProjectManagmentApplication.Models.Column">
-    <Position X="5" Y="0.5" Width="1.25" />
+    <Position X="5.25" Y="0.5" Width="1.25" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAkAAAAAAAAAAAAAAAAAAAAAIACAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAkAAAAAAAAAAgAAAAAAAAAAIACAAAAA=</HashCode>
       <FileName>Models\Column.cs</FileName>
     </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Board" />
+    </ShowAsAssociation>
   </Class>
   <Class Name="ProjectManagmentApplication.Models.Image">
     <Position X="2.75" Y="5" Width="1.5" />
@@ -22,11 +25,14 @@
     </TypeIdentifier>
   </Class>
   <Class Name="ProjectManagmentApplication.Models.Task">
-    <Position X="5" Y="2.5" Width="1.5" />
+    <Position X="5.25" Y="2.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAEAAgAEAAAABAAAAAEAgAABAAAAEBAAAAIAE=</HashCode>
+      <HashCode>AAAAAAAAAAAgAEAAAABAAAAAEAgAAAAAAAEBAAAAAAE=</HashCode>
       <FileName>Models\Task.cs</FileName>
     </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Column" />
+    </ShowAsAssociation>
   </Class>
   <Class Name="ProjectManagmentApplication.Models.Comment">
     <Position X="7.5" Y="4.75" Width="1.5" />
@@ -45,7 +51,7 @@
   <Class Name="ProjectManagmentApplication.Models.User">
     <Position X="7.5" Y="2.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AACAAAAAACAAAAAAAAAAAAwAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAACAAAAAAAAAAAAwAAAAAAAACAAAAAAAAAAA=</HashCode>
       <FileName>Models\User.cs</FileName>
     </TypeIdentifier>
   </Class>
