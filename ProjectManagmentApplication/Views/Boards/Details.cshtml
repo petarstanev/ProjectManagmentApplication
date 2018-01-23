@@ -35,12 +35,11 @@
         </ul>
     </div>
     <div id="board-column" class="col-md-7">
-        @Html.ActionLink("Add TEST", "Create", "Columns", new { boardId = Model.SelectedBoard.BoardId }, null)
         @foreach (Column column in Model.SelectedBoard.Columns)
         {
             <div class="col-md-4">
                 <h3 class="text-center">
-                    @column.Title
+                    @Html.ActionLink(column.Title, "Edit", "Columns", new { id = column.ColumnId}, null )
                 </h3>
                 @*<div class="well">
                     <h4>Task name&nbsp;</h4>
@@ -53,6 +52,11 @@
                 @*<a class="btn btn-block btn-primary btn-sm">Add task<br></a>*@
             </div>
         }
+        <div class="col-md-4">
+            <h3 class="text-center">
+                @Html.ActionLink("Add Column", "Create", "Columns", new { boardId = Model.SelectedBoard.BoardId }, null)
+            </h3>
+        </div>
     </div>
     <div class="col-md-3" id="task-column">
         <h2 class="text-center">Task name</h2>

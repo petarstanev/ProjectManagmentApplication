@@ -94,7 +94,8 @@ namespace ProjectManagmentApplication.Controllers
             {
                 db.Entry(column).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                column = db.Columns.Include(e => e.Board).SingleOrDefault(e => e.ColumnId == column.ColumnId);
+                return RedirectToAction("Details", "Boards",new {id = column.Board.BoardId});
             }
             return View(column);
         }
