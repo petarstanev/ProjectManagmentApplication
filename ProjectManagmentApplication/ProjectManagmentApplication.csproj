@@ -141,29 +141,9 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\HashingHelper.cs" />
-    <Compile Include="Migrations\201712032220294_InitialCreate.cs" />
-    <Compile Include="Migrations\201712032220294_InitialCreate.Designer.cs">
-      <DependentUpon>201712032220294_InitialCreate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201712032245519_Updated_User_Model.cs" />
-    <Compile Include="Migrations\201712032245519_Updated_User_Model.Designer.cs">
-      <DependentUpon>201712032245519_Updated_User_Model.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201712040059192_testaasdasd.cs" />
-    <Compile Include="Migrations\201712040059192_testaasdasd.Designer.cs">
-      <DependentUpon>201712040059192_testaasdasd.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201801211730174_testtasks.cs" />
-    <Compile Include="Migrations\201801211730174_testtasks.Designer.cs">
-      <DependentUpon>201801211730174_testtasks.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201801211757162_testtasks2.cs" />
-    <Compile Include="Migrations\201801211757162_testtasks2.Designer.cs">
-      <DependentUpon>201801211757162_testtasks2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201801211844204_testtasks3.cs" />
-    <Compile Include="Migrations\201801211844204_testtasks3.Designer.cs">
-      <DependentUpon>201801211844204_testtasks3.cs</DependentUpon>
+    <Compile Include="Migrations\201801231345012_Initial.cs" />
+    <Compile Include="Migrations\201801231345012_Initial.Designer.cs">
+      <DependentUpon>201801231345012_Initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Board.cs" />
@@ -239,7 +219,6 @@
     <Content Include="Views\Columns\Details.cshtml" />
     <Content Include="Views\Columns\Edit.cshtml" />
     <Content Include="Views\Columns\Index.cshtml" />
-    <Content Include="Views\Columns\IndexInBoard.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -257,23 +236,8 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201712032220294_InitialCreate.resx">
-      <DependentUpon>201712032220294_InitialCreate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201712032245519_Updated_User_Model.resx">
-      <DependentUpon>201712032245519_Updated_User_Model.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201712040059192_testaasdasd.resx">
-      <DependentUpon>201712040059192_testaasdasd.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201801211730174_testtasks.resx">
-      <DependentUpon>201801211730174_testtasks.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201801211757162_testtasks2.resx">
-      <DependentUpon>201801211757162_testtasks2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201801211844204_testtasks3.resx">
-      <DependentUpon>201801211844204_testtasks3.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201801231345012_Initial.resx">
+      <DependentUpon>201801231345012_Initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -1,6 +1,10 @@
-﻿using System.Data.Entity;
+﻿using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Data.Entity;
 using System.Linq;
 using System.Net;
+using System.Web;
 using System.Web.Mvc;
 using ProjectManagmentApplication.Models;
 
@@ -13,7 +17,8 @@ namespace ProjectManagmentApplication.Controllers
         // GET: Columns
         public ActionResult Index()
         {
-            return View(db.Columns.ToList());
+            var columns = db.Columns.Include(c => c.Board);
+            return View(columns.ToList());
         }
 
         // GET: Columns/Details/5
@@ -32,39 +37,27 @@ namespace ProjectManagmentApplication.Controllers
         }
 
         // GET: Columns/Create
-        public ActionResult Create(int boardId)
+        public ActionResult Create()
         {
-            if (boardId == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            //Board board = db.Boards.Include(e => e.Columns).SingleOrDefault(e => e.BoardId == id);
-            Board board = db.Boards.SingleOrDefault(e => e.BoardId == boardId);
-
-            Column column = new Column();
-
-            column.Board = board;
-
-            return View(column);
+            ViewBag.BoardId = new SelectList(db.Boards, "BoardId", "Title");
+            return View();
         }
-
 
         // POST: Columns/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Column column)
+        public ActionResult Create([Bind(Include = "ColumnId,Title,BoardId")] Column column)
         {
             if (ModelState.IsValid)
             {
-                Board board = db.Boards.Include(p => p.Columns).SingleOrDefault(p => p.BoardId == column.Board.BoardId);
-                column.Board = board;
                 db.Columns.Add(column);
                 db.SaveChanges();
-                return RedirectToAction("Index","Boards");
+                return RedirectToAction("Details","Boards",new {id = column.BoardId});
             }
 
+            ViewBag.BoardId = new SelectList(db.Boards, "BoardId", "Title", column.BoardId);
             return View(column);
         }
 
@@ -80,6 +73,7 @@ namespace ProjectManagmentApplication.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.BoardId = new SelectList(db.Boards, "BoardId", "Title", column.BoardId);
             return View(column);
         }
 
@@ -88,15 +82,15 @@ namespace ProjectManagmentApplication.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ColumnId,Title")] Column column)
+        public ActionResult Edit([Bind(Include = "ColumnId,Title,BoardId")] Column column)
         {
             if (ModelState.IsValid)
             {
                 db.Entry(column).State = EntityState.Modified;
                 db.SaveChanges();
-                column = db.Columns.Include(e => e.Board).SingleOrDefault(e => e.ColumnId == column.ColumnId);
-                return RedirectToAction("Details", "Boards",new {id = column.Board.BoardId});
+                return RedirectToAction("Details", "Boards", new { id = column.BoardId });
             }
+            ViewBag.BoardId = new SelectList(db.Boards, "BoardId", "Title", column.BoardId);
             return View(column);
         }
 

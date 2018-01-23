@@ -7,13 +7,13 @@ namespace ProjectManagmentApplication.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class Updated_User_Model : IMigrationMetadata
+    public sealed partial class Initial : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(Updated_User_Model));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(Initial));
         
         string IMigrationMetadata.Id
         {
-            get { return "201712032245519_Updated_User_Model"; }
+            get { return "201801231345012_Initial"; }
         }
         
         string IMigrationMetadata.Source
