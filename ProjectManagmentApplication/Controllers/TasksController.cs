@@ -28,7 +28,13 @@ namespace ProjectManagmentApplication.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
             Task task = db.Tasks.Find(id);
+            Column column = db.Columns.Find(task.ColumnId);
+           
+            task.Column = column;
+            
+
             if (task == null)
             {
                 return HttpNotFound();

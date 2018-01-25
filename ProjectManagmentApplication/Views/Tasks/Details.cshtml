@@ -51,6 +51,7 @@
         </dd>
 
     </dl>
+    @Html.ActionLink("Add Comment", "Create", "Comments", new { taskId = Model.TaskId }, null)
 </div>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.TaskId }) |

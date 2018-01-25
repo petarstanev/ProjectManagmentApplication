@@ -44,7 +44,7 @@
                 @foreach (Task task in column.Tasks)
                 {
                     <div class="well">
-                        <h4>@Html.ActionLink(task.Title,"Edit","Tasks",new {id = task.TaskId}, null)
+                        <h4>@Html.ActionLink(task.Title,"Details","Tasks",new {id = task.TaskId}, null)
                         </h4>
                         <p>@task.Description</p>
                     </div>

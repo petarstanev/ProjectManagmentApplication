@@ -4,16 +4,18 @@ using System.Linq;
 using System.Web;
 using System.Web.Script.Serialization;
 using System.Web.Security;
+using ProjectManagmentApplication.Models;
 
 namespace ProjectManagmentApplication.Models
 {
+
     public class SessionContext
     {
         public void SetAuthenticationToken(string name, bool isPersistant, User userData)
         {
-            //string data = null;
-            //if (userData != null)
-            //    data = new JavaScriptSerializer().Serialize(userData);
+            string data = null;
+            if (userData != null)
+                data = new JavaScriptSerializer().Serialize(userData);
 
             FormsAuthenticationTicket ticket = new FormsAuthenticationTicket(1, name, DateTime.Now, DateTime.Now.AddYears(1), isPersistant, userData.UserId.ToString());
 
@@ -30,11 +32,14 @@ namespace ProjectManagmentApplication.Models
         public User GetUserData()
         {
             User userData = null;
-            HttpCookie cookie = HttpContext.Current.Request.Cookies[FormsAuthentication.FormsCookieName];
-            if (cookie == null) return userData;
 
-            FormsAuthenticationTicket ticket = FormsAuthentication.Decrypt(cookie.Value);
-            userData = new JavaScriptSerializer().Deserialize(ticket.UserData, typeof(User)) as User;
+            HttpCookie cookie = HttpContext.Current.Request.Cookies[FormsAuthentication.FormsCookieName];
+            if (cookie != null)
+            {
+                FormsAuthenticationTicket ticket = FormsAuthentication.Decrypt(cookie.Value);
+                Context db = new Context();
+                userData = db.Users.Find(Int32.Parse(ticket.UserData));
+            }
 
             return userData;
         }
