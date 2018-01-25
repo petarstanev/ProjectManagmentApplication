@@ -24,11 +24,12 @@ namespace ProjectManagmentApplication
                       "~/Scripts/bootstrap-datepicker.min.js",
                       "~/Scripts/respond.js"));
 
-            bundles.Add(new StyleBundle("~/Content/css").Include(
+            bundles.Add(new StyleBundle("~/bundles/appcss").Include(
                       "~/Content/css/bootstrap.css",
                       "~/Content/css/bootstrap-datepicker.min.css",
                       "~/Content/css/mainstyle.css"));
-            bundles.Add(new ScriptBundle("~/bundles/main").Include(
+
+            bundles.Add(new ScriptBundle("~/bundles/appjs").Include(
                       "~/Scripts/main.js"));
         }
     }

@@ -150,6 +150,10 @@
     <Compile Include="Migrations\201801231419505_forkeyForTaskColumn.Designer.cs">
       <DependentUpon>201801231419505_forkeyForTaskColumn.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201801251251316_Changesforcomments..cs" />
+    <Compile Include="Migrations\201801251251316_Changesforcomments..Designer.cs">
+      <DependentUpon>201801251251316_Changesforcomments..cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Board.cs" />
     <Compile Include="Models\Column.cs" />
@@ -254,6 +258,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201801231419505_forkeyForTaskColumn.resx">
       <DependentUpon>201801231419505_forkeyForTaskColumn.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201801251251316_Changesforcomments..resx">
+      <DependentUpon>201801251251316_Changesforcomments..cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
