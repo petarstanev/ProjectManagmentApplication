@@ -3,7 +3,7 @@ namespace ProjectManagmentApplication.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class Initial : DbMigration
+    public partial class inti : DbMigration
     {
         public override void Up()
         {
@@ -44,16 +44,16 @@ namespace ProjectManagmentApplication.Migrations
                         Description = c.String(),
                         Deadline = c.DateTime(nullable: false),
                         Private = c.Boolean(nullable: false),
+                        ColumnId = c.Int(nullable: false),
                         AssignedTo_UserId = c.Int(),
-                        Column_ColumnId = c.Int(),
                         CreatedBy_UserId = c.Int(),
                     })
                 .PrimaryKey(t => t.TaskId)
                 .ForeignKey("dbo.Users", t => t.AssignedTo_UserId)
-                .ForeignKey("dbo.Columns", t => t.Column_ColumnId)
+                .ForeignKey("dbo.Columns", t => t.ColumnId, cascadeDelete: true)
                 .ForeignKey("dbo.Users", t => t.CreatedBy_UserId)
+                .Index(t => t.ColumnId)
                 .Index(t => t.AssignedTo_UserId)
-                .Index(t => t.Column_ColumnId)
                 .Index(t => t.CreatedBy_UserId);
             
             CreateTable(
@@ -67,6 +67,22 @@ namespace ProjectManagmentApplication.Migrations
                     })
                 .PrimaryKey(t => t.UserId);
             
+            CreateTable(
+                "dbo.Comments",
+                c => new
+                    {
+                        CommentId = c.Int(nullable: false, identity: true),
+                        Content = c.String(),
+                        CreatedDate = c.DateTime(nullable: false),
+                        TaskId = c.Int(nullable: false),
+                        UserId = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => t.CommentId)
+                .ForeignKey("dbo.Users", t => t.UserId, cascadeDelete: true)
+                .ForeignKey("dbo.Tasks", t => t.TaskId, cascadeDelete: true)
+                .Index(t => t.TaskId)
+                .Index(t => t.UserId);
+            
         }
         
         public override void Down()
@@ -74,15 +90,20 @@ namespace ProjectManagmentApplication.Migrations
             DropForeignKey("dbo.Boards", "SelectedBoard_BoardId", "dbo.Boards");
             DropForeignKey("dbo.Boards", "BoardViewModel_BoardId", "dbo.Boards");
             DropForeignKey("dbo.Tasks", "CreatedBy_UserId", "dbo.Users");
-            DropForeignKey("dbo.Tasks", "Column_ColumnId", "dbo.Columns");
+            DropForeignKey("dbo.Comments", "TaskId", "dbo.Tasks");
+            DropForeignKey("dbo.Comments", "UserId", "dbo.Users");
+            DropForeignKey("dbo.Tasks", "ColumnId", "dbo.Columns");
             DropForeignKey("dbo.Tasks", "AssignedTo_UserId", "dbo.Users");
             DropForeignKey("dbo.Columns", "BoardId", "dbo.Boards");
+            DropIndex("dbo.Comments", new[] { "UserId" });
+            DropIndex("dbo.Comments", new[] { "TaskId" });
             DropIndex("dbo.Tasks", new[] { "CreatedBy_UserId" });
-            DropIndex("dbo.Tasks", new[] { "Column_ColumnId" });
             DropIndex("dbo.Tasks", new[] { "AssignedTo_UserId" });
+            DropIndex("dbo.Tasks", new[] { "ColumnId" });
             DropIndex("dbo.Columns", new[] { "BoardId" });
             DropIndex("dbo.Boards", new[] { "SelectedBoard_BoardId" });
             DropIndex("dbo.Boards", new[] { "BoardViewModel_BoardId" });
+            DropTable("dbo.Comments");
             DropTable("dbo.Users");
             DropTable("dbo.Tasks");
             DropTable("dbo.Columns");

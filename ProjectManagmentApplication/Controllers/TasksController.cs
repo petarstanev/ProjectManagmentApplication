@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using ProjectManagmentApplication.Migrations;
 using ProjectManagmentApplication.Models;
 
 namespace ProjectManagmentApplication.Controllers
@@ -139,13 +139,29 @@ namespace ProjectManagmentApplication.Controllers
             return RedirectToAction("Details", "Boards", new { id = column.BoardId });
         }
 
-        protected override void Dispose(bool disposing)
+        [HttpPost]
+        public ActionResult UploadImage(HttpPostedFileBase file)
         {
-            if (disposing)
+            if (file != null)
             {
-                db.Dispose();
+                string pic = System.IO.Path.GetFileName(file.FileName);
+                string path = System.IO.Path.Combine(
+                                       Server.MapPath("~/images/taskimages"), pic);
+                // file is uploaded
+                file.SaveAs(path);
+
+                // save the image path path to the database or you can send image 
+                // directly to database
+                // in-case if you want to store byte[] ie. for DB
+                using (MemoryStream ms = new MemoryStream())
+                {
+                    file.InputStream.CopyTo(ms);
+                    byte[] array = ms.GetBuffer();
+                }
+
             }
-            base.Dispose(disposing);
+            // after successfully uploading redirect the user
+            return RedirectToAction("Details");
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data.Entity;
 using System.Linq;
 using System.Web;
@@ -11,16 +12,17 @@ namespace ProjectManagmentApplication.Models
         public DbSet<User> Users { get; set; }
         public DbSet<Board> Boards { get; set; }
         public DbSet<Column> Columns { get; set; }
+        public DbSet<Task> Tasks { get; set; }
+        public DbSet<Comment> Comments { get; set; }
         //public DbSet<Standard> Standards { get; set; }
+        public Context() : base("AwsDatabase")
+        {
+        }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             Database.SetInitializer<Context>(null);
             base.OnModelCreating(modelBuilder);
         }
-
-        public System.Data.Entity.DbSet<ProjectManagmentApplication.Models.Task> Tasks { get; set; }
-
-        public System.Data.Entity.DbSet<ProjectManagmentApplication.Models.Comment> Comments { get; set; }
     }
 }

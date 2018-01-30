@@ -144,17 +144,9 @@
     </Compile>
     <Compile Include="Helpers\HashingHelper.cs" />
     <Compile Include="Helpers\TimeHelper.cs" />
-    <Compile Include="Migrations\201801231345012_Initial.cs" />
-    <Compile Include="Migrations\201801231345012_Initial.Designer.cs">
-      <DependentUpon>201801231345012_Initial.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201801231419505_forkeyForTaskColumn.cs" />
-    <Compile Include="Migrations\201801231419505_forkeyForTaskColumn.Designer.cs">
-      <DependentUpon>201801231419505_forkeyForTaskColumn.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201801251251316_Changesforcomments..cs" />
-    <Compile Include="Migrations\201801251251316_Changesforcomments..Designer.cs">
-      <DependentUpon>201801251251316_Changesforcomments..cs</DependentUpon>
+    <Compile Include="Migrations\201801301657571_inti.cs" />
+    <Compile Include="Migrations\201801301657571_inti.Designer.cs">
+      <DependentUpon>201801301657571_inti.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Board.cs" />
@@ -244,6 +236,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="images\taskimages\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\fonts\glyphicons-halflings-regular.woff" />
@@ -258,14 +251,8 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201801231345012_Initial.resx">
-      <DependentUpon>201801231345012_Initial.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201801231419505_forkeyForTaskColumn.resx">
-      <DependentUpon>201801231419505_forkeyForTaskColumn.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201801251251316_Changesforcomments..resx">
-      <DependentUpon>201801251251316_Changesforcomments..cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201801301657571_inti.resx">
+      <DependentUpon>201801301657571_inti.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

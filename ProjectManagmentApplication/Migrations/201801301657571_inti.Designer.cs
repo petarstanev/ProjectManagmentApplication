@@ -7,13 +7,13 @@ namespace ProjectManagmentApplication.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class Changesforcomments : IMigrationMetadata
+    public sealed partial class inti : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(Changesforcomments));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(inti));
         
         string IMigrationMetadata.Id
         {
-            get { return "201801251251316_Changesforcomments."; }
+            get { return "201801301657571_inti"; }
         }
         
         string IMigrationMetadata.Source
