@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using ProjectManagmentApplication.Migrations;
 using ProjectManagmentApplication.Models;
 
 namespace ProjectManagmentApplication.Controllers
@@ -29,7 +30,8 @@ namespace ProjectManagmentApplication.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            Task task = db.Tasks.Find(id);
+            Task task = db.Tasks.Include(c => c.Comments.Select(o => o.Author))
+                .SingleOrDefault(t => t.TaskId == id);
             Column column = db.Columns.Find(task.ColumnId);
            
             task.Column = column;

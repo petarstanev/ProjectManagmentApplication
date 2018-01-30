@@ -1,4 +1,6 @@
-﻿@model ProjectManagmentApplication.Models.Task
+﻿@using ProjectManagmentApplication.Helpers
+@using ProjectManagmentApplication.Models
+@model ProjectManagmentApplication.Models.Task
 
 @{
     ViewBag.Title = "Details";
@@ -52,6 +54,26 @@
 
     </dl>
     @Html.ActionLink("Add Comment", "Create", "Comments", new { taskId = Model.TaskId }, null)
+    <div class="col-sm-5">
+        @foreach (Comment comment in Model.Comments)
+        {
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <strong>@comment.Author.Name</strong> <span class="text-muted">commented @TimeHelper.TimeAgo(comment.CreatedDate)</span>
+                </div>
+                <div class="panel-body">
+                    @comment.Content
+                </div>
+                @if(@User.Identity.Name == comment.UserId.ToString())
+                {
+                    <div class="panel-footer">
+                        @Html.ActionLink("Edit comment", "Edit", "Comments", new {id = comment.CommentId}, null)
+                        @Html.ActionLink("Delete comment", "Delete", "Comments", new { id = comment.CommentId }, null)
+                    </div>
+                }
+            </div>
+        }
+    </div>
 </div>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.TaskId }) |

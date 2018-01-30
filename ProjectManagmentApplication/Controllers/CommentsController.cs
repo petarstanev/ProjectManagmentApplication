@@ -11,28 +11,6 @@ namespace ProjectManagmentApplication.Controllers
     {
         private Context db = new Context();
 
-        // GET: Comments
-        public ActionResult Index()
-        {
-            var comments = db.Comments.Include(c => c.Author).Include(c => c.Task);
-            return View(comments.ToList());
-        }
-
-        // GET: Comments/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Comment comment = db.Comments.Find(id);
-            if (comment == null)
-            {
-                return HttpNotFound();
-            }
-            return View(comment);
-        }
-
         // GET: Comments/Create
         public ActionResult Create(int? taskId)
         {
@@ -62,7 +40,7 @@ namespace ProjectManagmentApplication.Controllers
             {
                 comment.CreatedDate = DateTime.UtcNow;
                 SessionContext sessionContext = new SessionContext();
-                comment.Author = sessionContext.GetUserData();
+                comment.UserId = sessionContext.GetUserData().UserId;
 
                 db.Comments.Add(comment);
                 db.SaveChanges();
@@ -70,7 +48,6 @@ namespace ProjectManagmentApplication.Controllers
                 return RedirectToAction("Details", "Tasks", new { id = comment.TaskId});
             }
 
-            ViewBag.UserId = new SelectList(db.Users, "UserId", "Email", comment.UserId);
             ViewBag.TaskId = new SelectList(db.Tasks, "TaskId", "Title", comment.TaskId);
             return View(comment);
         }
@@ -103,7 +80,7 @@ namespace ProjectManagmentApplication.Controllers
             {
                 db.Entry(comment).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Details", "Tasks", new { id = comment.TaskId });
             }
             ViewBag.UserId = new SelectList(db.Users, "UserId", "Email", comment.UserId);
             ViewBag.TaskId = new SelectList(db.Tasks, "TaskId", "Title", comment.TaskId);
@@ -133,7 +110,7 @@ namespace ProjectManagmentApplication.Controllers
             Comment comment = db.Comments.Find(id);
             db.Comments.Remove(comment);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Details", "Tasks", new { id = comment.TaskId });
         }
     }
 }

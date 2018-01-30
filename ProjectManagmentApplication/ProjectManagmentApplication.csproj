@@ -143,6 +143,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\HashingHelper.cs" />
+    <Compile Include="Helpers\TimeHelper.cs" />
     <Compile Include="Migrations\201801231345012_Initial.cs" />
     <Compile Include="Migrations\201801231345012_Initial.Designer.cs">
       <DependentUpon>201801231345012_Initial.cs</DependentUpon>
@@ -239,9 +240,7 @@
     <Content Include="Views\Tasks\Index.cshtml" />
     <Content Include="Views\Comments\Create.cshtml" />
     <Content Include="Views\Comments\Delete.cshtml" />
-    <Content Include="Views\Comments\Details.cshtml" />
     <Content Include="Views\Comments\Edit.cshtml" />
-    <Content Include="Views\Comments\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
