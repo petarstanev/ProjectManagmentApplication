@@ -5,7 +5,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Web;
 
-namespace ProjectManagmentApplication.Models
+namespace ProjectManagementApplication.Models
 {
     public class Context : DbContext
     {
@@ -24,5 +24,7 @@ namespace ProjectManagmentApplication.Models
             Database.SetInitializer<Context>(null);
             base.OnModelCreating(modelBuilder);
         }
+
+        public System.Data.Entity.DbSet<ProjectManagementApplication.Models.Image> Images { get; set; }
     }
 }

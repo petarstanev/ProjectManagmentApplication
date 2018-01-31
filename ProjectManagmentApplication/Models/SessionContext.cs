@@ -4,9 +4,9 @@ using System.Linq;
 using System.Web;
 using System.Web.Script.Serialization;
 using System.Web.Security;
-using ProjectManagmentApplication.Models;
+using ProjectManagementApplication.Models;
 
-namespace ProjectManagmentApplication.Models
+namespace ProjectManagementApplication.Models
 {
 
     public class SessionContext

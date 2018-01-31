@@ -5,9 +5,9 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
-using ProjectManagmentApplication.App_Start;
+using ProjectManagementApplication.App_Start;
 
-namespace ProjectManagmentApplication
+namespace ProjectManagementApplication
 {
     public class MvcApplication : System.Web.HttpApplication
     {

@@ -5,7 +5,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Web;
 
-namespace ProjectManagmentApplication.Helpers
+namespace ProjectManagementApplication.Helpers
 {
     public static class HashingHelper
     {

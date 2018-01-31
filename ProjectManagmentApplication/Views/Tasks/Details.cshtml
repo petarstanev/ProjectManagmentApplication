@@ -1,6 +1,6 @@
-﻿@using ProjectManagmentApplication.Helpers
-@using ProjectManagmentApplication.Models
-@model ProjectManagmentApplication.Models.Task
+﻿@using ProjectManagementApplication.Helpers
+@using ProjectManagementApplication.Models
+@model ProjectManagementApplication.Models.Task
 
 @{
     ViewBag.Title = "Details";
@@ -77,5 +77,6 @@
 </div>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.TaskId }) |
+    @Html.ActionLink("Add image", "Upload", "Images", new { id = Model.TaskId }, null)
     @Html.ActionLink("Back to List", "Index")
 </p>

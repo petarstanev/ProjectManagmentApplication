@@ -5,14 +5,14 @@ namespace ProjectManagmentApplication.Migrations
     using System.Data.Entity.Migrations;
     using System.Linq;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<ProjectManagmentApplication.Models.Context>
+    internal sealed class Configuration : DbMigrationsConfiguration<ProjectManagementApplication.Models.Context>
     {
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
         }
 
-        protected override void Seed(ProjectManagmentApplication.Models.Context context)
+        protected override void Seed(ProjectManagementApplication.Models.Context context)
         {
             //  This method will be called after migrating to the latest version.
 

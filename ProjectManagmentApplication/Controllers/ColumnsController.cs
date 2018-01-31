@@ -6,9 +6,9 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using ProjectManagmentApplication.Models;
+using ProjectManagementApplication.Models;
 
-namespace ProjectManagmentApplication.Controllers
+namespace ProjectManagementApplication.Controllers
 {
     public class ColumnsController : Controller
     {

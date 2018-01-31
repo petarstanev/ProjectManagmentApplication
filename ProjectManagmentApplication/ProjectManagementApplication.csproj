@@ -137,6 +137,7 @@
     <Compile Include="Controllers\ColumnsController.cs" />
     <Compile Include="Controllers\CommentsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ImagesController.cs" />
     <Compile Include="Controllers\TasksController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Global.asax.cs">
@@ -144,9 +145,9 @@
     </Compile>
     <Compile Include="Helpers\HashingHelper.cs" />
     <Compile Include="Helpers\TimeHelper.cs" />
-    <Compile Include="Migrations\201801301657571_inti.cs" />
-    <Compile Include="Migrations\201801301657571_inti.Designer.cs">
-      <DependentUpon>201801301657571_inti.cs</DependentUpon>
+    <Compile Include="Migrations\201801311235078_addImagesFK.cs" />
+    <Compile Include="Migrations\201801311235078_addImagesFK.Designer.cs">
+      <DependentUpon>201801311235078_addImagesFK.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Board.cs" />
@@ -169,6 +170,8 @@
     <Content Include="Content\css\bootstrap-theme.css" />
     <Content Include="Content\css\bootstrap.css" />
     <Content Include="Content\css\bootstrap.min.css" />
+    <Content Include="Content\images\taskimages\android-versions.jpg" />
+    <Content Include="Content\images\taskimages\Capture.PNG" />
     <Content Include="favicon.ico" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -233,10 +236,11 @@
     <Content Include="Views\Comments\Create.cshtml" />
     <Content Include="Views\Comments\Delete.cshtml" />
     <Content Include="Views\Comments\Edit.cshtml" />
+    <Content Include="Views\Images\Upload.cshtml" />
+    <Content Include="Views\Images\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="images\taskimages\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\fonts\glyphicons-halflings-regular.woff" />
@@ -251,8 +255,8 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201801301657571_inti.resx">
-      <DependentUpon>201801301657571_inti.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201801311235078_addImagesFK.resx">
+      <DependentUpon>201801311235078_addImagesFK.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

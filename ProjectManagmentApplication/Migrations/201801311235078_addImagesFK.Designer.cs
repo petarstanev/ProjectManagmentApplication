@@ -7,13 +7,13 @@ namespace ProjectManagmentApplication.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class inti : IMigrationMetadata
+    public sealed partial class addImagesFK : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(inti));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(addImagesFK));
         
         string IMigrationMetadata.Id
         {
-            get { return "201801301657571_inti"; }
+            get { return "201801311235078_addImagesFK"; }
         }
         
         string IMigrationMetadata.Source

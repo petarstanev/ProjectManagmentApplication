@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using AutoMapper;
-using ProjectManagmentApplication.Helpers;
-using ProjectManagmentApplication.Models;
-using ProjectManagmentApplication.ViewModels;
+using ProjectManagementApplication.Helpers;
+using ProjectManagementApplication.Models;
+using ProjectManagementApplication.ViewModels;
 
-namespace ProjectManagmentApplication.Repository
+namespace ProjectManagementApplication.Repository
 {
     public class UserRepository
     {

@@ -1,4 +1,4 @@
-﻿@model ProjectManagmentApplication.Models.Task
+﻿@model ProjectManagementApplication.Models.Task
 
 @{
     ViewBag.Title = "Create";
@@ -63,15 +63,6 @@
         </div>
     </div>
 }
-
-@using (Html.BeginForm("UploadImage", "Tasks", FormMethod.Post,
-                                        new { enctype = "multipart/form-data" }))
-{
-    <label for="file">Upload Image:</label>
-    <input type="file" name="file" id="file" style="width: 100%;" />
-    <input type="submit" value="Upload" class="submit" />
-}
-
 <div>
     @Html.ActionLink("Back to List", "Index")
 </div>

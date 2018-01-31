@@ -7,11 +7,11 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
-using ProjectManagmentApplication.Models;
-using ProjectManagmentApplication.Repository;
-using ProjectManagmentApplication.ViewModels;
+using ProjectManagementApplication.Models;
+using ProjectManagementApplication.Repository;
+using ProjectManagementApplication.ViewModels;
 
-namespace ProjectManagmentApplication.Controllers
+namespace ProjectManagementApplication.Controllers
 {
     public class UsersController : Controller
     {

@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
-namespace ProjectManagmentApplication.Models
+namespace ProjectManagementApplication.Models
 {
     public class User
     {

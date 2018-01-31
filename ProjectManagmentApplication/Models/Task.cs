@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
-namespace ProjectManagmentApplication.Models
+namespace ProjectManagementApplication.Models
 {
     public class Task
     {
@@ -21,7 +21,7 @@ namespace ProjectManagmentApplication.Models
         public int ColumnId { get; set; }
         public Column Column { get; set; }
         public List<Comment> Comments { get; set; }
-        //public List<Image> Images { get; set; }
+        public List<Image> Images { get; set; }
         //public Label Label { get; set; }
     }
 }

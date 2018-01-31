@@ -6,10 +6,10 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using ProjectManagmentApplication.Models;
-using ProjectManagmentApplication.ViewModels;
+using ProjectManagementApplication.Models;
+using ProjectManagementApplication.ViewModels;
 
-namespace ProjectManagmentApplication.Controllers
+namespace ProjectManagementApplication.Controllers
 {
     public class BoardsController : Controller
     {

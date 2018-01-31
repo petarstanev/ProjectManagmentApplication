@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using ProjectManagmentApplication.Models;
+using ProjectManagementApplication.Models;
 
-namespace ProjectManagmentApplication.ViewModels
+namespace ProjectManagementApplication.ViewModels
 {
     public class BoardViewModel : Board
     {

@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-namespace ProjectManagmentApplication.Models
+namespace ProjectManagementApplication.Models
 {
     public class Board
     {

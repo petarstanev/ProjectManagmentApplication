@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using AutoMapper;
-using ProjectManagmentApplication.Models;
-using ProjectManagmentApplication.ViewModels;
+using ProjectManagementApplication.Models;
+using ProjectManagementApplication.ViewModels;
 
-namespace ProjectManagmentApplication.App_Start
+namespace ProjectManagementApplication.App_Start
 {
     public class AutoMapperConfig : Profile
     {
