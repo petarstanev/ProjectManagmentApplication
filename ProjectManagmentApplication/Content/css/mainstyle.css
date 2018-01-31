@@ -12,3 +12,8 @@
 #task-column {
     background-color: #C39F9C;
 }
+
+.task-image {
+    max-height: 300px;
+    max-width: 300px;
+}

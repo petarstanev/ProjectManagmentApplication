@@ -68,6 +68,10 @@ namespace ProjectManagementApplication.Controllers
             {
                 ModelState.AddModelError("ImageUpload", "Please choose either a GIF, JPG or PNG image.");
             }
+            else if (model.ImageUpload.ContentLength / 1024 / 1024 > 3)
+            {
+                ModelState.AddModelError("ImageUpload", "This field is bigger than 3 megabytes.");
+            }
 
             if (ModelState.IsValid)
             {
