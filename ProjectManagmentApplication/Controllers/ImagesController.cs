@@ -8,8 +8,9 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using ProjectManagementApplication.Models;
+using ProjectManagementApplication.ViewModels;
 
-namespace ProjectManagmentApplication.Controllers
+namespace ProjectManagementApplication.Controllers
 {
     public class ImagesController : Controller
     {
@@ -17,31 +18,9 @@ namespace ProjectManagmentApplication.Controllers
 
         public ActionResult Upload(int id)
         {
-            Image image = new Image {TaskId = id};
+            ImageViewModel image = new ImageViewModel { TaskId = id };
             return View(image);
         }
-
-        // POST: Images/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Upload(HttpPostedFileBase file)
-        {
-
-            if (file != null)
-            {
-                string pic = System.IO.Path.GetFileName(file.FileName);
-                string path = System.IO.Path.Combine(
-                                       Server.MapPath("~/images/taskimages"), pic);
-             
-                file.SaveAs(path);
-                Image image = new Image() { Url = path }
-            }
-
-            return RedirectToAction("Upload");
-        }
-        
 
         // GET: Images/Delete/5
         public ActionResult Delete(int? id)
@@ -66,7 +45,51 @@ namespace ProjectManagmentApplication.Controllers
             Image image = db.Images.Find(id);
             db.Images.Remove(image);
             db.SaveChanges();
-            return RedirectToAction("Details","Tasks",new {id = image.TaskId});
+            return RedirectToAction("Details", "Tasks", new { id = image.TaskId });
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Upload(ImageViewModel model)
+        {
+            var validImageTypes = new string[]
+            {
+                "image/gif",
+                "image/jpeg",
+                "image/pjpeg",
+                "image/png"
+            };
+
+            if (model.ImageUpload == null || model.ImageUpload.ContentLength == 0)
+            {
+                ModelState.AddModelError("ImageUpload", "This field is required");
+            }
+            else if (!validImageTypes.Contains(model.ImageUpload.ContentType))
+            {
+                ModelState.AddModelError("ImageUpload", "Please choose either a GIF, JPG or PNG image.");
+            }
+
+            if (ModelState.IsValid)
+            {
+                var image = new Image();
+
+
+                if (model.ImageUpload != null && model.ImageUpload.ContentLength > 0)
+                {
+                    var uploadDir = "/Content/images/taskimages";
+                    var imagePath = Path.Combine(Server.MapPath(uploadDir), model.ImageUpload.FileName);
+                    var imageUrl = Path.Combine(uploadDir, model.ImageUpload.FileName);
+                    model.ImageUpload.SaveAs(imagePath);
+                    image.Url = imageUrl;
+                }
+
+                image.TaskId = model.TaskId;
+                db.Images.Add(image);
+                db.SaveChanges();
+                return RedirectToAction("Upload");
+            }
+
+            return View(model);
         }
     }
 }

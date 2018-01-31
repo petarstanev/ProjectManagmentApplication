@@ -31,6 +31,7 @@ namespace ProjectManagementApplication.Controllers
             }
 
             Task task = db.Tasks.Include(c => c.Comments.Select(o => o.Author))
+                                .Include(i => i.Images)
                 .SingleOrDefault(t => t.TaskId == id);
             Column column = db.Columns.Find(task.ColumnId);
            
@@ -132,31 +133,6 @@ namespace ProjectManagementApplication.Controllers
             db.SaveChanges();
             Column column = db.Columns.Find(task.ColumnId);
             return RedirectToAction("Details", "Boards", new { id = column.BoardId });
-        }
-
-        [HttpPost]
-        public ActionResult UploadImage(HttpPostedFileBase file)
-        {
-            if (file != null)
-            {
-                string pic = System.IO.Path.GetFileName(file.FileName);
-                string path = System.IO.Path.Combine(
-                                       Server.MapPath("~/images/taskimages"), pic);
-                // file is uploaded
-                file.SaveAs(path);
-
-                // save the image path path to the database or you can send image 
-                // directly to database
-                // in-case if you want to store byte[] ie. for DB
-                using (MemoryStream ms = new MemoryStream())
-                {
-                    file.InputStream.CopyTo(ms);
-                    byte[] array = ms.GetBuffer();
-                }
-
-            }
-            // after successfully uploading redirect the user
-            return RedirectToAction("Details");
         }
     }
 }

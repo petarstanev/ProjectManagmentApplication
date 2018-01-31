@@ -53,6 +53,11 @@
         </dd>
 
     </dl>
+    @foreach (Image image in Model.Images)
+    {
+        <img id="@image.ImageId" src="@image.Url">
+    }
+
     @Html.ActionLink("Add Comment", "Create", "Comments", new { taskId = Model.TaskId }, null)
     <div class="col-sm-5">
         @foreach (Comment comment in Model.Comments)
