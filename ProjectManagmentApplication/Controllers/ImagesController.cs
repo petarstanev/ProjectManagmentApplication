@@ -45,6 +45,13 @@ namespace ProjectManagementApplication.Controllers
             Image image = db.Images.Find(id);
             db.Images.Remove(image);
             db.SaveChanges();
+
+            string filePath = Server.MapPath(image.Url);
+            if (System.IO.File.Exists(filePath))
+            {
+                System.IO.File.Delete(filePath);
+            }
+
             return RedirectToAction("Details", "Tasks", new { id = image.TaskId });
         }
 
@@ -80,9 +87,11 @@ namespace ProjectManagementApplication.Controllers
 
                 if (model.ImageUpload != null && model.ImageUpload.ContentLength > 0)
                 {
-                    var uploadDir = "/Content/images/taskimages";
-                    var imagePath = Path.Combine(Server.MapPath(uploadDir), model.ImageUpload.FileName);
-                    var imageUrl = Path.Combine(uploadDir, model.ImageUpload.FileName);
+                    string uploadDir = "/Content/images/taskimages";
+                    string fileName = model.TaskId + "_" + Guid.NewGuid().ToString().Substring(0, 4) + Path.GetExtension(model.ImageUpload.FileName);
+
+                    var imagePath = Path.Combine(Server.MapPath(uploadDir), fileName);
+                    var imageUrl = Path.Combine(uploadDir, fileName);
                     model.ImageUpload.SaveAs(imagePath);
                     image.Url = imageUrl;
                 }
@@ -90,7 +99,7 @@ namespace ProjectManagementApplication.Controllers
                 image.TaskId = model.TaskId;
                 db.Images.Add(image);
                 db.SaveChanges();
-                return RedirectToAction("Upload");
+                return RedirectToAction("Details","Tasks",new {id = image.TaskId});
             }
 
             return View(model);

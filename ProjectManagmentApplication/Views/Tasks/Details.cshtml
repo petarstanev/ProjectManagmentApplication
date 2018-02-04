@@ -82,7 +82,9 @@
     </div>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.TaskId }) |
     @Html.ActionLink("Add image", "Upload", "Images", new { id = Model.TaskId }, null)
+    <br/>
+    @Html.ActionLink("Edit", "Edit", new {id = Model.TaskId}) |
+
     @Html.ActionLink("Back to List", "Index")
 </p>
