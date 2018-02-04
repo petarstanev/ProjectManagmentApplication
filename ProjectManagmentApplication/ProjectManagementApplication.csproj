@@ -171,8 +171,6 @@
     <Content Include="Content\css\bootstrap-theme.css" />
     <Content Include="Content\css\bootstrap.css" />
     <Content Include="Content\css\bootstrap.min.css" />
-    <Content Include="Content\images\taskimages\android-versions.jpg" />
-    <Content Include="Content\images\taskimages\Capture.PNG" />
     <Content Include="favicon.ico" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -242,6 +240,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Content\images\taskimages\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\fonts\glyphicons-halflings-regular.woff" />
