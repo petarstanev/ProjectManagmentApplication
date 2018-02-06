@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Test @ViewBag.Title S</title>
+    <title>@ViewBag.Title</title>
     @Styles.Render("~/bundles/appcss")
     @Scripts.Render("~/bundles/modernizr")
 </head>
@@ -28,6 +28,7 @@
                 <ul class="nav navbar-nav navbar-right">
                     @if (User.Identity.IsAuthenticated)
                     {
+                        <li><a href="@Url.Action("Account","Users")">Account</a></li>
                         <li><a href="@Url.Action("Logout","Users")">Logout</a></li>
                     }
                     else

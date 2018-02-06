@@ -12,7 +12,7 @@ namespace ProjectManagementApplication.App_Start
     {
         public AutoMapperConfig()
         {
-          
+            CreateMap<User, EditUser>().ReverseMap();
         }
     }
 }

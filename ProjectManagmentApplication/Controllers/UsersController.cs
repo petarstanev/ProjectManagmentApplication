@@ -7,6 +7,9 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
+using AutoMapper;
+using ProjectManagementApplication.App_Start;
+using ProjectManagementApplication.Helpers;
 using ProjectManagementApplication.Models;
 using ProjectManagementApplication.Repository;
 using ProjectManagementApplication.ViewModels;
@@ -16,6 +19,7 @@ namespace ProjectManagementApplication.Controllers
     public class UsersController : Controller
     {
         private Context db = new Context();
+        SessionContext sessionContext = new SessionContext();
 
         // GET: Users/Register
         public ActionResult Register()
@@ -60,7 +64,6 @@ namespace ProjectManagementApplication.Controllers
 
                 if (foundUser != null)
                 {
-                    SessionContext sessionContext = new SessionContext();
                     sessionContext.SetAuthenticationToken(foundUser.UserId.ToString(), false, foundUser);
                     return RedirectToAction("Index", "Home");
                 }
@@ -86,36 +89,58 @@ namespace ProjectManagementApplication.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        // GET: Users/Edit/5
-        public ActionResult Edit(int? id)
+        // GET: Users/Account
+        public ActionResult Account()
         {
-            if (id == null)
+            User sessionUser = sessionContext.GetUserData();
+
+            if (sessionUser == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                RedirectToAction("Login");
             }
-            User user = db.Users.Find(id);
-            if (user == null)
-            {
-                return HttpNotFound();
-            }
-            return View(user);
+
+            var config = new AutoMapperConfiguration().Configure();
+            IMapper iMapper = config.CreateMapper();
+
+            EditUser editUser = iMapper.Map<User, EditUser>(sessionUser);
+            editUser.Password = String.Empty;
+
+            return View(editUser);
         }
 
-        // POST: Users/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // POST: Users/Account
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "UserId,Email,Name,Password")] User user)
+        public ActionResult Account(EditUser editUser)
         {
+            User sessionUser = sessionContext.GetUserData();
+
             if (ModelState.IsValid)
             {
-                db.Entry(user).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Edit");
+                editUser.CurrentPassword = HashingHelper.HashPassword(editUser.CurrentPassword);
+
+                if (sessionUser.Password == editUser.CurrentPassword)
+                {
+                    sessionUser.Name = editUser.Name;
+                    sessionUser.Password = HashingHelper.HashPassword(editUser.Password);
+
+                    db.Entry(sessionUser).State = EntityState.Modified;
+                    db.SaveChanges();
+                    
+                    editUser.ConfirmPassword = String.Empty;
+                    editUser.Password = String.Empty;
+                }
+                else
+                {
+                    ModelState.AddModelError("CurrentPassword", "The current password is not correct.");
+                }
+                return View(editUser);
             }
-            return View(user);
+            editUser.CurrentPassword = String.Empty;
+            editUser.Email = sessionUser.Email;
+            return View(editUser);
         }
+
 
         public ActionResult Welcome()
         {
