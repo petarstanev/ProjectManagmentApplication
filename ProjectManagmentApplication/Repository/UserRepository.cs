@@ -18,7 +18,7 @@ namespace ProjectManagementApplication.Repository
             Context = new Context();
         }
 
-        public void RegisterUser(RegisterUser user)
+        public User RegisterUser(RegisterUser user)
         {
             user.Password = HashingHelper.HashPassword(user.Password);
 
@@ -30,6 +30,8 @@ namespace ProjectManagementApplication.Repository
 
             Context.Users.Add(modelUser);
             Context.SaveChanges();
+
+            return modelUser;
         }
 
         public bool CheckEmailIsUnique(RegisterUser user){

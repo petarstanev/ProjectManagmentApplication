@@ -17,35 +17,13 @@ namespace ProjectManagementApplication.Controllers
     {
         private Context db = new Context();
 
-        // GET: Users
-        [Authorize]
-        public ActionResult Index()
-        {
-            return View(db.Users.ToList());
-        }
-
-        // GET: Users/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            User user = db.Users.Find(id);
-            if (user == null)
-            {
-                return HttpNotFound();
-            }
-            return View(user);
-        }
-
         // GET: Users/Register
         public ActionResult Register()
         {
             return View();
         }
 
-        // POST: Users/Create
+        // POST: Users/Register
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Register([Bind(Include = "Email,Name,Password,ConfirmPassword")] RegisterUser user)
@@ -56,11 +34,10 @@ namespace ProjectManagementApplication.Controllers
                 if (repo.CheckEmailIsUnique(user))
                 {
                     repo.RegisterUser(user);
-                    return RedirectToAction("Index");
+                    return RedirectToAction("Welcome");
                 }
-                ModelState.AddModelError("Email", "Email is already registed.");
+                ModelState.AddModelError("Email", "Email is already registered.");
             }
-
             return View(user);
         }
 
@@ -78,7 +55,7 @@ namespace ProjectManagementApplication.Controllers
             if (ModelState.IsValid)
             {
                 UserRepository repo = new UserRepository();
-                
+
                 User foundUser = repo.GetByEmailAndPassword(user);
 
                 if (foundUser != null)
@@ -88,7 +65,7 @@ namespace ProjectManagementApplication.Controllers
                     return RedirectToAction("Index", "Home");
                 }
                 ModelState.AddModelError("Email", "Email or password not matched");
-               
+
             }
 
             return View(user);
@@ -135,44 +112,14 @@ namespace ProjectManagementApplication.Controllers
             {
                 db.Entry(user).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Edit");
             }
             return View(user);
         }
 
-        // GET: Users/Delete/5
-        public ActionResult Delete(int? id)
+        public ActionResult Welcome()
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            User user = db.Users.Find(id);
-            if (user == null)
-            {
-                return HttpNotFound();
-            }
-            return View(user);
-        }
-
-        // POST: Users/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            User user = db.Users.Find(id);
-            db.Users.Remove(user);
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
+            return View();
         }
     }
 }

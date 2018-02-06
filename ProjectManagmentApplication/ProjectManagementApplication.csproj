@@ -215,10 +215,7 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Users\Register.cshtml" />
-    <Content Include="Views\Users\Delete.cshtml" />
-    <Content Include="Views\Users\Details.cshtml" />
     <Content Include="Views\Users\Edit.cshtml" />
-    <Content Include="Views\Users\Index.cshtml" />
     <Content Include="Views\Users\Login.cshtml" />
     <Content Include="Views\Users\Logout.cshtml" />
     <Content Include="Views\Users\LogoutPost.cshtml" />
@@ -243,6 +240,7 @@
     <Content Include="Views\Comments\Edit.cshtml" />
     <Content Include="Views\Images\Upload.cshtml" />
     <Content Include="Views\Images\Delete.cshtml" />
+    <Content Include="Views\Users\Welcome.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
