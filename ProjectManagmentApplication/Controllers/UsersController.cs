@@ -64,7 +64,7 @@ namespace ProjectManagementApplication.Controllers
 
                 if (foundUser != null)
                 {
-                    sessionContext.SetAuthenticationToken(foundUser.UserId.ToString(), false, foundUser);
+                    sessionContext.SetAuthenticationToken(foundUser.UserId.ToString(), foundUser);
                     return RedirectToAction("Index", "Home");
                 }
                 ModelState.AddModelError("Password", "The email or password you entered are incorrect.");
@@ -117,29 +117,27 @@ namespace ProjectManagementApplication.Controllers
             if (ModelState.IsValid)
             {
                 editUser.CurrentPassword = HashingHelper.HashPassword(editUser.CurrentPassword);
-
+                UserRepository repo = new UserRepository();
                 if (sessionUser.Password == editUser.CurrentPassword)
                 {
-                    sessionUser.Name = editUser.Name;
-                    if (!String.IsNullOrEmpty(editUser.NewPassword))
+                    if (editUser.Name != sessionUser.Name)
                     {
-                        sessionUser.Password = HashingHelper.HashPassword(editUser.NewPassword);
+                        TempData["UpdateUsername"] = "Name was updated.";
+                        repo.UpdateUsername(editUser.Name);
                     }
 
-                    db.Entry(sessionUser).State = EntityState.Modified;
-                    db.SaveChanges();
-                    
-                    editUser.ConfirmPassword = String.Empty;
-                    editUser.NewPassword = String.Empty;
+                    if (!String.IsNullOrEmpty(editUser.NewPassword))
+                    {
+                        TempData["UpdatePassword"] = "Password was updated.";
+                        repo.UpdatePassword(editUser.NewPassword);
+                    }
                 }
                 else
                 {
                     ModelState.AddModelError("CurrentPassword", "The current password is not correct.");
                 }
             }
-            editUser.CurrentPassword = String.Empty;
-            editUser.Email = sessionUser.Email;
-            return View(editUser);
+            return View(new EditUser() { Email = editUser.Email, Name = editUser.Name });
         }
 
 

@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
+using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Web;
 using AutoMapper;
@@ -11,11 +13,12 @@ namespace ProjectManagementApplication.Repository
 {
     public class UserRepository
     {
-        private Context Context;
+        private Context db;
+        SessionContext sessionContext = new SessionContext();
 
         public UserRepository()
         {
-            Context = new Context();
+            db = new Context();
         }
 
         public User RegisterUser(RegisterUser user)
@@ -28,21 +31,21 @@ namespace ProjectManagementApplication.Repository
             IMapper iMapper = config.CreateMapper();            
             User modelUser = iMapper.Map<RegisterUser, User>(user);
 
-            Context.Users.Add(modelUser);
-            Context.SaveChanges();
+            db.Users.Add(modelUser);
+            db.SaveChanges();
 
             return modelUser;
         }
 
         public bool CheckEmailIsUnique(RegisterUser user){
-            bool emailExist = Context.Users.Any(u => u.Email == user.Email);
+            bool emailExist = db.Users.Any(u => u.Email == user.Email);
             return !emailExist;
         }
 
 
         public bool CheckIfUserExist(User user)
         {
-            User foundUser = Context.Users.FirstOrDefault(u => u.Email == user.Email & u.Password == user.Password);
+            User foundUser = db.Users.FirstOrDefault(u => u.Email == user.Email & u.Password == user.Password);
             return foundUser != null;
         }
 
@@ -55,7 +58,31 @@ namespace ProjectManagementApplication.Repository
             User searchUser = iMapper.Map<LoginUser, User>(user);
 
             searchUser.Password = HashingHelper.HashPassword(searchUser.Password);
-            return Context.Users.FirstOrDefault(u => u.Email == searchUser.Email && u.Password == searchUser.Password);
+            return db.Users.FirstOrDefault(u => u.Email == searchUser.Email && u.Password == searchUser.Password);
+        }
+
+        public void UpdateUsername(string updatedUsername)
+        {
+            User sessionUser = sessionContext.GetUserData();
+            sessionUser.Name = updatedUsername;
+
+            UpdateDbAndSession(sessionUser);
+        }
+
+        public void UpdatePassword(string password)
+        {
+            password = HashingHelper.HashPassword(password);
+            User sessionUser = sessionContext.GetUserData();
+            sessionUser.Password = password;
+
+            UpdateDbAndSession(sessionUser);
+        }
+
+        private void UpdateDbAndSession(User sessionUser)
+        {
+            db.Users.AddOrUpdate(sessionUser);
+            db.SaveChanges();
+            sessionContext.SetAuthenticationToken(sessionUser.UserId.ToString(), sessionUser);
         }
     }
 }

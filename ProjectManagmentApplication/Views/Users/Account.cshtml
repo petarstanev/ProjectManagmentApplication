@@ -19,6 +19,7 @@
             @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.DisplayTextFor(model => model.Email)
+                @Html.HiddenFor(model => model.Email)
             </div>
         </div>
 
@@ -59,5 +60,19 @@
                 <input type="submit" value="Save" class="btn btn-default" />
             </div>
         </div>
+
+        @if (TempData["UpdateUsername"] != null)
+        {
+            <div class="alert alert-success">
+                <p> @TempData["UpdateUsername"].ToString()</p>
+            </div>
+        }
+
+        @if (TempData["UpdatePassword"] != null)
+        {
+            <div class="alert alert-success">
+                <p> @TempData["UpdatePassword"].ToString()</p>
+            </div>
+        }
     </div>
 }

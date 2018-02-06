@@ -11,13 +11,13 @@ namespace ProjectManagementApplication.Models
 
     public class SessionContext
     {
-        public void SetAuthenticationToken(string name, bool isPersistant, User userData)
+        public void SetAuthenticationToken(string name, User userData)
         {
             string data = null;
             if (userData != null)
                 data = new JavaScriptSerializer().Serialize(userData);
 
-            FormsAuthenticationTicket ticket = new FormsAuthenticationTicket(1, name, DateTime.Now, DateTime.Now.AddYears(1), isPersistant, userData.UserId.ToString());
+            FormsAuthenticationTicket ticket = new FormsAuthenticationTicket(1, name, DateTime.Now, DateTime.Now.AddYears(1), false, userData.UserId.ToString());
 
             string cookieData = FormsAuthentication.Encrypt(ticket);
             HttpCookie cookie = new HttpCookie(FormsAuthentication.FormsCookieName, cookieData)
