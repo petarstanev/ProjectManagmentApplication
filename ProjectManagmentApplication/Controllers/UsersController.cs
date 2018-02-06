@@ -64,7 +64,7 @@ namespace ProjectManagementApplication.Controllers
                     sessionContext.SetAuthenticationToken(foundUser.UserId.ToString(), false, foundUser);
                     return RedirectToAction("Index", "Home");
                 }
-                ModelState.AddModelError("Email", "Email or password not matched");
+                ModelState.AddModelError("Password", "The email or password you entered are incorrect.");
 
             }
 
