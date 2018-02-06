@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Web.UI.WebControls;
 
 namespace ProjectManagementApplication.ViewModels
 {
@@ -15,13 +16,16 @@ namespace ProjectManagementApplication.ViewModels
 
         [Required(ErrorMessage = "Current password is required")]
         [DataType(DataType.Password)]
+        [Display(Name = "Current password")]
         public string CurrentPassword { get; set; }
 
         [DataType(DataType.Password)]
+        [Display(Name = "New password")]
         public string NewPassword { get; set; }
         
         [DataType(DataType.Password)]
         [Compare(nameof(NewPassword), ErrorMessage = "Confirm password should match your password.")]
+        [Display(Name = "Confirm password")]
         public string ConfirmPassword { get; set; }
 
         
