@@ -55,8 +55,10 @@
     </dl>
     @foreach (Image image in Model.Images)
     {
-        <img id="@image.ImageId" class="task-image img-responsive" src="@image.Url">
-        @Html.ActionLink("Remove image","Delete","Images", new {id = image.ImageId}, null)
+        <a href="@image.Url" data-lightbox="task-set">
+            <img id="@image.ImageId" class="task-image img-responsive" data-lightbox="image-@image.ImageId" src="@image.Url">
+        </a>
+        @* @Html.ActionLink("Remove image","Delete","Images", new {id = image.ImageId}, null)*@
     }
 
     @Html.ActionLink("Add Comment", "Create", "Comments", new { taskId = Model.TaskId }, null)

@@ -6,3 +6,8 @@
     orientation: "bottom",
     format: 'dd/mm/yyyy'
 });
+
+lightbox.option({
+    'alwaysShowNavOnTouchDevices': true,
+    'wrapAround': true
+})

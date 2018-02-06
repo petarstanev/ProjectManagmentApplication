@@ -22,12 +22,14 @@ namespace ProjectManagementApplication
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/Scripts/bootstrap.js",
                       "~/Scripts/bootstrap-datepicker.min.js",
-                      "~/Scripts/respond.js"));
+                      "~/Scripts/respond.js",
+                      "~/Scripts/lightbox.js"));
 
             bundles.Add(new StyleBundle("~/bundles/appcss").Include(
                       "~/Content/css/bootstrap.css",
                       "~/Content/css/bootstrap-datepicker.min.css",
-                      "~/Content/css/mainstyle.css"));
+                      "~/Content/css/mainstyle.css",
+                      "~/Content/css/lightbox.css"));
 
             bundles.Add(new ScriptBundle("~/bundles/appjs").Include(
                       "~/Scripts/main.js"));
