@@ -103,7 +103,6 @@ namespace ProjectManagementApplication.Controllers
             IMapper iMapper = config.CreateMapper();
 
             EditUser editUser = iMapper.Map<User, EditUser>(sessionUser);
-            editUser.Password = String.Empty;
 
             return View(editUser);
         }
@@ -122,19 +121,21 @@ namespace ProjectManagementApplication.Controllers
                 if (sessionUser.Password == editUser.CurrentPassword)
                 {
                     sessionUser.Name = editUser.Name;
-                    sessionUser.Password = HashingHelper.HashPassword(editUser.Password);
+                    if (!String.IsNullOrEmpty(editUser.NewPassword))
+                    {
+                        sessionUser.Password = HashingHelper.HashPassword(editUser.NewPassword);
+                    }
 
                     db.Entry(sessionUser).State = EntityState.Modified;
                     db.SaveChanges();
                     
                     editUser.ConfirmPassword = String.Empty;
-                    editUser.Password = String.Empty;
+                    editUser.NewPassword = String.Empty;
                 }
                 else
                 {
                     ModelState.AddModelError("CurrentPassword", "The current password is not correct.");
                 }
-                return View(editUser);
             }
             editUser.CurrentPassword = String.Empty;
             editUser.Email = sessionUser.Email;
