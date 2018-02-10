@@ -90,6 +90,7 @@ namespace ProjectManagementApplication.Controllers
         }
 
         // GET: Users/Account
+        [Authorize]
         public ActionResult Account()
         {
             User sessionUser = sessionContext.GetUserData();
@@ -110,6 +111,7 @@ namespace ProjectManagementApplication.Controllers
         // POST: Users/Account
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public ActionResult Account(EditUser editUser)
         {
             User sessionUser = sessionContext.GetUserData();

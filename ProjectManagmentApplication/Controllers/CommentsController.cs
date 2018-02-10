@@ -7,6 +7,7 @@ using ProjectManagementApplication.Models;
 
 namespace ProjectManagementApplication.Controllers
 {
+    [Authorize]
     public class CommentsController : Controller
     {
         private Context db = new Context();

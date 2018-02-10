@@ -11,6 +11,7 @@ using ProjectManagementApplication.ViewModels;
 
 namespace ProjectManagementApplication.Controllers
 {
+    [Authorize]
     public class BoardsController : Controller
     {
         private Context db = new Context();

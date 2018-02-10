@@ -11,6 +11,7 @@ using ProjectManagementApplication.Models;
 
 namespace ProjectManagementApplication.Controllers
 {
+    [Authorize]
     public class TasksController : Controller
     {
         private Context db = new Context();

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
@@ -16,6 +17,7 @@ namespace ProjectManagementApplication.ViewModels
         [DataType(DataType.Password)]
         [Compare(nameof(Password), ErrorMessage = "Confirm password should match your password.")]
         [NotMapped]
+        [DisplayName("Confirm Password")]
         public string ConfirmPassword { get; set; }
     }
 }

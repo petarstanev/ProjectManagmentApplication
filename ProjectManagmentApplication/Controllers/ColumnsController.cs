@@ -10,6 +10,7 @@ using ProjectManagementApplication.Models;
 
 namespace ProjectManagementApplication.Controllers
 {
+    [Authorize]
     public class ColumnsController : Controller
     {
         private Context db = new Context();

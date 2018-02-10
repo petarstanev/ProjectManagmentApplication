@@ -12,6 +12,7 @@ using ProjectManagementApplication.ViewModels;
 
 namespace ProjectManagementApplication.Controllers
 {
+    [Authorize]
     public class ImagesController : Controller
     {
         private Context db = new Context();
