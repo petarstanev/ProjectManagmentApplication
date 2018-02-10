@@ -146,9 +146,9 @@
     <Compile Include="Helpers\AutoMapperConfiguration.cs" />
     <Compile Include="Helpers\HashingHelper.cs" />
     <Compile Include="Helpers\TimeHelper.cs" />
-    <Compile Include="Migrations\201801311235078_addImagesFK.cs" />
-    <Compile Include="Migrations\201801311235078_addImagesFK.Designer.cs">
-      <DependentUpon>201801311235078_addImagesFK.cs</DependentUpon>
+    <Compile Include="Migrations\201802101434513_Initial.cs" />
+    <Compile Include="Migrations\201802101434513_Initial.Designer.cs">
+      <DependentUpon>201802101434513_Initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Board.cs" />
@@ -260,8 +260,8 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201801311235078_addImagesFK.resx">
-      <DependentUpon>201801311235078_addImagesFK.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201802101434513_Initial.resx">
+      <DependentUpon>201802101434513_Initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

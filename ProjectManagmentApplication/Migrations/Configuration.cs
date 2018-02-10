@@ -1,4 +1,4 @@
-namespace ProjectManagementApplication.Migrations
+namespace ProjectManagmentApplication.Migrations
 {
     using System;
     using System.Data.Entity;
@@ -9,7 +9,7 @@ namespace ProjectManagementApplication.Migrations
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = false;
+            AutomaticMigrationsEnabled = true;
         }
 
         protected override void Seed(ProjectManagementApplication.Models.Context context)
