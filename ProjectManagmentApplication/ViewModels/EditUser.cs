@@ -19,7 +19,7 @@ namespace ProjectManagementApplication.ViewModels
         [Display(Name = "Current password")]
         public string CurrentPassword { get; set; }
 
-        [DataType(DataType.Password)]
+        [DataType(DataType.Password)] 
         [Display(Name = "New password")]
         public string NewPassword { get; set; }
         
@@ -27,7 +27,6 @@ namespace ProjectManagementApplication.ViewModels
         [Compare(nameof(NewPassword), ErrorMessage = "Confirm password should match your password.")]
         [Display(Name = "Confirm password")]
         public string ConfirmPassword { get; set; }
-
         
     }
 }

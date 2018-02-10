@@ -8,42 +8,30 @@
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
-    <nav class="navbar navbar-default navbar-static-top">
+    <nav class="border-bottom box-shadow navbar navbar-expand">
         <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="#">Project management software</a>
-            </div>
-            <div id="navbar" class="navbar-collapse collapse">
+            <a class="navbar-brand" href="#">Project management software</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample02" aria-controls="navbarsExample02" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarsExample02">
                 <ul class="nav navbar-nav">
                     <li><a href="@Url.Action("Index","Boards")">Boards</a></li>
                     <li><a href="@Url.Action("Index","Columns")">Columns</a></li>
                     <li><a href="@Url.Action("Index","Tasks")">Tasks</a></li>
                 </ul>
-                <ul class="nav navbar-nav navbar-right">
-                    @if (User.Identity.IsAuthenticated)
-                    {
-                        <li><a href="@Url.Action("Account","Users")">Account</a></li>
-                        <li><a href="@Url.Action("Logout","Users")">Logout</a></li>
-                    }
-                    else
-                    {
-                        <li><a href="@Url.Action("Login","Users")">Login</a></li>
-                        <li><a href="@Url.Action("Register","Users")">Register</a></li>
-                    }
-                </ul>
-            </div><!--/.nav-collapse -->
+                <form class="form-inline my-2 my-md-0">
+                    <input class="form-control" type="text" placeholder="Search">
+                </form>
+            </div>
         </div>
     </nav>
     <div class="container body-content">
         @RenderBody()
     </div>
     @Scripts.Render("~/bundles/jquery")
+
     @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/bundles/appjs")
     @RenderSection("scripts", required: false)
