@@ -14,6 +14,7 @@ namespace ProjectManagementApplication.Models
         public DbSet<Column> Columns { get; set; }
         public DbSet<Task> Tasks { get; set; }
         public DbSet<Comment> Comments { get; set; }
+        public DbSet<Image> Images { get; set; }
         //public DbSet<Standard> Standards { get; set; }
         public Context() : base("AwsDatabase")
         {
@@ -22,9 +23,10 @@ namespace ProjectManagementApplication.Models
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             Database.SetInitializer<Context>(null);
+
             base.OnModelCreating(modelBuilder);
         }
 
-        public System.Data.Entity.DbSet<ProjectManagementApplication.Models.Image> Images { get; set; }
+        
     }
 }

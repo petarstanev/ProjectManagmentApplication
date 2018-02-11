@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
@@ -20,10 +21,14 @@ namespace ProjectManagementApplication.Models
         public bool Private { get; set; }
 
         [DisplayName("Created by")]
-        public User CreatedBy { get; set; }
+        [ForeignKey("CreatedByUser")]
+        public int? CreatedBy { get; set; }
+        public User CreatedByUser { get; set; }
 
         [DisplayName("Assigned to")]
-        public User AssignedTo { get; set; }
+        [ForeignKey("AssignedToUser")]
+        public int? AssignedTo { get; set; }
+        public User AssignedToUser { get; set; }
 
         [DisplayName("Column")]
         public int ColumnId { get; set; }
