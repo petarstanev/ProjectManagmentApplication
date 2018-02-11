@@ -150,6 +150,14 @@
     <Compile Include="Migrations\201802101434513_Initial.Designer.cs">
       <DependentUpon>201802101434513_Initial.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201802111920104_Two.cs" />
+    <Compile Include="Migrations\201802111920104_Two.Designer.cs">
+      <DependentUpon>201802111920104_Two.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201802111945475_Two2.cs" />
+    <Compile Include="Migrations\201802111945475_Two2.Designer.cs">
+      <DependentUpon>201802111945475_Two2.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Board.cs" />
     <Compile Include="Models\Column.cs" />
@@ -216,9 +224,6 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Users\Register.cshtml" />
-    <Content Include="Views\Users\Login.cshtml" />
-    <Content Include="Views\Users\Logout.cshtml" />
     <Content Include="Views\Boards\Create.cshtml" />
     <Content Include="Views\Boards\Delete.cshtml" />
     <Content Include="Views\Boards\Details.cshtml" />
@@ -230,19 +235,22 @@
     <Content Include="Views\Columns\Details.cshtml" />
     <Content Include="Views\Columns\Edit.cshtml" />
     <Content Include="Views\Columns\Index.cshtml" />
-    <Content Include="Views\Tasks\Create.cshtml" />
-    <Content Include="Views\Tasks\Delete.cshtml" />
-    <Content Include="Views\Tasks\Details.cshtml" />
-    <Content Include="Views\Tasks\Edit.cshtml" />
-    <Content Include="Views\Tasks\Index.cshtml" />
     <Content Include="Views\Comments\Create.cshtml" />
     <Content Include="Views\Comments\Delete.cshtml" />
     <Content Include="Views\Comments\Edit.cshtml" />
     <Content Include="Views\Images\Upload.cshtml" />
     <Content Include="Views\Images\Delete.cshtml" />
-    <Content Include="Views\Users\Welcome.cshtml" />
-    <Content Include="Views\Users\Account.cshtml" />
     <Content Include="Views\Boards\PartialView\BoardDetail.cshtml" />
+    <Content Include="Views\Tasks\Create.cshtml" />
+    <Content Include="Views\Tasks\Delete.cshtml" />
+    <Content Include="Views\Tasks\Details.cshtml" />
+    <Content Include="Views\Tasks\Edit.cshtml" />
+    <Content Include="Views\Tasks\Index.cshtml" />
+    <Content Include="Views\Users\Account.cshtml" />
+    <Content Include="Views\Users\Login.cshtml" />
+    <Content Include="Views\Users\Logout.cshtml" />
+    <Content Include="Views\Users\Register.cshtml" />
+    <Content Include="Views\Users\Welcome.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -263,6 +271,12 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201802101434513_Initial.resx">
       <DependentUpon>201802101434513_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201802111920104_Two.resx">
+      <DependentUpon>201802111920104_Two.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201802111945475_Two2.resx">
+      <DependentUpon>201802111945475_Two2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
