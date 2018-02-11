@@ -37,6 +37,13 @@
             <li class="list-group-item">No end date</li>
         </ul>
     </div>
+    <div class="col-md-7">
+        <div id="selector-buttons"class="btn-group btn-group-justified">
+            <a id="all-tasks" class="btn btn-primary">All tasks</a>
+            <a id="assigned-tasks" class="btn btn-primary">Assigned to me</a>
+            <a id="created-tasks" class="btn btn-primary">Created by me</a>
+        </div>
+    </div>
     <div id="refTable">
     </div>
     <div class="col-md-3" id="task-column">
@@ -93,10 +100,26 @@
 
         $("#pY").on("click", function () {
             var val = $('#yearSelect3').val();
+            
             $.ajax({
                 url: "/Boards/DetailsPart",
                 type: "GET",
                 data: { id: 1 }
+            })
+            .done(function (partialViewResult) {
+                $("#refTable").html(partialViewResult);
+            });
+        });
+
+        $('#selector-buttons .btn').click(function () {
+            $(this).addClass('active').siblings().removeClass('active');
+
+            var buttonType = $(this).attr('id');
+
+            $.ajax({
+                url: "/Boards/DetailsPart",
+                type: "GET",
+                data: { id: 1, type: buttonType }
             })
             .done(function (partialViewResult) {
                 $("#refTable").html(partialViewResult);

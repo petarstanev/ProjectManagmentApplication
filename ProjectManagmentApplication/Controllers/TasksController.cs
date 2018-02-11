@@ -18,6 +18,7 @@ namespace ProjectManagementApplication.Controllers
         public ActionResult Index()
         {
             var tasks = db.Tasks.Include(t => t.AssignedToUser).Include(t => t.Column).Include(t => t.CreatedByUser);
+            
             return View(tasks.ToList());
         }
 

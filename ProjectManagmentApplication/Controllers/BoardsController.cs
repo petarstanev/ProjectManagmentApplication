@@ -31,10 +31,10 @@ namespace ProjectManagementApplication.Controllers
             }
             catch (Exception ex)
             {
-                
+
                 throw ex;
             }
-            
+
         }
 
         // GET: Boards/Details/5
@@ -58,15 +58,54 @@ namespace ProjectManagementApplication.Controllers
 
         // GET: Boards/Details/5
         [HttpGet]
-        public ActionResult DetailsPart(int? id)
+        public ActionResult DetailsPart(int? id, string type)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Board board = db.Boards.Include(e => e.Columns.Select(c => c.Tasks)).SingleOrDefault(e => e.BoardId == id);
+
+            if (type == "all-tasks")
+            {
+                return PartialView("PartialView/BoardDetail", board);
+            }
+
+            SessionContext sx = new SessionContext();
+
+            //Boar
+
+            Column filteredColumn = new Column();
+            Board filterBoard = new Board();
+            filterBoard.Title = board.Title;
+            filterBoard.Columns = new List<Column>();
+            foreach (Column column in board.Columns)
+            {
+                filteredColumn.Title = column.Title;
+                filteredColumn.Tasks = new List<Task>();
+                foreach (Task task in column.Tasks)
+                {
+                    if (task.AssignedTo != null && task.AssignedTo == sx.GetUserData().UserId)
+                    {
+                        filteredColumn.Tasks.Add(task);
+                    }
+                }
+                filterBoard.Columns.Add(filteredColumn);
+            }
             
-            return PartialView("PartialView/BoardDetail",board);
+
+
+            //Board board = db.Boards.Include(e => e.Columns.Select(c => c.Tasks)).SingleOrDefault(e => e.BoardId == id);
+            //Where(t=> t.AssignedTo != null && t.AssignedTo == userId)
+
+            //Board filter = new Board();
+            //filter.Columns = db.Columns.Include(c => c.Tasks.Where(t => t.AssignedToUser != null && t.AssignedTo == userId)).ToList();
+                
+                //db.Boards.Include(e => e.Columns.Where(t=> t.)))
+                //    .SingleOrDefault(e => e.BoardId == id);
+
+
+            return PartialView("PartialView/BoardDetail", filterBoard);
         }
 
         // GET: Boards/Create
