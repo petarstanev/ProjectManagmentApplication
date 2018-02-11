@@ -12,11 +12,27 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
+            @Html.DisplayNameFor(model => model.AssignedToUser.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AssignedToUser.Email)
+        </dd>
+
+        <dt>
             @Html.DisplayNameFor(model => model.Column.Title)
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.Column.Title)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CreatedByUser.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CreatedByUser.Email)
         </dd>
 
         <dt>

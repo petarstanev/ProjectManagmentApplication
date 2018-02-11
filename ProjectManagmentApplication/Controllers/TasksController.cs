@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
-using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -11,7 +10,6 @@ using ProjectManagementApplication.Models;
 
 namespace ProjectManagementApplication.Controllers
 {
-    [Authorize]
     public class TasksController : Controller
     {
         private Context db = new Context();
@@ -19,7 +17,7 @@ namespace ProjectManagementApplication.Controllers
         // GET: Tasks
         public ActionResult Index()
         {
-            var tasks = db.Tasks.Include(t => t.Column);
+            var tasks = db.Tasks.Include(t => t.AssignedToUser).Include(t => t.Column).Include(t => t.CreatedByUser);
             return View(tasks.ToList());
         }
 
@@ -30,28 +28,20 @@ namespace ProjectManagementApplication.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-
-            Task task = db.Tasks.Include(c => c.Comments.Select(o => o.Author))
-                                .Include(i => i.Images)
-                .SingleOrDefault(t => t.TaskId == id);
-            Column column = db.Columns.Find(task.ColumnId);
-           
-            task.Column = column;
-            
+            Task task = db.Tasks.Find(id);
+            if (task == null)
+            {
+                return HttpNotFound();
+            }
             return View(task);
         }
 
         // GET: Tasks/Create
-        public ActionResult Create(int? columnId)
+        public ActionResult Create()
         {
-            if (columnId == null)
-            {
-                ViewBag.ColumnId = new SelectList(db.Columns, "ColumnId", "Title");
-            }
-            else
-            {
-                ViewBag.ColumnId = new SelectList(db.Columns, "ColumnId", "Title", columnId);
-            }
+            ViewBag.AssignedTo = new SelectList(db.Users, "UserId", "Email");
+            ViewBag.ColumnId = new SelectList(db.Columns, "ColumnId", "Title");
+            ViewBag.CreatedBy = new SelectList(db.Users, "UserId", "Email");
             return View();
         }
 
@@ -60,18 +50,18 @@ namespace ProjectManagementApplication.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "TaskId,Title,Description,Deadline,Private,ColumnId")] Task task)
+        public ActionResult Create([Bind(Include = "TaskId,Title,Description,Deadline,Private,CreatedBy,AssignedTo,ColumnId")] Task task)
         {
             if (ModelState.IsValid)
             {
                 db.Tasks.Add(task);
                 db.SaveChanges();
-
-                Column column = db.Columns.Find(task.ColumnId);
-                return RedirectToAction("Details", "Boards", new { id = column.BoardId});
+                return RedirectToAction("Index");
             }
 
+            ViewBag.AssignedTo = new SelectList(db.Users, "UserId", "Email", task.AssignedTo);
             ViewBag.ColumnId = new SelectList(db.Columns, "ColumnId", "Title", task.ColumnId);
+            ViewBag.CreatedBy = new SelectList(db.Users, "UserId", "Email", task.CreatedBy);
             return View(task);
         }
 
@@ -87,7 +77,9 @@ namespace ProjectManagementApplication.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.AssignedTo = new SelectList(db.Users, "UserId", "Email", task.AssignedTo);
             ViewBag.ColumnId = new SelectList(db.Columns, "ColumnId", "Title", task.ColumnId);
+            ViewBag.CreatedBy = new SelectList(db.Users, "UserId", "Email", task.CreatedBy);
             return View(task);
         }
 
@@ -96,16 +88,17 @@ namespace ProjectManagementApplication.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "TaskId,Title,Description,Deadline,Private,ColumnId")] Task task)
+        public ActionResult Edit([Bind(Include = "TaskId,Title,Description,Deadline,Private,CreatedBy,AssignedTo,ColumnId")] Task task)
         {
             if (ModelState.IsValid)
             {
                 db.Entry(task).State = EntityState.Modified;
                 db.SaveChanges();
-                Column column = db.Columns.Find(task.ColumnId);
-                return RedirectToAction("Details", "Boards", new { id = column.BoardId });
+                return RedirectToAction("Index");
             }
+            ViewBag.AssignedTo = new SelectList(db.Users, "UserId", "Email", task.AssignedTo);
             ViewBag.ColumnId = new SelectList(db.Columns, "ColumnId", "Title", task.ColumnId);
+            ViewBag.CreatedBy = new SelectList(db.Users, "UserId", "Email", task.CreatedBy);
             return View(task);
         }
 
@@ -132,8 +125,16 @@ namespace ProjectManagementApplication.Controllers
             Task task = db.Tasks.Find(id);
             db.Tasks.Remove(task);
             db.SaveChanges();
-            Column column = db.Columns.Find(task.ColumnId);
-            return RedirectToAction("Details", "Boards", new { id = column.BoardId });
+            return RedirectToAction("Index");
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                db.Dispose();
+            }
+            base.Dispose(disposing);
         }
     }
 }
