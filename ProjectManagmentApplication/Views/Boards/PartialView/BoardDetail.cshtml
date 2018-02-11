@@ -1,0 +1,30 @@
+﻿@using ProjectManagementApplication.Models
+@model ProjectManagementApplication.Models.Board
+
+<div id="board-column" class="col-md-7">
+    @foreach (Column column in Model.Columns)
+    {
+        <div class="col-md-4">
+            <h3 class="text-center">
+                @Html.ActionLink(column.Title, "Edit", "Columns", new {id = column.ColumnId}, null)
+            </h3>
+            @foreach (Task task in column.Tasks)
+            {
+                <div class="well">
+                    <h4>
+                        @Html.ActionLink(task.Title, "Details", "Tasks", new {id = task.TaskId}, null)
+                    </h4>
+                    <p>@task.Description</p>
+                </div>
+            }
+            <a class="btn btn-block btn-primary btn-sm" href="@Url.Action("Create", "Tasks", new {columnId = column.ColumnId})">
+                Add task
+            </a>
+        </div>
+    }
+    <div class="col-md-4">
+        <h3 class="text-center">
+            @Html.ActionLink("Add Column", "Create", "Columns", new {boardId = Model.BoardId}, null)
+        </h3>
+    </div>
+</div>

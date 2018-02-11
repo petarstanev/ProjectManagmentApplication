@@ -22,6 +22,21 @@ namespace ProjectManagementApplication.Controllers
             return View(db.Boards.ToList());
         }
 
+        // GET: Boards
+        public ActionResult IndexJson()
+        {
+            try
+            {
+                return Json(db.Boards.ToList(), JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                
+                throw ex;
+            }
+            
+        }
+
         // GET: Boards/Details/5
         public ActionResult Details(int? id)
         {
@@ -39,6 +54,19 @@ namespace ProjectManagementApplication.Controllers
             boardView.AllBoards = db.Boards.ToList();
 
             return View(boardView);
+        }
+
+        // GET: Boards/Details/5
+        [HttpGet]
+        public ActionResult DetailsPart(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Board board = db.Boards.Include(e => e.Columns.Select(c => c.Tasks)).SingleOrDefault(e => e.BoardId == id);
+            
+            return PartialView("PartialView/BoardDetail",board);
         }
 
         // GET: Boards/Create
@@ -121,6 +149,40 @@ namespace ProjectManagementApplication.Controllers
             db.Boards.Remove(board);
             db.SaveChanges();
             return RedirectToAction("Index");
+        }
+
+        // GET: Home/JqAJAX  
+        [HttpPost]
+        public ActionResult JqAJAX(Board st)
+        {
+            try
+            {
+                return Json(new
+                {
+                    msg = "Successfully added " + st.Title
+                });
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        // GET: Home/JqAJAX  
+        [HttpGet]
+        public ActionResult getAjax()
+        {
+            try
+            {
+                return Json(new
+                {
+                    msg = "Successfully added " + DateTime.UtcNow
+                }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
     }
 }

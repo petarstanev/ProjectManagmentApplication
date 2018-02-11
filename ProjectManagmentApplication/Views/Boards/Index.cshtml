@@ -17,17 +17,55 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Title)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.BoardId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.BoardId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.BoardId })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id=item.BoardId }) |
+                @Html.ActionLink("Details", "Details", new { id=item.BoardId }) |
+                @Html.ActionLink("Delete", "Delete", new { id=item.BoardId })
+            </td>
+        </tr>
+    }
 
 </table>
+
+<input type="submit" value="Create" class="btn btn-default" id="btnSubmit" /> 
+
+<div id="container">
+    
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#btnSubmit').click(function (event) {
+            event.preventDefault();
+            $.ajax({
+                type: "GET",
+                url: '@Url.Action("IndexJson", "Boards")',
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (data) {
+                    console.log(data);
+                },
+                error: function () { alert('A error'); }
+            });
+        });
+    });
+
+    @*$(document).ready(function () {
+        $('#btnSubmit').click(function (event) {
+            event.preventDefault();
+            $.ajax({
+                type: "GET",
+                url: '@Url.Action("getAjax", "Boards")',
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (data) { alert('Success' + data.msg); },
+                error: function () { alert('A error'); }
+            });
+        });
+    });*@
+</script>

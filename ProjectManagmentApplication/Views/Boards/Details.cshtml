@@ -11,7 +11,10 @@
             Boards
             <br>
         </h3>
+
         @{Html.RenderPartial("PartialView/BoardListColumn", Model.AllBoards, ViewData);}
+
+        <button id="pY">PrevY</button>
         <h3>
             Labels
         </h3>
@@ -34,31 +37,7 @@
             <li class="list-group-item">No end date</li>
         </ul>
     </div>
-    <div id="board-column" class="col-md-7">
-        @foreach (Column column in Model.SelectedBoard.Columns)
-        {
-            <div class="col-md-4">
-                <h3 class="text-center">
-                    @Html.ActionLink(column.Title, "Edit", "Columns", new { id = column.ColumnId}, null )
-                </h3>
-                @foreach (Task task in column.Tasks)
-                {
-                    <div class="well">
-                        <h4>@Html.ActionLink(task.Title,"Details","Tasks",new {id = task.TaskId}, null)
-                        </h4>
-                        <p>@task.Description</p>
-                    </div>
-                }
-                <a class="btn btn-block btn-primary btn-sm" href="@Url.Action("Create", "Tasks", new {columnId = column.ColumnId})">
-                    Add task
-                </a>
-            </div>
-        }
-        <div class="col-md-4">
-            <h3 class="text-center">
-                @Html.ActionLink("Add Column", "Create", "Columns", new { boardId = Model.SelectedBoard.BoardId }, null)
-            </h3>
-        </div>
+    <div id="refTable">
     </div>
     <div class="col-md-3" id="task-column">
         <h2 class="text-center">Task name</h2>
@@ -95,3 +74,33 @@
         </blockquote>
     </div>
 </div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#btnSubmit').click(function (event) {
+            event.preventDefault();
+            $.ajax({
+                type: "GET",
+                url: '@Url.Action("IndexJson", "Boards")',
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (data) {
+                    console.log(data);
+                },
+                error: function () { alert('A error'); }
+            });
+        });
+
+        $("#pY").on("click", function () {
+            var val = $('#yearSelect3').val();
+            $.ajax({
+                url: "/Boards/DetailsPart",
+                type: "GET",
+                data: { id: 1 }
+            })
+            .done(function (partialViewResult) {
+                $("#refTable").html(partialViewResult);
+            });
+        });
+    });
+</script>
