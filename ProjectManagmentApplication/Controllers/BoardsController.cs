@@ -73,40 +73,43 @@ namespace ProjectManagementApplication.Controllers
 
             SessionContext sx = new SessionContext();
 
-            //Boar
-
-            Column filteredColumn = new Column();
+            Column filteredColumn;
             Board filterBoard = new Board();
             filterBoard.Title = board.Title;
             filterBoard.Columns = new List<Column>();
             foreach (Column column in board.Columns)
             {
+                filteredColumn = new Column();
                 filteredColumn.Title = column.Title;
                 filteredColumn.Tasks = new List<Task>();
                 foreach (Task task in column.Tasks)
                 {
-                    if (task.AssignedTo != null && task.AssignedTo == sx.GetUserData().UserId)
+                    if (ShouldTaskBeIncluded(task, type))
                     {
                         filteredColumn.Tasks.Add(task);
                     }
                 }
                 filterBoard.Columns.Add(filteredColumn);
             }
-            
-
-
-            //Board board = db.Boards.Include(e => e.Columns.Select(c => c.Tasks)).SingleOrDefault(e => e.BoardId == id);
-            //Where(t=> t.AssignedTo != null && t.AssignedTo == userId)
-
-            //Board filter = new Board();
-            //filter.Columns = db.Columns.Include(c => c.Tasks.Where(t => t.AssignedToUser != null && t.AssignedTo == userId)).ToList();
-                
-                //db.Boards.Include(e => e.Columns.Where(t=> t.)))
-                //    .SingleOrDefault(e => e.BoardId == id);
-
 
             return PartialView("PartialView/BoardDetail", filterBoard);
         }
+
+        private bool ShouldTaskBeIncluded(Task task, string type)
+        {
+            SessionContext sx = new SessionContext();
+
+            if (type == "assigned-tasks" && task.AssignedTo != null && task.AssignedTo == sx.GetUserId())
+            {
+                return true;
+            }
+            if (type == "created-tasks" && task.CreatedBy != null && task.CreatedBy == sx.GetUserId())
+            {
+                return true;
+            }
+            return false;
+        }
+
 
         // GET: Boards/Create
         public ActionResult Create()

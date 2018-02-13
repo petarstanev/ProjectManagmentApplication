@@ -43,5 +43,11 @@ namespace ProjectManagementApplication.Models
 
             return userData;
         }
+
+        public int GetUserId()
+        {
+            User userData = GetUserData();
+            return userData == null ? 0 : userData.UserId;
+        }
     }
 }
