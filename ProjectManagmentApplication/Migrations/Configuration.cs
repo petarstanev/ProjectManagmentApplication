@@ -1,4 +1,4 @@
-namespace ProjectManagmentApplication.Migrations
+namespace ProjectManagementApplication.Migrations
 {
     using System;
     using System.Data.Entity;

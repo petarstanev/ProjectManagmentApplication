@@ -146,9 +146,9 @@
     <Compile Include="Helpers\AutoMapperConfiguration.cs" />
     <Compile Include="Helpers\HashingHelper.cs" />
     <Compile Include="Helpers\TimeHelper.cs" />
-    <Compile Include="Migrations\201802131732459_test3.cs" />
-    <Compile Include="Migrations\201802131732459_test3.Designer.cs">
-      <DependentUpon>201802131732459_test3.cs</DependentUpon>
+    <Compile Include="Migrations\201802132043076_test11.cs" />
+    <Compile Include="Migrations\201802132043076_test11.Designer.cs">
+      <DependentUpon>201802132043076_test11.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Board.cs" />
@@ -159,8 +159,9 @@
     <Compile Include="Models\Label.cs" />
     <Compile Include="Models\SessionContext.cs" />
     <Compile Include="Models\Task.cs" />
-    <Compile Include="Models\Team.cs" />
+    <Compile Include="Models\TeamBoard.cs" />
     <Compile Include="Models\User.cs" />
+    <Compile Include="Models\UserBoard.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\UserRepository.cs" />
     <Compile Include="ViewModels\BoardViewModel.cs" />
@@ -262,8 +263,8 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201802131732459_test3.resx">
-      <DependentUpon>201802131732459_test3.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201802132043076_test11.resx">
+      <DependentUpon>201802132043076_test11.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

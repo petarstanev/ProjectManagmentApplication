@@ -79,7 +79,8 @@ namespace ProjectManagementApplication.Controllers
             SessionContext sx = new SessionContext();
 
             Column filteredColumn;
-            Board filterBoard = new Board();
+            //TODO change 
+            Board filterBoard = new UserBoard();
             filterBoard.Title = board.Title;
             filterBoard.Columns = new List<Column>();
             foreach (Column column in board.Columns)
@@ -205,7 +206,9 @@ namespace ProjectManagementApplication.Controllers
         {
             SessionContext sx = new SessionContext();
             
-            return board.Public || board.UserId == sx.GetUserId();
+            
+            //return board.Public || board.UserId == sx.GetUserId();
+            return false;
         }
     }
 }

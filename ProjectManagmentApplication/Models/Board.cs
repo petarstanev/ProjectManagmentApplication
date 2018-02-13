@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ProjectManagementApplication.Models
 {
-    public class Board
+    public abstract class Board
     {
         public int BoardId { get; set; }
 
@@ -14,8 +14,6 @@ namespace ProjectManagementApplication.Models
         [StringLength(15)]
         public string Title { get; set; }
         public List<Column> Columns { get; set; }
-        
-        public bool Public { get; set; }
         
         [ForeignKey("Administrator")]
         public int? UserId { get; set; }

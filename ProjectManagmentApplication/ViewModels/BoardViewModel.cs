@@ -1,9 +1,11 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using ProjectManagementApplication.Models;
 
 namespace ProjectManagementApplication.ViewModels
 {
-    public class BoardViewModel : Board
+    [NotMapped]
+    public class BoardViewModel
     {
         public Board SelectedBoard { get; set; }
         public List<Board> AllBoards { get; set; }
