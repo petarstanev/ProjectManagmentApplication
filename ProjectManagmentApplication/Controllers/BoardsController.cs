@@ -50,6 +50,11 @@ namespace ProjectManagementApplication.Controllers
             {
                 return HttpNotFound();
             }
+            if (!ValidateBoardAccess(board))
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.Forbidden);
+            }
+
             boardView.SelectedBoard = board;
             boardView.AllBoards = db.Boards.ToList();
 
@@ -122,10 +127,13 @@ namespace ProjectManagementApplication.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "BoardId,Title")] Board board)
+        public ActionResult Create([Bind(Include = "BoardId,Title,Public")] Board board)
         {
             if (ModelState.IsValid)
             {
+                SessionContext sx = new SessionContext();
+                board.UserId = sx.GetUserId();
+
                 db.Boards.Add(board);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -193,38 +201,11 @@ namespace ProjectManagementApplication.Controllers
             return RedirectToAction("Index");
         }
 
-        // GET: Home/JqAJAX  
-        [HttpPost]
-        public ActionResult JqAJAX(Board st)
+        private bool ValidateBoardAccess(Board board)
         {
-            try
-            {
-                return Json(new
-                {
-                    msg = "Successfully added " + st.Title
-                });
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-        }
-
-        // GET: Home/JqAJAX  
-        [HttpGet]
-        public ActionResult getAjax()
-        {
-            try
-            {
-                return Json(new
-                {
-                    msg = "Successfully added " + DateTime.UtcNow
-                }, JsonRequestBehavior.AllowGet);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+            SessionContext sx = new SessionContext();
+            
+            return board.Public || board.UserId == sx.GetUserId();
         }
     }
 }

@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ProjectManagementApplication.Models
 {
@@ -13,5 +14,11 @@ namespace ProjectManagementApplication.Models
         [StringLength(15)]
         public string Title { get; set; }
         public List<Column> Columns { get; set; }
+        
+        public bool Public { get; set; }
+        
+        [ForeignKey("Administrator")]
+        public int? UserId { get; set; }
+        public User Administrator { get; set; }
     }
 }

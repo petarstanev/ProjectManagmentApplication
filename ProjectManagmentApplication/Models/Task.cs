@@ -18,7 +18,6 @@ namespace ProjectManagementApplication.Models
 
         [DisplayFormat(DataFormatString = "{0:d}", ApplyFormatInEditMode = true)]
         public DateTime? Deadline { get; set; }
-        public bool Private { get; set; }
 
         [DisplayName("Created by")]
         [ForeignKey("CreatedByUser")]

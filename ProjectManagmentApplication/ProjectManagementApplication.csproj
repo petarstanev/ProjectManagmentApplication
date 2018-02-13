@@ -146,17 +146,9 @@
     <Compile Include="Helpers\AutoMapperConfiguration.cs" />
     <Compile Include="Helpers\HashingHelper.cs" />
     <Compile Include="Helpers\TimeHelper.cs" />
-    <Compile Include="Migrations\201802101434513_Initial.cs" />
-    <Compile Include="Migrations\201802101434513_Initial.Designer.cs">
-      <DependentUpon>201802101434513_Initial.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201802111920104_Two.cs" />
-    <Compile Include="Migrations\201802111920104_Two.Designer.cs">
-      <DependentUpon>201802111920104_Two.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201802111945475_Two2.cs" />
-    <Compile Include="Migrations\201802111945475_Two2.Designer.cs">
-      <DependentUpon>201802111945475_Two2.cs</DependentUpon>
+    <Compile Include="Migrations\201802131732459_test3.cs" />
+    <Compile Include="Migrations\201802131732459_test3.Designer.cs">
+      <DependentUpon>201802131732459_test3.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Board.cs" />
@@ -167,6 +159,7 @@
     <Compile Include="Models\Label.cs" />
     <Compile Include="Models\SessionContext.cs" />
     <Compile Include="Models\Task.cs" />
+    <Compile Include="Models\Team.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\UserRepository.cs" />
@@ -269,14 +262,8 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201802101434513_Initial.resx">
-      <DependentUpon>201802101434513_Initial.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201802111920104_Two.resx">
-      <DependentUpon>201802111920104_Two.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201802111945475_Two2.resx">
-      <DependentUpon>201802111945475_Two2.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201802131732459_test3.resx">
+      <DependentUpon>201802131732459_test3.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
