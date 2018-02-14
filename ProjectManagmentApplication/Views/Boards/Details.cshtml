@@ -9,7 +9,7 @@
         <h2>@Model.SelectedBoard.Title</h2>
 
        <input id="board-id" type="hidden" value="@Model.SelectedBoard.BoardId" />
-
+        @Html.ActionLink("Board management","Edit",new {id = Model.SelectedBoard.BoardId })
         <h3>
             Boards
         </h3>

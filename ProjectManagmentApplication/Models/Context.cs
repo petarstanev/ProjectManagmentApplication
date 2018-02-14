@@ -15,7 +15,8 @@ namespace ProjectManagementApplication.Models
         public DbSet<Task> Tasks { get; set; }
         public DbSet<Comment> Comments { get; set; }
         public DbSet<Image> Images { get; set; }
-        
+        public DbSet<TeamMember> TeamMembers { get; set; }
+
         public Context() : base("AwsDatabase")
         {
         }

@@ -1,4 +1,5 @@
-﻿@model ProjectManagementApplication.Models.Board
+﻿@using ProjectManagementApplication.Models
+@model ProjectManagementApplication.Models.Board
 
 @{
     ViewBag.Title = "Edit";
@@ -41,5 +42,8 @@
 }
 
 <div>
+    @if(Model.BoardType == BoardType.Team) { 
+        @Html.ActionLink("Add members to the board", "AddTeamMember", new {id = Model.BoardId})
+    }
     @Html.ActionLink("Back to List", "Index")
 </div>

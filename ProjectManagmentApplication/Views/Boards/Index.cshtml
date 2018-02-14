@@ -15,7 +15,7 @@
             @Html.DisplayNameFor(model => model.Title)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Administrator.Email)
+            @Html.DisplayNameFor(model => model.User.Name)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.BoardType)
@@ -30,7 +30,7 @@
                 @Html.DisplayFor(modelItem => item.Title)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Administrator.Email)
+                @Html.DisplayFor(modelItem => item.User.Name)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.BoardType)
