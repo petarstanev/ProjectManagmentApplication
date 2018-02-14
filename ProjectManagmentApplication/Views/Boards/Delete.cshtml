@@ -12,6 +12,14 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
+            @Html.DisplayNameFor(model => model.Administrator.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Administrator.Email)
+        </dd>
+
+        <dt>
             @Html.DisplayNameFor(model => model.Title)
         </dt>
 
@@ -19,9 +27,18 @@
             @Html.DisplayFor(model => model.Title)
         </dd>
 
+        <dt>
+            @Html.DisplayNameFor(model => model.BoardType)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BoardType)
+        </dd>
+
     </dl>
 
-    @using (Html.BeginForm()) {
+    @using (Html.BeginForm())
+    {
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">

@@ -24,6 +24,8 @@ namespace ProjectManagementApplication.Models
         {
             Database.SetInitializer<Context>(null);
 
+            //modelBuilder.Entity<User>().HasMany(t => t.BoardsAdmin).WithRequired(a => a.User).WillCascadeOnDelete(false);
+
             base.OnModelCreating(modelBuilder);
         }
 

@@ -16,7 +16,6 @@ namespace ProjectManagementApplication.Models
         [Required]
         public string Password { get; set; }
 
-        public List<UserBoard> UserBoards { get; set; }
-        public List<TeamBoard> TeamBoards { get; set; }
+        public List<Board> BoardsAdmin { get; set; }
     }
 }

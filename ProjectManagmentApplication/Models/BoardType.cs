@@ -5,8 +5,10 @@ using System.Web;
 
 namespace ProjectManagementApplication.Models
 {
-    public class TeamBoard : Board
+    public enum BoardType
     {
-        public List<User> Members { get; set; }
+        Private,
+        Team,
+        Public
     }
 }
