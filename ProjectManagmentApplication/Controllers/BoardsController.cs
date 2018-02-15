@@ -155,6 +155,10 @@ namespace ProjectManagementApplication.Controllers
             {
                 return HttpNotFound();
             }
+            List<User> teamMembers =
+                db.TeamMembers.Include(t => t.User).Where(t => t.BoardId == id).Select(t => t.User).ToList();
+
+            ViewBag.TeamMembers = teamMembers;
             return View(board);
         }
 
@@ -223,8 +227,35 @@ namespace ProjectManagementApplication.Controllers
             return RedirectToAction("Details", new {id = teamMember.BoardId});
         }
 
+        [HttpGet]
+        public ActionResult RemoveTeamMember(int? memberId, int? boardId)
+        {
+            if (memberId == null || boardId == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
 
+            TeamMember teamMember =
+                db.TeamMembers.Include(t => t.Board).Include(t => t.User)
+                .SingleOrDefault(t => t.UserId == memberId && t.BoardId == boardId);
 
+            if (teamMember == null)
+            {
+                return HttpNotFound();
+            }
+
+            return View(teamMember);
+        }
+
+        [HttpPost]
+        public ActionResult RemoveTeamMember(TeamMember teamMember)
+        {
+            teamMember = db.TeamMembers.Find(teamMember.TeamMemberId);
+
+            db.TeamMembers.Remove(teamMember);
+            db.SaveChanges();
+            return RedirectToAction("Edit", new { id = teamMember.BoardId });
+        }
 
         private bool ValidateBoardAccess(Board board)
         {

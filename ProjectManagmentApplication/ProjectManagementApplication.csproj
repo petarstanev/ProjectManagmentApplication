@@ -260,6 +260,7 @@
     <Content Include="Views\TeamMembers\Edit.cshtml" />
     <Content Include="Views\TeamMembers\Index.cshtml" />
     <Content Include="Views\Boards\AddTeamMember.cshtml" />
+    <Content Include="Views\Boards\RemoveTeamMember.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
