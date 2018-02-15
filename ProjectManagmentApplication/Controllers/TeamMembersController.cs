@@ -10,134 +10,64 @@ using ProjectManagementApplication.Models;
 
 namespace ProjectManagementApplication.Controllers
 {
+    [Authorize]
     public class TeamMembersController : Controller
     {
         private Context db = new Context();
-
-        //public ActionResult AddTeamMember(int id)
-        //{
-
-
-        //    return View(Create())
-        //}
-
-
-
-
-
-
-
-
-
-
-        // GET: TeamMembers
-        public ActionResult Index()
+        [HttpGet]
+        public ActionResult AddTeamMember(int id)
         {
-            var teamMembers = db.TeamMembers.Include(t => t.Board).Include(t => t.User);
-            return View(teamMembers.ToList());
-        }
-
-        // GET: TeamMembers/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            TeamMember teamMember = db.TeamMembers.Find(id);
-            if (teamMember == null)
+            Board board = db.Boards.Find(id);
+            if (board == null)
             {
                 return HttpNotFound();
             }
+            TeamMember teamMember = new TeamMember { BoardId = board.BoardId, Board = board };
+
+            List<int> notAvailableUsersId = db.TeamMembers.Where(t => t.BoardId == id).Select(t => t.UserId).ToList();
+
+            List<User> availableUsers = db.Users.Where(b => !notAvailableUsersId.Contains(b.UserId)).ToList();
+
+            ViewBag.UserId = new SelectList(availableUsers, "UserId", "Email");
             return View(teamMember);
         }
 
-        // GET: TeamMembers/Create
-        public ActionResult Create()
-        {
-            ViewBag.BoardId = new SelectList(db.Boards, "BoardId", "Title");
-            ViewBag.UserId = new SelectList(db.Users, "UserId", "Email");
-            return View();
-        }
-
-        // POST: TeamMembers/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "TeamMemberId,BoardId,UserId")] TeamMember teamMember)
+        public ActionResult AddTeamMember(TeamMember teamMember)
         {
-            if (ModelState.IsValid)
-            {
-                db.TeamMembers.Add(teamMember);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-
-            ViewBag.BoardId = new SelectList(db.Boards, "BoardId", "Title", teamMember.BoardId);
-            ViewBag.UserId = new SelectList(db.Users, "UserId", "Email", teamMember.UserId);
-            return View(teamMember);
+            db.TeamMembers.Add(teamMember);
+            db.SaveChanges();
+            return RedirectToAction("Edit", "Boards", new { id = teamMember.BoardId });
         }
 
-        // GET: TeamMembers/Edit/5
-        public ActionResult Edit(int? id)
+        [HttpGet]
+        public ActionResult RemoveTeamMember(int? memberId, int? boardId)
         {
-            if (id == null)
+            if (memberId == null || boardId == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            TeamMember teamMember = db.TeamMembers.Find(id);
+
+            TeamMember teamMember =
+                db.TeamMembers.Include(t => t.Board).Include(t => t.User)
+                .SingleOrDefault(t => t.UserId == memberId && t.BoardId == boardId);
+
             if (teamMember == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.BoardId = new SelectList(db.Boards, "BoardId", "Title", teamMember.BoardId);
-            ViewBag.UserId = new SelectList(db.Users, "UserId", "Email", teamMember.UserId);
+
             return View(teamMember);
         }
 
-        // POST: TeamMembers/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "TeamMemberId,BoardId,UserId")] TeamMember teamMember)
+        public ActionResult RemoveTeamMember(TeamMember teamMember)
         {
-            if (ModelState.IsValid)
-            {
-                db.Entry(teamMember).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            ViewBag.BoardId = new SelectList(db.Boards, "BoardId", "Title", teamMember.BoardId);
-            ViewBag.UserId = new SelectList(db.Users, "UserId", "Email", teamMember.UserId);
-            return View(teamMember);
-        }
+            teamMember = db.TeamMembers.Find(teamMember.TeamMemberId);
 
-        // GET: TeamMembers/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            TeamMember teamMember = db.TeamMembers.Find(id);
-            if (teamMember == null)
-            {
-                return HttpNotFound();
-            }
-            return View(teamMember);
-        }
-
-        // POST: TeamMembers/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            TeamMember teamMember = db.TeamMembers.Find(id);
             db.TeamMembers.Remove(teamMember);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Edit", "Boards", new { id = teamMember.BoardId });
         }
     }
 }

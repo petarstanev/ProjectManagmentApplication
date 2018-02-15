@@ -57,7 +57,7 @@
                 <tr>
                     <td>@member.Name</td>
                     <td>@member.Email</td>
-                    <td>@Html.ActionLink("Remove member", "RemoveTeamMember" , new {memberId=member.UserId, boardId=Model.BoardId})</td>
+                    <td>@Html.ActionLink("Remove member", "RemoveTeamMember", "TeamMembers", new { memberId = member.UserId, boardId = Model.BoardId }, null)</td>
                 </tr>
             }
         </table>
@@ -66,7 +66,7 @@
 
 <div>
     @if(Model.BoardType == BoardType.Team) { 
-        @Html.ActionLink("Add members to the board", "AddTeamMember", new {id = Model.BoardId})
+        @Html.ActionLink("Add members to the board", "AddTeamMember", "TeamMembers", new {id = Model.BoardId}, null)
     }
     @Html.ActionLink("Back to List", "Index")
 </div>
