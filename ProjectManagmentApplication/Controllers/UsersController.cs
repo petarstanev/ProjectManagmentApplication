@@ -142,7 +142,6 @@ namespace ProjectManagementApplication.Controllers
             return View(new EditUser() { Email = editUser.Email, Name = editUser.Name });
         }
 
-
         public ActionResult Welcome()
         {
             return View();

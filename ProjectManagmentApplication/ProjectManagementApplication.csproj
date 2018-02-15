@@ -175,6 +175,7 @@
     <Compile Include="Repository\UserRepository.cs" />
     <Compile Include="ViewModels\BoardViewModel.cs" />
     <Compile Include="ViewModels\EditUser.cs" />
+    <Compile Include="ViewModels\HomePageBoards.cs" />
     <Compile Include="ViewModels\ImageViewModel.cs" />
     <Compile Include="ViewModels\LoginUser.cs" />
     <Compile Include="ViewModels\RegisterUser.cs" />
@@ -226,7 +227,6 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Boards\Create.cshtml" />
     <Content Include="Views\Boards\Delete.cshtml" />
     <Content Include="Views\Boards\Details.cshtml" />
@@ -256,6 +256,7 @@
     <Content Include="Views\Users\Welcome.cshtml" />
     <Content Include="Views\TeamMembers\AddTeamMember.cshtml" />
     <Content Include="Views\TeamMembers\RemoveTeamMember.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,98 +1,45 @@
-﻿@{
-    ViewBag.Title = "Home Page";
-}
-<div class="row">
-    <div class="col-md-2" id="menu-column">
-        <h2>Menu</h2>
-        <h3>
-            Boards
-            <br>
-        </h3>
-        <ul class="list-group">
-            <li class="list-group-item">
-                Board 1
-            </li>
-            <li class="list-group-item">
-                Board 2
-            </li>
-            <li class="list-group-item">
-                <a href="@Url.Action("Create", "Boards")" class="elements">
-                    <span>Create a board</span>
-                </a>
-            </li>
-        </ul>
-        <h3>
-            Labels
-            <br>
-        </h3>
-        <ul class="list-group">
-            <li class="list-group-item">Label 1</li>
-            <li class="list-group-item">
-                Label 2
-            </li>
-        </ul>
-        <h3>Members</h3>
-        <ul class="list-group">
-            <li class="list-group-item">Member 1</li>
-            <li class="list-group-item">Meber 2</li>
-        </ul>
-        <h3>Deadline</h3>
-        <ul class="list-group">
-            <li class="list-group-item">Due tomorrow</li>
-            <li class="list-group-item">Due nextweek</li>
-            <li class="list-group-item">Overdue</li>
-            <li class="list-group-item">No end date</li>
-        </ul>
-    </div>
-    <div id="board-column" class="col-md-7">
-        <div class="col-md-4">
-            <h3 class="text-center">
-                Column name
-                <br>
-            </h3>
-            <div class="well">
-                <h4>Task name&nbsp;</h4>
-                <p>Task description</p>
-            </div>
-            <div class="well">
-                <h4>Task &nbsp;2 name&nbsp;</h4>
-                <p>Task 2 description</p>
-            </div>
-            <a class="btn btn-block btn-primary btn-sm">Add task<br></a>
-        </div>
-    </div>
-    <div class="col-md-3" id="task-column">
-        <h2 class="text-center">Task name</h2>
-        <h3 contenteditable="true">Task description:</h3>
-        <p>
-            Example description ....
-            <br>
-            <br>
-        </p>
-        <h4>Created by: Member 1</h4>
-        <h4>Assigned to: Member 2</h4>
-        <h4>End date: 1/01/2018</h4>
-        <h4>Images:</h4>
+﻿@using ProjectManagementApplication.Models
+@model ProjectManagementApplication.ViewModels.HomePageBoards
+
+<div class="section">
+    <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <img src="https://i.vimeocdn.com/portrait/58832_300x300"
-                     class="img-responsive col-md-4">
-                <img src="https://i.vimeocdn.com/portrait/58832_300x300"
-                     class="img-responsive col-md-4">
-                <img src="https://i.vimeocdn.com/portrait/58832_300x300"
-                     class="img-responsive col-md-4">
+                <h1 class="text-center">
+                    Select board
+                    <br>
+                </h1>
             </div>
         </div>
-        <a class="btn btn-block btn-info btn-sm">Add comment<br></a>
-        <h3 contenteditable="true">Comments:</h3>
-        <a class="btn btn-block btn-sm btn-success">Add comment<br></a>
-        <blockquote>
-            <p>Test comment 1</p>
-            <footer>Member 1</footer>
-        </blockquote>
-        <blockquote>
-            <p>Test comment 2</p>
-            <footer>Member 2</footer>
-        </blockquote>
+        <div class="row">
+            <div class="col-md-4">
+                <h2>Private boards</h2>
+                <ul class="list-group">
+                    @foreach (Board board in Model.PrivateBoards)
+                    {
+                        <a href="@Url.Action("Details","Boards",new {id = board.BoardId})"><li class="list-group-item">@board.Title</li></a>
+                    }
+                </ul>
+                <a class="btn btn-primary">Add new private board</a>
+            </div>
+            <div class="col-md-4">
+                <h2>Team boards</h2>
+                <ul class="list-group">
+                    @foreach (Board board in Model.TeamBoards)
+                    {
+                        <a href="@Url.Action("Details","Boards",new {id = board.BoardId})"><li class="list-group-item">@board.Title</li></a>
+                    }
+                </ul>
+            </div>
+            <div class="col-md-4">
+                <h2>Public boards</h2>
+                <ul class="list-group">
+                    @foreach (Board board in Model.PublicBoards)
+                    {
+                        <a href="@Url.Action("Details","Boards",new {id = board.BoardId})"><li class="list-group-item">@board.Title</li></a>
+                    }
+                </ul>
+            </div>
+        </div>
     </div>
 </div>
