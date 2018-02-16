@@ -2,7 +2,6 @@
 @model ProjectManagementApplication.Models.Board
 
 <div id="board-column" class="col-md-7">
-    <span>TEST</span>
     @foreach (Column column in Model.Columns)
     {
         <div id="column_@column.ColumnId" class="col-md-4 column">
