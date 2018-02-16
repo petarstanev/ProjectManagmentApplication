@@ -133,13 +133,39 @@ namespace ProjectManagementApplication.Controllers
             return RedirectToAction("Index");
         }
 
-        protected override void Dispose(bool disposing)
+        [HttpPut]
+        public JsonResult Edit(int? taskId, int? columnId)
         {
-            if (disposing)
+            Task task = db.Tasks.Find(taskId);
+            if (task == null)
             {
-                db.Dispose();
+                Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+                return Json((int)Response.StatusCode, JsonRequestBehavior.AllowGet);
             }
-            base.Dispose(disposing);
+
+            //task.ColumnId = columnId;
+            db.Entry(task).State = EntityState.Modified;
+            db.SaveChanges();
+
+            Response.StatusCode = (int)HttpStatusCode.OK;
+            return Json((int)Response.StatusCode, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public ActionResult ChangeTaskColumn(int taskId, int columnId)
+        {
+            Task task = db.Tasks.Find(taskId);
+
+            if (task == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            task.ColumnId = columnId;
+            db.Entry(task).State = EntityState.Modified;
+            db.SaveChanges();
+
+            return new HttpStatusCodeResult(HttpStatusCode.OK);
         }
     }
 }

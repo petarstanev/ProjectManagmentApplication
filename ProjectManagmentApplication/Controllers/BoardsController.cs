@@ -9,7 +9,6 @@ using ProjectManagementApplication.ViewModels;
 
 namespace ProjectManagementApplication.Controllers
 {
-    [Authorize]
     public class BoardsController : Controller
     {
         private Context db = new Context();
@@ -77,7 +76,6 @@ namespace ProjectManagementApplication.Controllers
             SessionContext sx = new SessionContext();
 
             Column filteredColumn;
-            //TODO change 
             Board filterBoard = new Board();
             filterBoard.Title = board.Title;
             filterBoard.Columns = new List<Column>();
@@ -165,7 +163,7 @@ namespace ProjectManagementApplication.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "BoardId,Title")] Board board)
+        public ActionResult Edit(Board board)
         {
             if (ModelState.IsValid)
             {

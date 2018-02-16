@@ -5,7 +5,7 @@
     ViewBag.Title = "Home Page";
 }
 <div class="row">
-    <div class="col-md-2" id="menu-column">
+    <div class="col-xs-2" id="menu-column">
         <h2>@Model.SelectedBoard.Title</h2>
 
        <input id="board-id" type="hidden" value="@Model.SelectedBoard.BoardId" />
@@ -38,7 +38,7 @@
             <li class="list-group-item">No end date</li>
         </ul>
     </div>
-    <div class="col-md-7">
+    <div class="col-xs-7">
         <div id="selector-buttons"class="btn-group btn-group-justified">
             <a id="all-tasks" class="btn btn-primary active">All tasks</a>
             <a id="assigned-tasks" class="btn btn-primary">Assigned to me</a>
@@ -101,6 +101,5 @@
         });
 
         $("#all-tasks").trigger("click");
-     
     });
 </script>
