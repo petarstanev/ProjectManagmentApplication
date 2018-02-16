@@ -90,8 +90,6 @@
 
             var buttonType = $(this).attr('id');
             var boardId = $("#board-id").val();
-
-            console.log(boardId);
             $.ajax({
                 url: "/Boards/DetailsPart",
                 type: "GET",
@@ -103,5 +101,6 @@
         });
 
         $("#all-tasks").trigger("click");
+     
     });
 </script>

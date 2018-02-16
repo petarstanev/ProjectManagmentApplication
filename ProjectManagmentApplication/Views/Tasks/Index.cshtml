@@ -29,9 +29,6 @@
         <th>
             @Html.DisplayNameFor(model => model.Deadline)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Private)
-        </th>
         <th></th>
     </tr>
 
@@ -55,9 +52,7 @@
         <td>
             @Html.DisplayFor(modelItem => item.Deadline)
         </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Private)
-        </td>
+      
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.TaskId }) |
             @Html.ActionLink("Details", "Details", new { id=item.TaskId }) |

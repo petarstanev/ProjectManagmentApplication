@@ -4,27 +4,45 @@
 <div id="board-column" class="col-md-7">
     @foreach (Column column in Model.Columns)
     {
-        <div class="col-md-4">
+        <div class="col-md-4 column">
             <h3 class="text-center">
-                @Html.ActionLink(column.Title, "Edit", "Columns", new {id = column.ColumnId}, null)
+                @Html.ActionLink(column.Title, "Edit", "Columns", new { id = column.ColumnId }, null)
             </h3>
             @foreach (Task task in column.Tasks)
             {
-                <div class="well">
-                    <h4>
-                        @Html.ActionLink(task.Title, "Details", "Tasks", new {id = task.TaskId}, null)
-                    </h4>
-                    <p>@task.Description</p>
+                <div class="well task-container">
+                    <div class="task-header">
+                        @Html.ActionLink(task.Title, "Details", "Tasks", new { id = task.TaskId }, null)
+                    </div>
+                    <div class="task-content">
+                        @task.Description
+                    </div>
                 </div>
             }
-            <a class="btn btn-block btn-primary btn-sm" href="@Url.Action("Create", "Tasks", new {columnId = column.ColumnId})">
+            <a class="add-column-btn btn btn-block btn-primary btn-sm" href="@Url.Action("Create", "Tasks", new {columnId = column.ColumnId})">
                 Add task
             </a>
         </div>
     }
     <div class="col-md-4">
         <h3 class="text-center">
-            @Html.ActionLink("Add Column", "Create", "Columns", new {boardId = Model.BoardId}, null)
+            @Html.ActionLink("Add Column", "Create", "Columns", new { boardId = Model.BoardId }, null)
         </h3>
     </div>
 </div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(".column")
+            .sortable({
+                connectWith: ".column",
+                cancel: ".add-column-btn",
+                start: function (event, ui) {
+                    ui.item.addClass('task-moving');
+                },
+                stop: function (event, ui) {
+                    ui.item.removeClass("task-moving");
+                }
+            });
+    });
+</script>

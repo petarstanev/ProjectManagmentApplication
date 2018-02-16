@@ -18,7 +18,7 @@ namespace ProjectManagementApplication.Controllers
         public ActionResult Index()
         {
             var tasks = db.Tasks.Include(t => t.AssignedToUser).Include(t => t.Column).Include(t => t.CreatedByUser);
-            
+
             return View(tasks.ToList());
         }
 
@@ -38,10 +38,14 @@ namespace ProjectManagementApplication.Controllers
         }
 
         // GET: Tasks/Create
-        public ActionResult Create()
+        public ActionResult Create(int? columnId)
         {
+
+            ViewBag.ColumnId = new SelectList(db.Columns, "ColumnId", "Title", columnId);
+
+
             ViewBag.AssignedTo = new SelectList(db.Users, "UserId", "Email");
-            ViewBag.ColumnId = new SelectList(db.Columns, "ColumnId", "Title");
+
             ViewBag.CreatedBy = new SelectList(db.Users, "UserId", "Email");
             return View();
         }
