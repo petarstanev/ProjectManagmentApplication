@@ -8,14 +8,14 @@
     <div class="col-xs-2" id="menu-column">
         <h2>@Model.SelectedBoard.Title</h2>
 
-       <input id="board-id" type="hidden" value="@Model.SelectedBoard.BoardId" />
-        @Html.ActionLink("Board management","Edit",new {id = Model.SelectedBoard.BoardId })
+        <input id="board-id" type="hidden" value="@Model.SelectedBoard.BoardId" />
+        @Html.ActionLink("Board management", "Edit", new { id = Model.SelectedBoard.BoardId })
         <h3>
             Boards
         </h3>
 
         @{Html.RenderPartial("PartialView/BoardListColumn", Model.AllBoards, ViewData);}
-        
+
         <h3>
             Labels
         </h3>
@@ -39,7 +39,7 @@
         </ul>
     </div>
     <div class="col-xs-7">
-        <div id="selector-buttons"class="btn-group btn-group-justified">
+        <div id="selector-buttons" class="btn-group btn-group-justified">
             <a id="all-tasks" class="btn btn-primary active">All tasks</a>
             <a id="assigned-tasks" class="btn btn-primary">Assigned to me</a>
             <a id="created-tasks" class="btn btn-primary">Created by me</a>
@@ -83,23 +83,43 @@
     </div>
 </div>
 
-<script type="text/javascript">
-    $(document).ready(function () {
-        $('#selector-buttons .btn').click(function () {
-            $(this).addClass('active').siblings().removeClass('active');
+@section scripts {
+    <script src="~/Scripts/jquery.signalR-2.2.2.min.js"></script>
+    <script src="~/signalr/hubs"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var boardId = parseInt($("#board-id").val());
+            var hub = $.connection.boardHub;
+            var selectedType = "all-tasks";
 
-            var buttonType = $(this).attr('id');
-            var boardId = $("#board-id").val();
-            $.ajax({
-                url: "/Boards/DetailsPart",
-                type: "GET",
-                data: { id: boardId, type: buttonType }
-            })
-            .done(function (partialViewResult) {
-                $("#refTable").html(partialViewResult);
-            });
+            hub.client.boardUpdated = function (updatedBoardId) {
+                console.log("message" + updatedBoardId);
+                if (updatedBoardId === boardId) {
+                    refreshBoardData();
+                } else {
+                    //console.log(updatedBoardId + " " + boardId);
+                }
+            };
+
+            $('#selector-buttons .btn')
+                .click(function () {
+                    $(this).addClass('active').siblings().removeClass('active');
+                    var buttonType = $(this).attr('id');
+                    selectedType = buttonType;
+                    refreshBoardData();
+                });
+
+            $("#all-tasks").trigger("click");
+
+            function refreshBoardData() {
+                $.ajax({
+                    url: "/Boards/DetailsPart",
+                    type: "GET",
+                    data: { id: boardId, type: selectedType }
+                }).done(function (partialViewResult) {
+                    $("#refTable").html(partialViewResult);
+                });
+            }
         });
-
-        $("#all-tasks").trigger("click");
-    });
-</script>
+    </script>
+}

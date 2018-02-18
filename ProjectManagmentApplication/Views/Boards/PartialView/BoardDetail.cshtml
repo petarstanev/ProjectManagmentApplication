@@ -1,14 +1,14 @@
 ﻿@using ProjectManagementApplication.Models
-@model ProjectManagementApplication.Models.Board
+@model Board
 
 <div id="board-column" class="col-md-7">
-    @foreach (Column column in Model.Columns)
+    @foreach (var column in Model.Columns)
     {
         <div id="column_@column.ColumnId" class="col-md-4 column">
             <h3 class="text-center">
                 @Html.ActionLink(column.Title, "Edit", "Columns", new { id = column.ColumnId }, null)
             </h3>
-            @foreach (Task task in column.Tasks)
+            @foreach (var task in column.Tasks)
             {
                 <div id="task_@task.TaskId" class="well task-container">
                     <div class="task-header">
@@ -33,31 +33,39 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
-        $(".column")
-            .sortable({
-                connectWith: ".column",
-                cancel: ".add-column-btn",
-                start: function (event, ui) {
-                    ui.item.addClass('task-moving');
-                },
-                stop: function (event, ui) {
-                    ui.item.removeClass("task-moving");
-                },
-                receive: function (event, ui) {
-                    var taskId = ui.item[0].id.replace(/^\D+/g, '');//get id number from id
-                    var columnId = this.id.replace(/^\D+/g, '');
+        var hub = $.connection.boardHub;
+        $.connection.hub.start().done(function () {
+            $(".column")
+                .sortable({
+                    connectWith: ".column",
+                    cancel: ".add-column-btn",
+                    start: function (event, ui) {
+                        ui.item.addClass('task-moving');
+                    },
+                    stop: function (event, ui) {
+                        ui.item.removeClass("task-moving");
+                    },
+                    receive: function (event, ui) {
+                        var taskId = ui.item[0].id.replace(/^\D+/g, '');//get id number from id
+                        var columnId = this.id.replace(/^\D+/g, '');
+                        $.ajax({
+                            url: '/Tasks/ChangeTaskColumn',
+                            type: "POST",
+                            data: { taskId: taskId, columnId: columnId },
+                            statusCode: {
+                                400: function (data) {
+                                    console.log('Opps an error occurred.');
+                                },
+                                200: function (data) {
+                                    var boardId = $("#board-id").val();
+                                    hub.server.boardUpdated(boardId);
 
-                    $.ajax({
-                        url: '/Tasks/ChangeTaskColumn',
-                        type: "POST",
-                        data: { taskId: taskId, columnId: columnId },
-                        statusCode: {
-                            400: function (data) {
-                                console.log('Opps an error occurred.');
+                                    console.log("send");
+                                }
                             }
-                        }
-                    });
-                }
-            });
+                        });
+                    }
+                });
+        });
     });
 </script>

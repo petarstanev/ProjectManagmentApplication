@@ -8,8 +8,7 @@ using ProjectManagementApplication.ViewModels;
 
 namespace ProjectManagementApplication.Controllers
 {
-    [Authorize]
-    public class HomeController : Controller
+   public class HomeController : Controller
     {
         private Context db = new Context();
 
@@ -25,6 +24,11 @@ namespace ProjectManagementApplication.Controllers
             boards.PublicBoards = db.Boards.Where(b => b.BoardType == BoardType.Public && b.UserId == userId).ToList();
             
             return View(boards);
+        }
+
+        public ActionResult Chat()
+        {
+            return View();
         }
     }
 }
