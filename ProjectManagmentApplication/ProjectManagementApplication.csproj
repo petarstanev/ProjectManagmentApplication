@@ -173,8 +173,6 @@
     <Compile Include="Helpers\HashingHelper.cs" />
     <Compile Include="Helpers\TimeHelper.cs" />
     <Compile Include="Hubs\BoardHub.cs" />
-    <Compile Include="Hubs\ChatHub.cs" />
-    <Compile Include="Hubs\TaskHub.cs" />
     <Compile Include="Migrations\201802142014545_test10.cs" />
     <Compile Include="Migrations\201802142014545_test10.Designer.cs">
       <DependentUpon>201802142014545_test10.cs</DependentUpon>
@@ -330,7 +328,6 @@
     <Content Include="Views\TeamMembers\AddTeamMember.cshtml" />
     <Content Include="Views\TeamMembers\RemoveTeamMember.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Home\Chat.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

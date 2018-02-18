@@ -25,10 +25,5 @@ namespace ProjectManagementApplication.Controllers
             
             return View(boards);
         }
-
-        public ActionResult Chat()
-        {
-            return View();
-        }
     }
 }
