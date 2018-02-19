@@ -1,0 +1,32 @@
+﻿<nav class="navbar navbar-default navbar-static-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">Project management software</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li><a href="@Url.Action("Index","Boards")">Boards</a></li>
+                <li><a href="@Url.Action("Index","Columns")">Columns</a></li>
+                <li><a href="@Url.Action("Index","Tasks")">Tasks</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <li><a href="@Url.Action("Account","Users")">Account</a></li>
+                    <li><a href="@Url.Action("Logout","Users")">Logout</a></li>
+                }
+                else
+                {
+                    <li><a href="@Url.Action("Login","Users")">Login</a></li>
+                    <li><a href="@Url.Action("Register","Users")">Register</a></li>
+                }
+            </ul>
+        </div>
+    </div>
+</nav>

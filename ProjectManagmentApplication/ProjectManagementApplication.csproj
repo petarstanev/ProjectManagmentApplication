@@ -328,6 +328,7 @@
     <Content Include="Views\TeamMembers\AddTeamMember.cshtml" />
     <Content Include="Views\TeamMembers\RemoveTeamMember.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Shared\_Navigation.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

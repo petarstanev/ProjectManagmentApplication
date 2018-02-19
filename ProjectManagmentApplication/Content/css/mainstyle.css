@@ -5,10 +5,6 @@
     background-color: #90C2C0;
 }
 
-#board-column {
-    background-color: #D7C9AA;
-}
-
 #task-column {
     background-color: #C39F9C;
 }
@@ -17,3 +13,46 @@
     max-height: 300px;
     max-width: 300px;
 }
+
+/*
+ debug 
+        
+div[class="row"] {
+    border: 1px dotted rgba(0, 0, 0, 1);
+}
+
+div[class^="col-"] {
+     border: 1px dotted rgba(255, 0, 0, 0.5);
+}*/
+
+
+
+.row-eq-height {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display:         flex;
+}
+
+.container-fluid {
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.board-column {
+    min-width: 200px;
+    border: 1px solid;
+}
+
+.task-container:last-child {
+    margin-bottom: 100px;
+}
+
+#board-column-container {
+    overflow-x: auto;
+    white-space: nowrap;
+    margin-top: 20px;
+}
+

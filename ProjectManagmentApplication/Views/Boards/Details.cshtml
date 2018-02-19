@@ -1,88 +1,69 @@
-﻿@using ProjectManagementApplication.Models
-@model ProjectManagementApplication.ViewModels.BoardViewModel
+﻿@model ProjectManagementApplication.ViewModels.BoardViewModel
 
-@{
-    ViewBag.Title = "Home Page";
-}
-<div class="row">
-    <div class="col-xs-2" id="menu-column">
-        <h2>@Model.SelectedBoard.Title</h2>
-
+<div id="board-header" class="row">
+    <div class="col-md-9">
+        <h1>@Model.SelectedBoard.Title</h1>
         <input id="board-id" type="hidden" value="@Model.SelectedBoard.BoardId" />
-        @Html.ActionLink("Board management", "Edit", new { id = Model.SelectedBoard.BoardId })
-        <h3>
-            Boards
-        </h3>
-
-        @{Html.RenderPartial("PartialView/BoardListColumn", Model.AllBoards, ViewData);}
-
-        <h3>
-            Labels
-        </h3>
-        <ul class="list-group">
-            <li class="list-group-item">Label 1</li>
-            <li class="list-group-item">
-                Label 2
-            </li>
-        </ul>
-        <h3>Members</h3>
-        <ul class="list-group">
-            <li class="list-group-item">Member 1</li>
-            <li class="list-group-item">Meber 2</li>
-        </ul>
-        <h3>Deadline</h3>
-        <ul class="list-group">
-            <li class="list-group-item">Due tomorrow</li>
-            <li class="list-group-item">Due nextweek</li>
-            <li class="list-group-item">Overdue</li>
-            <li class="list-group-item">No end date</li>
-        </ul>
+        <h4>@Html.ActionLink("Board management", "Edit", new { id = Model.SelectedBoard.BoardId })</h4>
     </div>
-    <div class="col-xs-7">
-        <div id="selector-buttons" class="btn-group btn-group-justified">
-            <a id="all-tasks" class="btn btn-primary active">All tasks</a>
-            <a id="assigned-tasks" class="btn btn-primary">Assigned to me</a>
-            <a id="created-tasks" class="btn btn-primary">Created by me</a>
-        </div>
-    </div>
-    <div id="refTable">
-    </div>
-    <div class="col-md-3" id="task-column">
-        <h2 class="text-center">Task name</h2>
-        <h3 contenteditable="true">Task description:</h3>
-        <p>
-            Example description ....
-            <br>
-            <br>
-        </p>
-        <h4>Created by: Member 1</h4>
-        <h4>Assigned to: Member 2</h4>
-        <h4>End date: 1/01/2018</h4>
-        <h4>Images:</h4>
-        <div class="row">
-            <div class="col-md-12">
-                <img src="https://i.vimeocdn.com/portrait/58832_300x300"
-                     class="img-responsive col-md-4">
-                <img src="https://i.vimeocdn.com/portrait/58832_300x300"
-                     class="img-responsive col-md-4">
-                <img src="https://i.vimeocdn.com/portrait/58832_300x300"
-                     class="img-responsive col-md-4">
-            </div>
-        </div>
-        <a class="btn btn-block btn-info btn-sm">Add comment<br></a>
-        <h3 contenteditable="true">Comments:</h3>
-        <a class="btn btn-block btn-sm btn-success">Add comment<br></a>
-        <blockquote>
-            <p>Test comment 1</p>
-            <footer>Member 1</footer>
-        </blockquote>
-        <blockquote>
-            <p>Test comment 2</p>
-            <footer>Member 2</footer>
-        </blockquote>
+    <div class="col-md-3">
+        <a class="add-column-btn btn btn-block btn-primary btn-sm" href="@Url.Action("Create", "Tasks", new {boardId = Model.SelectedBoard.BoardId})">
+            Add task
+        </a>
+        <a class="add-column-btn btn btn-block btn-primary btn-sm" href="@Url.Action("Create", "Columns", new {boardId = Model.SelectedBoard.BoardId})">
+            Add column
+        </a>
     </div>
 </div>
 
+<div id="board-search-container" class="row">
+    <div class="col-md-9">
+        <div id="selector-buttons" class="btn-group btn-group-justified">
+            <a id="all-tasks" class="btn btn-default active">All tasks</a>
+            <a id="assigned-tasks" class="btn btn-default">Assigned to me</a>
+            <a id="created-tasks" class="btn btn-default">Created by me</a>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#board-search-details-container">Advanced search</button>
+    </div>
+</div>
+
+<div id="board-search-details-container" class="collapse row">
+    <div class="col-md-3">
+        <h3>Task name</h3>
+        <form class="form-horizontal" role="form">
+            <input id="task-name-search" placeholder="Enter task name" type="text" class="form-control">
+        </form>
+    </div>
+    <div class="col-md-3">
+        <h3>Deadline</h3>
+        <div class="btn-group btn-group-lg btn-group-vertical">
+            <a href="#" class="btn btn-default">Overdue</a>
+            <a href="#" class="btn btn-default">Due tomorrow</a>
+            <a href="#" class="btn btn-default">Due next week</a>
+            <a href="#" class="btn btn-default">No end date</a>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <h3>Created by</h3>
+        <form class="form-horizontal" role="form">
+            <input id="task-createdby-search" placeholder="Person created the task" type="text" class="form-control">
+        </form>
+    </div>
+    <div class="col-md-3">
+        <h3>Assigned to</h3>
+        <form class="form-horizontal" role="form">
+            <input id="task-assignedto-search" placeholder="Person created the task" type="text" class="form-control">
+        </form>
+    </div>
+</div>
+
+@section containerFluid
+{
+    <div id="board-column-container" class="row row-eq-height">
+    </div>
+}
 @section scripts {
     <script src="~/Scripts/jquery.signalR-2.2.2.min.js"></script>
     <script src="~/signalr/hubs"></script>
@@ -96,8 +77,6 @@
                 console.log("message" + updatedBoardId);
                 if (updatedBoardId === boardId) {
                     refreshBoardData();
-                } else {
-                    //console.log(updatedBoardId + " " + boardId);
                 }
             };
 
@@ -117,7 +96,7 @@
                     type: "GET",
                     data: { id: boardId, type: selectedType }
                 }).done(function (partialViewResult) {
-                    $("#refTable").html(partialViewResult);
+                    $("#board-column-container").html(partialViewResult);
                 });
             }
         });

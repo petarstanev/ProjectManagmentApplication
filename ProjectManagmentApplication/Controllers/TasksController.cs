@@ -38,10 +38,10 @@ namespace ProjectManagementApplication.Controllers
         }
 
         // GET: Tasks/Create
-        public ActionResult Create(int? columnId)
+        public ActionResult Create(int? boardId)
         {
-
-            ViewBag.ColumnId = new SelectList(db.Columns, "ColumnId", "Title", columnId);
+            //todo Show only correct columns
+            //ViewBag.ColumnId = new SelectList(db.Columns, "ColumnId", "Title", columnId);
 
 
             ViewBag.AssignedTo = new SelectList(db.Users, "UserId", "Email");
