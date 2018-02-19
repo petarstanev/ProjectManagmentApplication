@@ -40,22 +40,26 @@
                     receive: function (event, ui) {
                         var taskId = ui.item[0].id.replace(/^\D+/g, '');//get id number from id
                         var columnId = this.id.replace(/^\D+/g, '');
-                        $.ajax({
-                            url: '/Tasks/ChangeTaskColumn',
-                            type: "POST",
-                            data: { taskId: taskId, columnId: columnId },
-                            statusCode: {
-                                400: function (data) {
-                                    console.log('Opps an error occurred.');
-                                },
-                                200: function (data) {
-                                    var boardId = $("#board-id").val();
-                                    hub.server.boardUpdated(boardId);
+                        if (columnId > 0 && taskId > 0) {
+                            $.ajax({
+                                url: '/Tasks/ChangeTaskColumn',
+                                type: "POST",
+                                data: { taskId: taskId, columnId: columnId },
+                                statusCode: {
+                                    400: function(data) {
+                                        console.log('Opps an error occurred.');
+                                    },
+                                    200: function(data) {
+                                        var boardId = $("#board-id").val();
+                                        hub.server.boardUpdated(boardId);
 
-                                    console.log("send");
+                                        console.log("send");
+                                    }
                                 }
-                            }
-                        });
+                            });
+                        } else {
+                            console.log(columnId + " " + taskId + " " + this.id);
+                        }
                     }
                 });
         });

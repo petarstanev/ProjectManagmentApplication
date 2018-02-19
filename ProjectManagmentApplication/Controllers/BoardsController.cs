@@ -60,7 +60,7 @@ namespace ProjectManagementApplication.Controllers
 
         // GET: Boards/Details/5
         [HttpGet]
-        public ActionResult DetailsPart(int? id, string type)
+        public ActionResult DetailsPart(int? id, string type, string nameSearch)
         {
             if (id == null)
             {
@@ -70,31 +70,30 @@ namespace ProjectManagementApplication.Controllers
 
             if (type == "all-tasks")
             {
+                FilterBoardByTaskName(board, nameSearch);
                 return PartialView("PartialView/BoardDetail", board);
             }
 
-            SessionContext sx = new SessionContext();
+            FilterBoardByTasksType(board, type);
 
-            Column filteredColumn;
-            Board filterBoard = new Board();
-            filterBoard.Title = board.Title;
-            filterBoard.Columns = new List<Column>();
-            foreach (Column column in board.Columns)
+            return PartialView("PartialView/BoardDetail", board);
+        }
+
+        private void FilterBoardByTaskName(Board board, string taskName)
+        {
+            taskName = taskName.ToLower();
+            foreach (Column boardColumn in board.Columns)
             {
-                filteredColumn = new Column();
-                filteredColumn.Title = column.Title;
-                filteredColumn.Tasks = new List<Task>();
-                foreach (Task task in column.Tasks)
-                {
-                    if (ShouldTaskBeIncluded(task, type))
-                    {
-                        filteredColumn.Tasks.Add(task);
-                    }
-                }
-                filterBoard.Columns.Add(filteredColumn);
+                boardColumn.Tasks = boardColumn.Tasks.Where(t => t.Title.ToLower().Contains(taskName)).ToList();
             }
+        }
 
-            return PartialView("PartialView/BoardDetail", filterBoard);
+        private void FilterBoardByTasksType(Board board,string type)
+        {
+            foreach (Column boardColumn in board.Columns)
+            {
+                boardColumn.Tasks = boardColumn.Tasks.Where(t => ShouldTaskBeIncluded(t, type)).ToList();
+            }
         }
 
         private bool ShouldTaskBeIncluded(Task task, string type)

@@ -163,6 +163,7 @@
     <Compile Include="Controllers\CommentsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ImagesController.cs" />
+    <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="Controllers\TasksController.cs" />
     <Compile Include="Controllers\TeamMembersController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
@@ -205,6 +206,8 @@
     <Compile Include="ViewModels\ImageViewModel.cs" />
     <Compile Include="ViewModels\LoginUser.cs" />
     <Compile Include="ViewModels\RegisterUser.cs" />
+    <Compile Include="ViewModels\Search.cs" />
+    <Compile Include="ViewModels\SearchType.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\css\bootstrap-datepicker.min.css" />
@@ -333,6 +336,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\images\taskimages\" />
+    <Folder Include="Views\Search\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\fonts\glyphicons-halflings-regular.woff" />

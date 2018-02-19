@@ -38,7 +38,7 @@
     </div>
     <div class="col-md-3">
         <h3>Deadline</h3>
-        <div class="btn-group btn-group-lg btn-group-vertical">
+        <div class="btn-group btn-group-sm btn-group-vertical">
             <a href="#" class="btn btn-default">Overdue</a>
             <a href="#" class="btn btn-default">Due tomorrow</a>
             <a href="#" class="btn btn-default">Due next week</a>
@@ -91,14 +91,23 @@
             $("#all-tasks").trigger("click");
 
             function refreshBoardData() {
+                var taskNameSearch = $("#task-name-search").val();
                 $.ajax({
                     url: "/Boards/DetailsPart",
                     type: "GET",
-                    data: { id: boardId, type: selectedType }
+                    data: {
+                        id: boardId,
+                        type: selectedType,
+                        nameSearch: taskNameSearch
+            }
                 }).done(function (partialViewResult) {
                     $("#board-column-container").html(partialViewResult);
                 });
             }
+
+            $("#task-name-search").on('input',function(e) {
+                refreshBoardData();
+            });
         });
     </script>
 }
