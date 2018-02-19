@@ -94,6 +94,9 @@
 
             function refreshBoardData() {
                 var taskNameSearch = $("#task-name-search").val();
+                var createdBy = $("#task-createdby-search").val();
+                var assignedTo = $("#task-assignedto-search").val();
+
                 $.ajax({
                     url: "/Boards/DetailsPart",
                     type: "GET",
@@ -101,8 +104,10 @@
                         id: boardId,
                         type: selectedType,
                         nameSearch: taskNameSearch,
-                        time: selectedTime
-            }
+                        time: selectedTime,
+                        createdBy: createdBy,
+                        assignedTo: assignedTo
+                    }
                 }).done(function (partialViewResult) {
                     $("#board-column-container").html(partialViewResult);
                 });
@@ -112,7 +117,7 @@
                 refreshBoardData();
             });
 
-          
+
 
             $('#deadline-bt-group .btn')
                .click(function () {

@@ -60,7 +60,7 @@ namespace ProjectManagementApplication.Controllers
 
         // GET: Boards/Details/5
         [HttpGet]
-        public ActionResult DetailsPart(int? id, string type, string nameSearch, string time)
+        public ActionResult DetailsPart(int? id, string type, string nameSearch, string time, string createdBy, string assignedTo)
         {
             if (id == null)
             {
@@ -70,9 +70,24 @@ namespace ProjectManagementApplication.Controllers
             FilterBoardByTasksType(board, type);
             FilterBoardByTaskName(board, nameSearch);
             FilterBoardByTasksTime(board, time);
-
+            FilterBoardByTasksUser(board, createdBy, assignedTo);
             return PartialView("PartialView/BoardDetail", board);
         }
+
+        private void FilterBoardByTasksUser(Board board, string createdBy, string assignedTo)
+        {
+            createdBy = createdBy.ToLower();
+            assignedTo = assignedTo.ToLower();
+
+            List<Int32> foundUsersIds = db.Users.Where(u => u.Name.Contains(assignedTo) || u.Email.Contains(assignedTo)).Select(t => t.UserId).ToList();
+
+            foreach (Column boardColumn in board.Columns)
+            {
+                boardColumn.Tasks = boardColumn.Tasks.Where(t => t.AssignedTo != null && foundUsersIds.Contains((Int32)t.AssignedTo)).ToList();
+            }
+        }
+
+
 
         private void FilterBoardByTasksTime(Board board, string time)
         {
