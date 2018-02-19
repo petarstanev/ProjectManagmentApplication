@@ -60,23 +60,49 @@ namespace ProjectManagementApplication.Controllers
 
         // GET: Boards/Details/5
         [HttpGet]
-        public ActionResult DetailsPart(int? id, string type, string nameSearch)
+        public ActionResult DetailsPart(int? id, string type, string nameSearch, string time)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Board board = db.Boards.Include(e => e.Columns.Select(c => c.Tasks)).SingleOrDefault(e => e.BoardId == id);
-
-            if (type == "all-tasks")
-            {
-                FilterBoardByTaskName(board, nameSearch);
-                return PartialView("PartialView/BoardDetail", board);
-            }
-
             FilterBoardByTasksType(board, type);
+            FilterBoardByTaskName(board, nameSearch);
+            FilterBoardByTasksTime(board, time);
 
             return PartialView("PartialView/BoardDetail", board);
+        }
+
+        private void FilterBoardByTasksTime(Board board, string time)
+        {
+            if (time != "all")
+            {
+                DateTime? endDate;
+                switch (time)
+                {
+                    case "overdue":
+                        endDate = DateTime.UtcNow;
+                        break;
+                    case "tomorrow":
+                        endDate = DateTime.UtcNow.AddDays(1);
+                        break;
+                    case "due-next-week":
+                        endDate = DateTime.UtcNow.AddDays(7);
+                        break;
+                    default:
+                        endDate = null;
+                        break;
+                }
+
+                foreach (Column boardColumn in board.Columns)
+                {
+                    if (endDate == null)
+                        boardColumn.Tasks = boardColumn.Tasks.Where(t => t.Deadline == null).ToList();
+                    else
+                        boardColumn.Tasks = boardColumn.Tasks.Where(t => t.Deadline < endDate).ToList();
+                }
+            }
         }
 
         private void FilterBoardByTaskName(Board board, string taskName)
@@ -88,7 +114,7 @@ namespace ProjectManagementApplication.Controllers
             }
         }
 
-        private void FilterBoardByTasksType(Board board,string type)
+        private void FilterBoardByTasksType(Board board, string type)
         {
             foreach (Column boardColumn in board.Columns)
             {
@@ -98,6 +124,10 @@ namespace ProjectManagementApplication.Controllers
 
         private bool ShouldTaskBeIncluded(Task task, string type)
         {
+            if (type == "all-tasks")
+            {
+                return true;
+            }
             SessionContext sx = new SessionContext();
 
             if (type == "assigned-tasks" && task.AssignedTo != null && task.AssignedTo == sx.GetUserId())
@@ -200,7 +230,7 @@ namespace ProjectManagementApplication.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
-        
+
         private bool ValidateBoardAccess(Board board)
         {
             SessionContext sx = new SessionContext();
@@ -214,7 +244,7 @@ namespace ProjectManagementApplication.Controllers
                     break;
                 case BoardType.Team:
                     TeamMember teamMember = db.TeamMembers.FirstOrDefault(u => u.UserId == currentUser.UserId && u.BoardId == board.BoardId);
-                    
+
                     result = teamMember != null || CheckAdministrator(board);
                     break;
                 default:

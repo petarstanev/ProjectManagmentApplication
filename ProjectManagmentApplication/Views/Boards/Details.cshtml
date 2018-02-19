@@ -38,11 +38,12 @@
     </div>
     <div class="col-md-3">
         <h3>Deadline</h3>
-        <div class="btn-group btn-group-sm btn-group-vertical">
-            <a href="#" class="btn btn-default">Overdue</a>
-            <a href="#" class="btn btn-default">Due tomorrow</a>
-            <a href="#" class="btn btn-default">Due next week</a>
-            <a href="#" class="btn btn-default">No end date</a>
+        <div id="deadline-bt-group" class="btn-group btn-group-sm btn-group-vertical">
+            <a href="#" id="all" class="btn btn-default active">All</a>
+            <a href="#" id="overdue" class="btn btn-default">Overdue</a>
+            <a href="#" id="tomorrow" class="btn btn-default">Due tomorrow</a>
+            <a href="#" id="due-next-week" class="btn btn-default">Due next week</a>
+            <a href="#" id="no-end-date" class="btn btn-default">No end date</a>
         </div>
     </div>
     <div class="col-md-3">
@@ -72,6 +73,7 @@
             var boardId = parseInt($("#board-id").val());
             var hub = $.connection.boardHub;
             var selectedType = "all-tasks";
+            var selectedTime = "";
 
             hub.client.boardUpdated = function (updatedBoardId) {
                 console.log("message" + updatedBoardId);
@@ -98,16 +100,26 @@
                     data: {
                         id: boardId,
                         type: selectedType,
-                        nameSearch: taskNameSearch
+                        nameSearch: taskNameSearch,
+                        time: selectedTime
             }
                 }).done(function (partialViewResult) {
                     $("#board-column-container").html(partialViewResult);
                 });
             }
 
-            $("#task-name-search").on('input',function(e) {
+            $("#task-name-search").on('input', function (e) {
                 refreshBoardData();
             });
+
+          
+
+            $('#deadline-bt-group .btn')
+               .click(function () {
+                   $(this).addClass('active').siblings().removeClass('active');
+                   selectedTime = $(this).attr('id');
+                   refreshBoardData();
+               });
         });
     </script>
 }
