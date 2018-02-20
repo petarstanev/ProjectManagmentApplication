@@ -30,13 +30,13 @@
 </div>
 
 <div id="board-search-details-container" class="collapse row">
-    <div class="col-md-3">
+    <div class="col-md-4">
         <h3>Task name</h3>
         <form class="form-horizontal" role="form">
             <input id="task-name-search" placeholder="Enter task name" type="text" class="form-control">
         </form>
     </div>
-    <div class="col-md-3">
+    <div class="col-md-4">
         <h3>Deadline</h3>
         <div id="deadline-bt-group" class="btn-group btn-group-sm btn-group-vertical">
             <a href="#" id="all" class="btn btn-default active">All</a>
@@ -46,16 +46,10 @@
             <a href="#" id="no-end-date" class="btn btn-default">No end date</a>
         </div>
     </div>
-    <div class="col-md-3">
-        <h3>Created by</h3>
+    <div class="col-md-4">
+        <h3>Person</h3>
         <form class="form-horizontal" role="form">
-            <input id="task-createdby-search" placeholder="Person created the task" type="text" class="form-control">
-        </form>
-    </div>
-    <div class="col-md-3">
-        <h3>Assigned to</h3>
-        <form class="form-horizontal" role="form">
-            <input id="task-assignedto-search" placeholder="Person created the task" type="text" class="form-control">
+            <input id="task-person-name-search" placeholder="Person created or working on the task" type="text" class="form-control">
         </form>
     </div>
 </div>
@@ -90,12 +84,9 @@
                     refreshBoardData();
                 });
 
-            $("#all-tasks").trigger("click");
-
             function refreshBoardData() {
                 var taskNameSearch = $("#task-name-search").val();
-                var createdBy = $("#task-createdby-search").val();
-                var assignedTo = $("#task-assignedto-search").val();
+                var personName = $("#task-person-name-search").val();
 
                 $.ajax({
                     url: "/Boards/DetailsPart",
@@ -103,21 +94,18 @@
                     data: {
                         id: boardId,
                         type: selectedType,
-                        nameSearch: taskNameSearch,
+                        taskName: taskNameSearch,
                         time: selectedTime,
-                        createdBy: createdBy,
-                        assignedTo: assignedTo
+                        personName: personName
                     }
                 }).done(function (partialViewResult) {
                     $("#board-column-container").html(partialViewResult);
                 });
             }
 
-            $("#task-name-search").on('input', function (e) {
+            $("#task-name-search, #task-person-name-search").on('input', function (e) {
                 refreshBoardData();
             });
-
-
 
             $('#deadline-bt-group .btn')
                .click(function () {
@@ -125,6 +113,9 @@
                    selectedTime = $(this).attr('id');
                    refreshBoardData();
                });
+
+            $("#all-tasks").trigger("click");
+            $("#deadline-bt-group #all").trigger("click");
         });
     </script>
 }

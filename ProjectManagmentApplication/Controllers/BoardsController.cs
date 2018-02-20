@@ -60,7 +60,7 @@ namespace ProjectManagementApplication.Controllers
 
         // GET: Boards/Details/5
         [HttpGet]
-        public ActionResult DetailsPart(int? id, string type, string nameSearch, string time, string createdBy, string assignedTo)
+        public ActionResult DetailsPart(int? id, string type, string taskName, string time, string personName)
         {
             if (id == null)
             {
@@ -68,27 +68,27 @@ namespace ProjectManagementApplication.Controllers
             }
             Board board = db.Boards.Include(e => e.Columns.Select(c => c.Tasks)).SingleOrDefault(e => e.BoardId == id);
             FilterBoardByTasksType(board, type);
-            FilterBoardByTaskName(board, nameSearch);
+            FilterBoardByTaskName(board, taskName);
             FilterBoardByTasksTime(board, time);
-            FilterBoardByTasksUser(board, createdBy, assignedTo);
+            FilterBoardByTasksUser(board, personName);
             return PartialView("PartialView/BoardDetail", board);
         }
 
-        private void FilterBoardByTasksUser(Board board, string createdBy, string assignedTo)
+        private void FilterBoardByTasksUser(Board board, string personName)
         {
-            createdBy = createdBy.ToLower();
-            assignedTo = assignedTo.ToLower();
-
-            List<Int32> foundUsersIds = db.Users.Where(u => u.Name.Contains(assignedTo) || u.Email.Contains(assignedTo)).Select(t => t.UserId).ToList();
-
-            foreach (Column boardColumn in board.Columns)
+            if (!String.IsNullOrEmpty(personName))
             {
-                boardColumn.Tasks = boardColumn.Tasks.Where(t => t.AssignedTo != null && foundUsersIds.Contains((Int32)t.AssignedTo)).ToList();
+                personName = personName.ToLower();
+                List<Int32> foundUsersIds = db.Users.Where(u => u.Name.Contains(personName) || u.Email.Contains(personName)).Select(t => t.UserId).ToList();
+
+                foreach (Column boardColumn in board.Columns)
+                {
+                    boardColumn.Tasks = boardColumn.Tasks.Where(t => (t.AssignedTo != null && foundUsersIds.Contains((Int32)t.AssignedTo)) 
+                    || (t.CreatedBy != null && foundUsersIds.Contains((Int32)t.CreatedBy))).ToList();
+                }
             }
         }
-
-
-
+        
         private void FilterBoardByTasksTime(Board board, string time)
         {
             if (time != "all")
