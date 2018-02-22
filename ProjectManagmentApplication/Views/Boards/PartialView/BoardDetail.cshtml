@@ -10,9 +10,9 @@
         </h3>
         @foreach (Task task in column.Tasks)
         {
-            <div id="task_@task.TaskId" class="well task-container">
+            <div id="task_@task.TaskId" class="well task-container" data-toggle="modal" data-target="#task-modal-@task.TaskId">
                 <div class="task-header">
-                    <div class="task-header" data-toggle="modal" data-target="#task-modal-@task.TaskId">@task.Title</div>
+                    <div class="task-header">@task.Title</div>
                     @*@Html.ActionLink(task.Title, "Details", "Tasks", new {id = task.TaskId}, null)*@
                 </div>
                 <div class="task-content">

@@ -60,3 +60,13 @@ div[class^="col-"] {
     margin-top: 0;
     margin-bottom: 0;
 }
+
+
+.modal {
+    overflow-y: auto;
+}
+
+.modal-open {
+    overflow: auto;
+    margin-right: 0px !important;
+}
