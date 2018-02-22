@@ -1,66 +1,86 @@
-﻿@model ProjectManagementApplication.Models.Task
+﻿@using ProjectManagementApplication.Helpers
+@using ProjectManagementApplication.Models
+@model ProjectManagementApplication.Models.Task
 
-@{
-    ViewBag.Title = "Details";
-}
-
-<h2>Details</h2>
-
-<div>
-    <h4>Task</h4>
-    <hr />
+<div class="col-md-6">
+    <h2>Task Details</h2>
     <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.AssignedToUser.Email)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.AssignedToUser.Email)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Column.Title)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Column.Title)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.CreatedByUser.Email)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.CreatedByUser.Email)
-        </dd>
-
         <dt>
             @Html.DisplayNameFor(model => model.Title)
         </dt>
-
         <dd>
             @Html.DisplayFor(model => model.Title)
         </dd>
-
         <dt>
             @Html.DisplayNameFor(model => model.Description)
         </dt>
-
         <dd>
             @Html.DisplayFor(model => model.Description)
         </dd>
-
         <dt>
             @Html.DisplayNameFor(model => model.Deadline)
         </dt>
-
         <dd>
             @Html.DisplayFor(model => model.Deadline)
         </dd>
-        
+        <dt>
+            @Html.DisplayNameFor(model => model.CreatedBy)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.CreatedByUser.Name)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.AssignedTo)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.AssignedToUser.Name)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Column)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Column.Title)
+        </dd>
     </dl>
+    <h3>Images</h3>
+    @if (Model.Images.Count == 0)
+    {
+        <p>No images found.</p>
+    }
+    @foreach (Image image in Model.Images)
+    {
+        <a href="@image.Url" data-lightbox="task-set">
+            <img id="@image.ImageId" class="task-image img-responsive" data-lightbox="image-@image.ImageId" src="@image.Url">
+        </a>
+        @*@Html.ActionLink("Remove image", "Delete", "Images", new { id = image.ImageId }, null)*@
+    }
+    <p>
+        @Html.ActionLink("Add image", "Upload", "Images", new { id = Model.TaskId }, null)
+        <br />
+        @Html.ActionLink("Edit task", "Edit", new { id = Model.TaskId })
+        <br />
+        @Html.ActionLink("Back to Board", "Details", "Boards", new { id = Model.Column.BoardId }, null)
+    </p>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.TaskId }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+<div class="col-sm-6">
+    <h3>Comments</h3>
+    @foreach (Comment comment in Model.Comments)
+    {
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <strong>@comment.Author.Name</strong> <span class="text-muted">commented @TimeHelper.TimeAgo(comment.CreatedDate)</span>
+            </div>
+            <div class="panel-body">
+                @comment.Content
+            </div>
+            @if (@User.Identity.Name == comment.UserId.ToString())
+            {
+                <div class="panel-footer">
+                    @Html.ActionLink("Edit comment", "Edit", "Comments", new { id = comment.CommentId }, null)
+                    @Html.ActionLink("Delete comment", "Delete", "Comments", new { id = comment.CommentId }, null)
+                </div>
+            }
+        </div>
+    }
+    @Html.ActionLink("Add Comment", "Create", "Comments", new { taskId = Model.TaskId }, null)
+</div>

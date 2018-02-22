@@ -15,19 +15,14 @@ namespace ProjectManagementApplication.Controllers
         // GET: Comments/Create
         public ActionResult Create(int? taskId)
         {
-            ViewBag.UserId = new SelectList(db.Users, "UserId", "Email");
-
-            if (taskId != null)
+            if (taskId == null)
             {
-                ViewBag.TaskId = new SelectList(db.Tasks, "TaskId", "Title", taskId);
-
-            }
-            else
-            {
-                ViewBag.TaskId = new SelectList(db.Tasks, "TaskId", "Title");
+                return HttpNotFound();
             }
 
-            return View();
+            Comment comment = new Comment();
+            comment.Task = db.Tasks.Find(taskId);
+            return View(comment);
         }
 
         // POST: Comments/Create

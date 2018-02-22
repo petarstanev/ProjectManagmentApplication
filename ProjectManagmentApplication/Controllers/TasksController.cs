@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
+﻿using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
 using ProjectManagementApplication.Models;
 
@@ -29,11 +25,18 @@ namespace ProjectManagementApplication.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Task task = db.Tasks.Find(id);
+            Task task = db.Tasks.Include(t => t.Images)
+                .Include(t=> t.AssignedToUser)
+                .Include(t => t.CreatedByUser)
+                .SingleOrDefault(t => t.TaskId == id);
+
             if (task == null)
             {
                 return HttpNotFound();
             }
+
+            task.Comments = db.Comments.Include(c => c.Author).Where(c => c.TaskId == task.TaskId).ToList();         
+            task.Column = db.Columns.Find(task.ColumnId);
             return View(task);
         }
 
