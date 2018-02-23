@@ -12,7 +12,7 @@ namespace ProjectManagementApplication.Models
     {
         public int TaskId { get; set; }
         [Required]
-        [StringLength(15)]
+        [StringLength(30)]
         public string Title { get; set; }
         public string Description { get; set; }
 

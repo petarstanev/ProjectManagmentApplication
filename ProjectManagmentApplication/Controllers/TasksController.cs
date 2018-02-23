@@ -10,14 +10,6 @@ namespace ProjectManagementApplication.Controllers
     {
         private Context db = new Context();
 
-        // GET: Tasks
-        public ActionResult Index()
-        {
-            var tasks = db.Tasks.Include(t => t.AssignedToUser).Include(t => t.Column).Include(t => t.CreatedByUser);
-
-            return View(tasks.ToList());
-        }
-
         // GET: Tasks/Details/5
         public ActionResult Details(int? id)
         {
@@ -63,7 +55,8 @@ namespace ProjectManagementApplication.Controllers
             {
                 db.Tasks.Add(task);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                task.Column = db.Columns.Find(task.ColumnId);
+                return RedirectToAction("Details", "Boards", new { id = task.Column.BoardId });
             }
 
             ViewBag.AssignedTo = new SelectList(db.Users, "UserId", "Email", task.AssignedTo);
@@ -85,8 +78,8 @@ namespace ProjectManagementApplication.Controllers
                 return HttpNotFound();
             }
             ViewBag.AssignedTo = new SelectList(db.Users, "UserId", "Email", task.AssignedTo);
-            ViewBag.ColumnId = new SelectList(db.Columns, "ColumnId", "Title", task.ColumnId);
             ViewBag.CreatedBy = new SelectList(db.Users, "UserId", "Email", task.CreatedBy);
+            task.Column = db.Columns.Find(task.ColumnId);
             return View(task);
         }
 
@@ -101,7 +94,7 @@ namespace ProjectManagementApplication.Controllers
             {
                 db.Entry(task).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return  RedirectToAction("Details", new { id = task.TaskId });
             }
             ViewBag.AssignedTo = new SelectList(db.Users, "UserId", "Email", task.AssignedTo);
             ViewBag.ColumnId = new SelectList(db.Columns, "ColumnId", "Title", task.ColumnId);
@@ -116,7 +109,10 @@ namespace ProjectManagementApplication.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Task task = db.Tasks.Find(id);
+            Task task = db.Tasks.Include(t => t.AssignedToUser)
+                .Include(t => t.CreatedByUser)
+                .SingleOrDefault(t => t.TaskId == id);
+
             if (task == null)
             {
                 return HttpNotFound();
@@ -130,9 +126,11 @@ namespace ProjectManagementApplication.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             Task task = db.Tasks.Find(id);
+            task.Column = db.Columns.Find(task.ColumnId);
+            int boardId = task.Column.BoardId;
             db.Tasks.Remove(task);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Details", "Boards", new { id = boardId });
         }
 
         [HttpPut]

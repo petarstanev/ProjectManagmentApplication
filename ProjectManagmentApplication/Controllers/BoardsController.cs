@@ -67,6 +67,10 @@ namespace ProjectManagementApplication.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Board board = db.Boards.Include(e => e.Columns.Select(c => c.Tasks)).SingleOrDefault(e => e.BoardId == id);
+            //Board board = db.Boards.Find(id);
+            //board.Columns =
+            //    db.Columns.Include(c => c.Tasks.Select(t => t.AssignedToUser)).Where(c => c.BoardId == id).ToList();
+
             FilterBoardByTasksType(board, type);
             FilterBoardByTaskName(board, taskName);
             FilterBoardByTasksTime(board, time);
