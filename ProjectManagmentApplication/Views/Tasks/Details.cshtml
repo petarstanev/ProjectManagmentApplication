@@ -42,25 +42,29 @@
             @Html.DisplayFor(model => model.Column.Title)
         </dd>
     </dl>
-    <h3>Images</h3>
-    @if (Model.Images.Count == 0)
-    {
-        <p>No images found.</p>
-    }
-    @foreach (Image image in Model.Images)
-    {
-        <a href="@image.Url" data-lightbox="task-set">
-            <img id="@image.ImageId" class="task-image img-responsive" data-lightbox="image-@image.ImageId" src="@image.Url">
-        </a>
-        @*@Html.ActionLink("Remove image", "Delete", "Images", new { id = image.ImageId }, null)*@
-    }
-    <p>
+    <div class="task-images">
+        <h3>Images</h3>
+        @if (Model.Images.Count == 0)
+        {
+            <p>No images found.</p>
+        }
+        @foreach (Image image in Model.Images)
+        {
+            <div class="task-image-container text-center col-md-10">
+                <a href="@image.Url" data-lightbox="task-set">
+                    <img id="@image.ImageId" class="img-responsive" data-lightbox="image-@image.ImageId" src="@image.Url">
+                </a>
+                @Html.ActionLink("Remove image", "Delete", "Images", new { id = image.ImageId }, new { @class = "" })
+            </div>
+        }
+    </div>
+    <div class="row">
         @Html.ActionLink("Add image", "Upload", "Images", new { id = Model.TaskId }, null)
         <br />
         @Html.ActionLink("Edit task", "Edit", new { id = Model.TaskId })
         <br />
         @Html.ActionLink("Back to Board", "Details", "Boards", new { id = Model.Column.BoardId }, null)
-    </p>
+    </div>
 </div>
 <div class="col-sm-6">
     <h3>Comments</h3>
