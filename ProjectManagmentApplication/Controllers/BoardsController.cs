@@ -31,7 +31,6 @@ namespace ProjectManagementApplication.Controllers
 
                 throw ex;
             }
-
         }
 
         // GET: Boards/Details/5

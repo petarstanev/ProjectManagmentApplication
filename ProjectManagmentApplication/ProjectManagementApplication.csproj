@@ -161,6 +161,7 @@
     <Compile Include="Controllers\BoardsController.cs" />
     <Compile Include="Controllers\ColumnsController.cs" />
     <Compile Include="Controllers\CommentsController.cs" />
+    <Compile Include="Controllers\FavoritesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ImagesController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
@@ -186,12 +187,21 @@
     <Compile Include="Migrations\201802142021468_test102.Designer.cs">
       <DependentUpon>201802142021468_test102.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201802261433582_addedFavBoard.cs" />
+    <Compile Include="Migrations\201802261433582_addedFavBoard.Designer.cs">
+      <DependentUpon>201802261433582_addedFavBoard.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201802261453374_addedFavBoard2.cs" />
+    <Compile Include="Migrations\201802261453374_addedFavBoard2.Designer.cs">
+      <DependentUpon>201802261453374_addedFavBoard2.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Board.cs" />
     <Compile Include="Models\BoardType.cs" />
     <Compile Include="Models\Column.cs" />
     <Compile Include="Models\Comment.cs" />
     <Compile Include="Models\Context.cs" />
+    <Compile Include="Models\FavoriteBoard.cs" />
     <Compile Include="Models\Image.cs" />
     <Compile Include="Models\Label.cs" />
     <Compile Include="Models\SessionContext.cs" />
@@ -335,6 +345,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\images\taskimages\" />
+    <Folder Include="Views\Favorites\" />
     <Folder Include="Views\Search\" />
   </ItemGroup>
   <ItemGroup>
@@ -358,6 +369,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201802142021468_test102.resx">
       <DependentUpon>201802142021468_test102.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201802261433582_addedFavBoard.resx">
+      <DependentUpon>201802261433582_addedFavBoard.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201802261453374_addedFavBoard2.resx">
+      <DependentUpon>201802261453374_addedFavBoard2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -16,6 +16,8 @@ namespace ProjectManagementApplication.Models
         public DbSet<Comment> Comments { get; set; }
         public DbSet<Image> Images { get; set; }
         public DbSet<TeamMember> TeamMembers { get; set; }
+        public DbSet<FavoriteBoard> FavoriteBoards { get; set; }
+
 
         public Context() : base("AwsDatabase")
         {

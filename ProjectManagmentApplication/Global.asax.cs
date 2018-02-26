@@ -19,5 +19,11 @@ namespace ProjectManagementApplication
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             AutoMapper.Mapper.Initialize(cfg => cfg.AddProfile<AutoMapperConfig>());
         }
+
+        protected void Application_EndRequest()
+        {
+            var a = this.Context.AllErrors;
+
+        }
     }
 }
