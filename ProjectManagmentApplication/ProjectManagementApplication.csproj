@@ -25,6 +25,7 @@
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <Use64BitIISExpress />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -175,26 +176,6 @@
     <Compile Include="Helpers\HashingHelper.cs" />
     <Compile Include="Helpers\TimeHelper.cs" />
     <Compile Include="Hubs\BoardHub.cs" />
-    <Compile Include="Migrations\201802142014545_test10.cs" />
-    <Compile Include="Migrations\201802142014545_test10.Designer.cs">
-      <DependentUpon>201802142014545_test10.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201802142020221_test101.cs" />
-    <Compile Include="Migrations\201802142020221_test101.Designer.cs">
-      <DependentUpon>201802142020221_test101.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201802142021468_test102.cs" />
-    <Compile Include="Migrations\201802142021468_test102.Designer.cs">
-      <DependentUpon>201802142021468_test102.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201802261433582_addedFavBoard.cs" />
-    <Compile Include="Migrations\201802261433582_addedFavBoard.Designer.cs">
-      <DependentUpon>201802261433582_addedFavBoard.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201802261453374_addedFavBoard2.cs" />
-    <Compile Include="Migrations\201802261453374_addedFavBoard2.Designer.cs">
-      <DependentUpon>201802261453374_addedFavBoard2.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Board.cs" />
     <Compile Include="Models\BoardType.cs" />
@@ -359,23 +340,6 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201802142014545_test10.resx">
-      <DependentUpon>201802142014545_test10.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201802142020221_test101.resx">
-      <DependentUpon>201802142020221_test101.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201802142021468_test102.resx">
-      <DependentUpon>201802142021468_test102.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201802261433582_addedFavBoard.resx">
-      <DependentUpon>201802261433582_addedFavBoard.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201802261453374_addedFavBoard2.resx">
-      <DependentUpon>201802261453374_addedFavBoard2.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

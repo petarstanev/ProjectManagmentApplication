@@ -27,8 +27,8 @@ namespace ProjectManagementApplication.Controllers
                 return HttpNotFound();
             }
 
-            task.Comments = db.Comments.Include(c => c.Author).Where(c => c.TaskId == task.TaskId).ToList();         
-            task.Column = db.Columns.Find(task.ColumnId);
+            task.Comments = db.Comments.Include(c => c.Author).Where(c => c.TaskId == task.TaskId).ToList();
+            task.Column = db.Columns.Include(c => c.Board).SingleOrDefault(c => c.ColumnId == task.ColumnId);
             return View(task);
         }
 

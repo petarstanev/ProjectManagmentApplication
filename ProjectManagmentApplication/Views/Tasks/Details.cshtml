@@ -2,96 +2,113 @@
 @using ProjectManagementApplication.Models
 @model ProjectManagementApplication.Models.Task
 
-<div class="col-md-6">
-    <h2>Task Details</h2>
+<div class="row">
+    <div class="col-md-8">
+        <h1>@Html.DisplayNameFor(model => model.Title)</h1>
+    </div>
+    <div id="favorite-container" class="col-md-4">
+        @Html.HiddenFor(t => t.Column.BoardId,new {@id= "board-id"})
+        <div id="fav-true">          
+            <button class="btn btn-lg btn-warning">
+                <span class="glyphicon  glyphicon glyphicon-star" aria-hidden="true"></span>Favorite
+            </button>            
+        </div>
+        <div id="fav-false">
+            <button class="btn btn-lg btn-default">
+                <span class="glyphicon  glyphicon glyphicon-star-empty" aria-hidden="true"></span>Favorite
+            </button>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-8">
+        <h2>Details</h2>
+        <table class="pull-left col-md-8 ">
+            <tbody>
+                <tr>
+                    <td><strong>@Html.DisplayNameFor(model => model.Title)</strong></td>
+                    <td>@Html.DisplayFor(model => model.Title)</td>
+                </tr>
+                <tr>
+                    <td><strong>@Html.DisplayNameFor(model => model.Description)</strong></td>
 
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Title)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Title)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Description)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Deadline)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Deadline)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.CreatedBy)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.CreatedByUser.Name)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.AssignedTo)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.AssignedToUser.Name)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Column)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Column.Title)
-        </dd>
-    </dl>
-    <div class="task-images">
-        <h3>Images</h3>
+                    <td>@Html.DisplayFor(model => model.Description)</td>
+                </tr>
+                <tr>
+                    <td><strong>@Html.DisplayNameFor(model => model.Deadline)</strong></td>
+                    <td>@Html.DisplayFor(model => model.Deadline)</td>
+                </tr>
+                <tr>
+                    <td><strong>@Html.DisplayNameFor(model => model.CreatedBy)</strong></td>
+                    <td>@Html.DisplayFor(model => model.CreatedByUser.Name)</td>
+                </tr>
+                <tr>
+                    <td><strong>@Html.DisplayNameFor(model => model.AssignedTo)</strong></td>
+                    <td>@Html.DisplayFor(model => model.AssignedToUser.Name)</td>
+                </tr>
+                <tr>
+                    <td><strong>@Html.DisplayNameFor(model => model.Column)</strong></td>
+                    <td>@Html.DisplayFor(model => model.Column.Title)</td>
+                </tr>
+                <tr>
+                    <td><strong>@Html.DisplayNameFor(model => model.Column.Board)</strong></td>
+                    <td>@Html.DisplayFor(model => model.Column.Board.Title)</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="col-md-4">
+        <h2>Images</h2>
         @if (Model.Images.Count == 0)
         {
             <p>No images found.</p>
         }
         @foreach (Image image in Model.Images)
         {
-            <div class="task-image-container text-center col-md-10">
+            <div class="task-image-container text-center col-md-4">
                 <a href="@image.Url" data-lightbox="task-set">
                     <img id="@image.ImageId" class="img-responsive" data-lightbox="image-@image.ImageId" src="@image.Url">
                 </a>
                 @Html.ActionLink("Remove image", "Delete", "Images", new { id = image.ImageId }, new { @class = "" })
             </div>
         }
-    </div>
-    <div class="col-md-10">
-        @Html.ActionLink("Add image", "Upload", "Images", new { id = Model.TaskId }, null)
-        <br />
-        @Html.ActionLink("Edit task", "Edit", new { id = Model.TaskId })
-        <br />
-        @Html.ActionLink("Back to Board", "Details", "Boards", new { id = Model.Column.BoardId }, null)
-        <div id="favorite-container"></div>
-        <input id="board-id" type="hidden" value="@Model.Column.BoardId" />
-    </div>
-</div>
-<div class="col-sm-6">
-    <h3>Comments</h3>
-    @foreach (Comment comment in Model.Comments)
-    {
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <strong>@comment.Author.Name</strong> <span class="text-muted">commented @TimeHelper.TimeAgo(comment.CreatedDate)</span>
-            </div>
-            <div class="panel-body">
-                @comment.Content
-            </div>
-            @if (@User.Identity.Name == comment.UserId.ToString())
-            {
-                <div class="panel-footer">
-                    @Html.ActionLink("Edit comment", "Edit", "Comments", new { id = comment.CommentId }, null)
-                    @Html.ActionLink("Delete comment", "Delete", "Comments", new { id = comment.CommentId }, null)
-                </div>
-            }
+        <div class="col-md-4">
+            @Html.ActionLink("Add image", "Upload", "Images", new { id = Model.TaskId }, new { @class = "btn btn-success" })
         </div>
-    }
-    @Html.ActionLink("Add Comment", "Create", "Comments", new { taskId = Model.TaskId }, null)
+    </div>
 </div>
-
+<div class="row">
+    <a href="@Url.Action("Details", "Boards", new { id = Model.Column.BoardId })" class="btn btn-primary">
+        <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>
+        Back to board
+    </a>
+    @Html.ActionLink("Edit task", "Edit", new { id = Model.TaskId }, new { @class = "btn btn-warning" })
+    @Html.ActionLink("Delete task", "Delete", new { id = Model.TaskId }, new { @class = "btn btn-danger" })
+</div>
+<div class="row">
+    <div class="col-md-8">
+        <h2>Comments</h2>
+        @foreach (Comment comment in Model.Comments)
+        {
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <strong>@comment.Author.Name</strong> <span class="text-muted">commented @TimeHelper.TimeAgo(comment.CreatedDate)</span>
+                </div>
+                <div class="panel-body">
+                    @comment.Content
+                </div>
+                @if (@User.Identity.Name == comment.UserId.ToString())
+                {
+                    <div class="panel-footer">
+                        @Html.ActionLink("Edit comment", "Edit", "Comments", new { id = comment.CommentId }, null)
+                        @Html.ActionLink("Delete comment", "Delete", "Comments", new { id = comment.CommentId }, null)
+                    </div>
+                }
+            </div>
+        }
+        @Html.ActionLink("Add Comment", "Create", "Comments", new { taskId = Model.TaskId }, new { @class = "btn btn-default" })
+    </div>
+</div>
 
 @section scripts {
     <script type="text/javascript">
@@ -102,13 +119,9 @@
 
                 $("#favorite-container")
                     .click(function () {
-                        if ($("#favorite-container").text() === "Favorite") {
-                            removeFromFavorite();
-                        } else {
-                            addToFavorite();
-                        }
+                        changeFavorite();                        
                     });
-          
+
 
                 function getFavoriteStatus() {
                     $.ajax({
@@ -118,18 +131,19 @@
                         dataType: 'JSON',
                         success: function (data) {
                             if (data.favourite) {
-                                $("#favorite-container").text("Favorite");
+                                $("#fav-true").show();
+                                $("#fav-false").hide();
                             } else {
-                                $("#favorite-container").text("Not Favorite");
+                                $("#fav-true").hide();
+                                $("#fav-false").show();
                             }
-
                             return data;
                         }
                     });
                 }
-                function addToFavorite() {
+                function changeFavorite() {
                     $.ajax({
-                        url: "/Favorites/AddToFavorite",
+                        url: "/Favorites/ChangeFavorite",
                         type: "POST",
                         data: {
                             boardId: boardId
@@ -137,19 +151,7 @@
                     }).done(function () {
                         getFavoriteStatus();
                     });
-                }
-                function removeFromFavorite() {
-                    $.ajax({
-                        url: "/Favorites/RemoveFromFavorite",
-                        type: "POST",
-                        data: {
-                            boardId: boardId
-                        }
-                    }).done(function () {
-                        getFavoriteStatus();
-                    });
-                }
-
+                }          
             });
     </script>
 }

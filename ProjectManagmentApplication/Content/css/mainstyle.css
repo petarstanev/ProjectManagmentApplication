@@ -70,3 +70,8 @@ div[class^="col-"] {
     overflow: auto;
     margin-right: 0px !important;
 }
+
+
+.btn-favorite{
+    background-color: yellow;
+}
