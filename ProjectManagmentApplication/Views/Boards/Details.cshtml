@@ -1,16 +1,22 @@
-﻿@model ProjectManagementApplication.ViewModels.BoardViewModel
+﻿@model ProjectManagementApplication.Models.Board
 
 <div id="board-header" class="row">
     <div class="col-md-9">
-        <h1>@Model.SelectedBoard.Title</h1>
-        <input id="board-id" type="hidden" value="@Model.SelectedBoard.BoardId" />
-        <h4>@Html.ActionLink("Board management", "Edit", new { id = Model.SelectedBoard.BoardId })</h4>
+        <h1>@Model.Title</h1>
+        <input id="board-id" type="hidden" value="@Model.BoardId" />
+        <h4>
+            Type: @Model.BoardType, Administrator: @Model.User.Name 
+            @if (ViewBag.Administrator)
+            {
+                @Html.ActionLink("Board management", "Edit", new {id = Model.BoardId})
+            }
+        </h4>
     </div>
     <div class="col-md-3">
-        <a class="add-column-btn btn btn-block btn-primary btn-sm" href="@Url.Action("Create", "Tasks", new {boardId = Model.SelectedBoard.BoardId})">
+        <a class="add-column-btn btn btn-block btn-primary btn-sm" href="@Url.Action("Create", "Tasks", new {boardId = Model.BoardId})">
             Add task
         </a>
-        <a class="add-column-btn btn btn-block btn-primary btn-sm" href="@Url.Action("Create", "Columns", new {boardId = Model.SelectedBoard.BoardId})">
+        <a class="add-column-btn btn btn-block btn-primary btn-sm" href="@Url.Action("Create", "Columns", new {boardId = Model.BoardId})">
             Add column
         </a>
     </div>
@@ -119,3 +125,4 @@
         });
     </script>
 }
+

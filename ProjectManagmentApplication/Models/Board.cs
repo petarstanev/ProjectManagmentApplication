@@ -15,6 +15,7 @@ namespace ProjectManagementApplication.Models
         public string Title { get; set; }
         public List<Column> Columns { get; set; }
         
+        [Display(Name = "Administrator")]
         public int? UserId { get; set; }
         public User User { get; set; }
 

@@ -36,7 +36,6 @@ namespace ProjectManagementApplication.Controllers
         // GET: Boards/Details/5
         public ActionResult Details(int? id)
         {
-            BoardViewModel boardView = new BoardViewModel();
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -50,11 +49,12 @@ namespace ProjectManagementApplication.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.Forbidden);
             }
+            SessionContext sx = new SessionContext();
+            
+            ViewBag.Administrator = board.UserId == sx.GetUserId();
+            
 
-            boardView.SelectedBoard = board;
-            boardView.AllBoards = db.Boards.ToList();
-
-            return View(boardView);
+            return View(board);
         }
 
         // GET: Boards/Details/5
@@ -198,10 +198,16 @@ namespace ProjectManagementApplication.Controllers
             {
                 return HttpNotFound();
             }
-            List<User> teamMembers =
-                db.TeamMembers.Include(t => t.User).Where(t => t.BoardId == id).Select(t => t.User).ToList();
+            if (!CheckAdministrator(board))
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.Forbidden);
+            }
 
-            ViewBag.TeamMembers = teamMembers;
+            List<User> members =
+                db.TeamMembers.Include(t => t.User).Where(t => t.BoardId == id).Select(t => t.User).ToList();
+           
+            ViewBag.UserId = new SelectList(db.Users, "UserId", "Email", board.UserId);
+            ViewBag.TeamMembers = members;
             return View(board);
         }
 
@@ -216,8 +222,12 @@ namespace ProjectManagementApplication.Controllers
             {
                 db.Entry(board).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Details",new {id = board.BoardId});
             }
+            List<User> members =
+               db.TeamMembers.Include(t => t.User).Where(t => t.BoardId == board.BoardId).Select(t => t.User).ToList();
+            ViewBag.UserId = new SelectList(db.Users, "UserId", "Email", board.User);
+            ViewBag.TeamMembers = members;
             return View(board);
         }
 
@@ -232,6 +242,10 @@ namespace ProjectManagementApplication.Controllers
             if (board == null)
             {
                 return HttpNotFound();
+            }
+            if (!ValidateBoardAccess(board))
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.Forbidden);
             }
             return View(board);
         }
@@ -261,8 +275,10 @@ namespace ProjectManagementApplication.Controllers
                     result = CheckAdministrator(board);
                     break;
                 case BoardType.Team:
+                    if (currentUser == null)
+                        return false;
+                    
                     TeamMember teamMember = db.TeamMembers.FirstOrDefault(u => u.UserId == currentUser.UserId && u.BoardId == board.BoardId);
-
                     result = teamMember != null || CheckAdministrator(board);
                     break;
                 default:
@@ -276,7 +292,7 @@ namespace ProjectManagementApplication.Controllers
         private bool CheckAdministrator(Board board)
         {
             SessionContext sx = new SessionContext();
-            return board.User.UserId == sx.GetUserId();
+            return board.UserId == sx.GetUserId();
         }
     }
 }
