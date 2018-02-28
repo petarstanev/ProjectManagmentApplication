@@ -243,7 +243,7 @@ namespace ProjectManagementApplication.Controllers
             {
                 return HttpNotFound();
             }
-            if (!ValidateBoardAccess(board))
+            if (!CheckAdministrator(board))
             {
                 return new HttpStatusCodeResult(HttpStatusCode.Forbidden);
             }

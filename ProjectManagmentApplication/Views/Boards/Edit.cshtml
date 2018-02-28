@@ -10,9 +10,8 @@
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-
-    <div class="form-horizontal">
-        <div class="col-md-6">
+    <div class="col-md-6">
+        <div class="form-horizontal">
             <h4>Board</h4>
             <hr />
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
@@ -39,13 +38,19 @@
                     @Html.ValidationMessageFor(model => model.User, "", new { @class = "text-danger" })
                 </div>
             </div>
-            
+
 
 
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-10">
                     <input type="submit" value="Save" class="btn btn-default" />
                 </div>
+            </div>
+
+            <div>
+                @Html.ActionLink("Delete board", "Delete", new { id = Model.BoardId }, new { @class = "btn btn-danger" })
+                @Html.ActionLink("Back to Board", "Details", new { id = Model.BoardId },new {@class="btn btn-info"})
+
             </div>
         </div>
     </div>
@@ -74,13 +79,4 @@
             @Html.ActionLink("Add members to the board", "AddTeamMember", "TeamMembers", new { id = Model.BoardId }, null)
         }
     </div>
-}
-
-<div>
-
-    @Html.ActionLink("Back to List", "Index")
-</div>
-
-@section scripts
-{
 }
