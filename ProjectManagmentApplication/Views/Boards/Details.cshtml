@@ -5,14 +5,26 @@
         <h1>@Model.Title</h1>
         <input id="board-id" type="hidden" value="@Model.BoardId" />
         <h4>
-            Type: @Model.BoardType, Administrator: @Model.User.Name 
+            Type: @Model.BoardType, Administrator: @Model.User.Name
             @if (ViewBag.Administrator)
             {
-                @Html.ActionLink("Board management", "Edit", new {id = Model.BoardId})
+                @Html.ActionLink("Board management", "Edit", new { id = Model.BoardId })
             }
         </h4>
     </div>
     <div class="col-md-3">
+        <div id="favorite-container">
+            <div id="fav-true">
+                <button class="btn btn-lg btn-warning">
+                    <span class="glyphicon  glyphicon glyphicon-star" aria-hidden="true"></span>Favourite
+                </button>
+            </div>
+            <div id="fav-false">
+                <button class="btn btn-lg btn-default">
+                    <span class="glyphicon  glyphicon glyphicon-star-empty" aria-hidden="true"></span>Favourite
+                </button>
+            </div>
+        </div>
         <a class="add-column-btn btn btn-block btn-primary btn-sm" href="@Url.Action("Create", "Tasks", new {boardId = Model.BoardId})">
             Add task
         </a>
@@ -68,61 +80,7 @@
 @section scripts {
     <script src="~/Scripts/jquery.signalR-2.2.2.min.js"></script>
     <script src="~/signalr/hubs"></script>
-    <script type="text/javascript">
-        $(document).ready(function () {
-            var boardId = parseInt($("#board-id").val());
-            var hub = $.connection.boardHub;
-            var selectedType = "all-tasks";
-            var selectedTime = "";
-
-            hub.client.boardUpdated = function (updatedBoardId) {
-                console.log("message" + updatedBoardId);
-                if (updatedBoardId === boardId) {
-                    refreshBoardData();
-                }
-            };
-
-            $('#selector-buttons .btn')
-                .click(function () {
-                    $(this).addClass('active').siblings().removeClass('active');
-                    var buttonType = $(this).attr('id');
-                    selectedType = buttonType;
-                    refreshBoardData();
-                });
-
-            function refreshBoardData() {
-                var taskNameSearch = $("#task-name-search").val();
-                var personName = $("#task-person-name-search").val();
-
-                $.ajax({
-                    url: "/Boards/DetailsPart",
-                    type: "GET",
-                    data: {
-                        id: boardId,
-                        type: selectedType,
-                        taskName: taskNameSearch,
-                        time: selectedTime,
-                        personName: personName
-                    }
-                }).done(function (partialViewResult) {
-                    $("#board-column-container").html(partialViewResult);
-                });
-            }
-
-            $("#task-name-search, #task-person-name-search").on('input', function (e) {
-                refreshBoardData();
-            });
-
-            $('#deadline-bt-group .btn')
-               .click(function () {
-                   $(this).addClass('active').siblings().removeClass('active');
-                   selectedTime = $(this).attr('id');
-                   refreshBoardData();
-               });
-
-            $("#all-tasks").trigger("click");
-            $("#deadline-bt-group #all").trigger("click");
-        });
-    </script>
+    <script type="text/javascript" src="@Url.Content("/Scripts/myscripts/tasksearch.js")"></script>
+    <script type="text/javascript" src="@Url.Content("/Scripts/myscripts/favourite.js")"></script>
 }
 

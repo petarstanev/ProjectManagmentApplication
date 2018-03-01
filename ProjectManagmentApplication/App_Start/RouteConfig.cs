@@ -14,6 +14,20 @@ namespace ProjectManagementApplication
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
+                "Board",
+                "boards/{id}",
+                new { controller = "Boards", action = "Details" },
+                new { id = @"\d+" });
+
+            
+
+            //routes.MapRoute(
+            //    "404-PageNotFound",
+            //    "{*url}",
+            //    new { controller = "Home", action = "PageNotFound" }
+            //);
+
+            routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }

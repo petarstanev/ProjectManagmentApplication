@@ -3,16 +3,25 @@
 
 <div class="section">
     <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <h1 class="text-center">
-                    Select board
-                    <br>
-                </h1>
+        <div class="row text-center">
+            <div class="col-md-8 h1">
+                Select board
+            </div>
+            <div class="col-md-4">
+                @Html.ActionLink("Create board","Create","Boards",null,new {@class = "btn btn-lg btn-info" })
             </div>
         </div>
         <div class="row">
-            <div class="col-md-4">
+            <div class="col-md-3">
+                <h2>Favourite boards</h2>
+                <ul class="list-group">
+                    @foreach (Board board in Model.Favourite)
+                    {
+                        <a href="@Url.Action("Details","Boards",new {id = board.BoardId})"><li class="list-group-item">@board.Title</li></a>
+                    }
+                </ul>
+            </div>
+            <div class="col-md-3">
                 <h2>Private boards</h2>
                 <ul class="list-group">
                     @foreach (Board board in Model.PrivateBoards)
@@ -20,9 +29,8 @@
                         <a href="@Url.Action("Details","Boards",new {id = board.BoardId})"><li class="list-group-item">@board.Title</li></a>
                     }
                 </ul>
-                <a class="btn btn-primary">Add new private board</a>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <h2>Team boards</h2>
                 <ul class="list-group">
                     @foreach (Board board in Model.TeamBoards)
@@ -31,7 +39,7 @@
                     }
                 </ul>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <h2>Public boards</h2>
                 <ul class="list-group">
                     @foreach (Board board in Model.PublicBoards)

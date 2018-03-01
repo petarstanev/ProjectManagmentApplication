@@ -7,17 +7,7 @@
         <h1>@Html.DisplayNameFor(model => model.Title)</h1>
     </div>
     <div id="favorite-container" class="col-md-4">
-        @Html.HiddenFor(t => t.Column.BoardId,new {@id= "board-id"})
-        <div id="fav-true">          
-            <button class="btn btn-lg btn-warning">
-                <span class="glyphicon  glyphicon glyphicon-star" aria-hidden="true"></span>Favourite
-            </button>            
-        </div>
-        <div id="fav-false">
-            <button class="btn btn-lg btn-default">
-                <span class="glyphicon  glyphicon glyphicon-star-empty" aria-hidden="true"></span>Favourite
-            </button>
-        </div>
+        @Html.HiddenFor(t => t.Column.BoardId,new {@id= "board-id"})        
     </div>
 </div>
 <div class="row">
@@ -109,49 +99,3 @@
         @Html.ActionLink("Add Comment", "Create", "Comments", new { taskId = Model.TaskId }, new { @class = "btn btn-default" })
     </div>
 </div>
-
-@section scripts {
-    <script type="text/javascript">
-        $(document)
-            .ready(function () {
-                var boardId = parseInt($("#board-id").val());
-                getFavoriteStatus();
-
-                $("#favorite-container")
-                    .click(function () {
-                        changeFavorite();                        
-                    });
-
-
-                function getFavoriteStatus() {
-                    $.ajax({
-                        url: "/Favorites/IsFavorite",
-                        type: "GET",
-                        data: { boardId: boardId },
-                        dataType: 'JSON',
-                        success: function (data) {
-                            if (data.favourite) {
-                                $("#fav-true").show();
-                                $("#fav-false").hide();
-                            } else {
-                                $("#fav-true").hide();
-                                $("#fav-false").show();
-                            }
-                            return data;
-                        }
-                    });
-                }
-                function changeFavorite() {
-                    $.ajax({
-                        url: "/Favorites/ChangeFavorite",
-                        type: "POST",
-                        data: {
-                            boardId: boardId
-                        }
-                    }).done(function () {
-                        getFavoriteStatus();
-                    });
-                }          
-            });
-    </script>
-}
