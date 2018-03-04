@@ -15,12 +15,12 @@
     <div class="col-md-3">
         <div id="favorite-container">
             <div id="fav-true">
-                <button class="btn btn-lg btn-warning">
+                <button class="btn btn-lg btn-block btn-warning">
                     <span class="glyphicon  glyphicon glyphicon-star" aria-hidden="true"></span>Favourite
                 </button>
             </div>
             <div id="fav-false">
-                <button class="btn btn-lg btn-default">
+                <button class="btn btn-lg btn-block btn-default">
                     <span class="glyphicon  glyphicon glyphicon-star-empty" aria-hidden="true"></span>Favourite
                 </button>
             </div>
@@ -80,7 +80,8 @@
 @section scripts {
     <script src="~/Scripts/jquery.signalR-2.2.2.min.js"></script>
     <script src="~/signalr/hubs"></script>
-    <script type="text/javascript" src="@Url.Content("/Scripts/myscripts/tasksearch.js")"></script>
+
     <script type="text/javascript" src="@Url.Content("/Scripts/myscripts/favourite.js")"></script>
+    <script type="text/javascript" src="@Url.Content("/Scripts/myscripts/tasksearch.js")"></script>
 }
 

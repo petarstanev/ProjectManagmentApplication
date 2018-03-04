@@ -5,7 +5,6 @@
     var selectedTime = "";
 
     hub.client.boardUpdated = function (updatedBoardId) {
-        console.log("message" + updatedBoardId);
         if (updatedBoardId === boardId) {
             refreshBoardData();
         }
