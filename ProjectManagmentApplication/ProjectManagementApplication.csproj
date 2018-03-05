@@ -176,10 +176,6 @@
     <Compile Include="Helpers\HashingHelper.cs" />
     <Compile Include="Helpers\TimeHelper.cs" />
     <Compile Include="Hubs\BoardHub.cs" />
-    <Compile Include="Migrations\201803040005450_test.cs" />
-    <Compile Include="Migrations\201803040005450_test.Designer.cs">
-      <DependentUpon>201803040005450_test.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Board.cs" />
     <Compile Include="Models\BoardType.cs" />
@@ -351,11 +347,6 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201803040005450_test.resx">
-      <DependentUpon>201803040005450_test.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

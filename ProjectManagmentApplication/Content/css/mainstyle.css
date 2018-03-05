@@ -42,8 +42,12 @@ div[class^="col-"] {
 }
 
 .board-column {
-    min-width: 200px;
     border: 1px solid;
+    min-width: 200px;
+}
+
+.board-column-tasks {
+    min-height: 200px;
 }
 
 .task-container:last-child {
@@ -54,7 +58,6 @@ div[class^="col-"] {
     overflow-x: auto;
     white-space: nowrap;
     margin-top: 20px;
-    min-height: 300px;
 }
 
 #board-header h1 {

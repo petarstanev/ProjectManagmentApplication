@@ -3,8 +3,8 @@
     var hub = $.connection.boardHub;
     var selectedType = "all-tasks";
     var selectedTime = "";
-
     hub.client.boardUpdated = function (updatedBoardId) {
+        console.log("refresh" + updatedBoardId);
         if (updatedBoardId === boardId) {
             refreshBoardData();
         }
