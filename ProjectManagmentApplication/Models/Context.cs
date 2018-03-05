@@ -19,7 +19,7 @@ namespace ProjectManagementApplication.Models
         public DbSet<FavoriteBoard> FavoriteBoards { get; set; }
 
 
-        public Context() : base("databasemdf")
+        public Context() : base("AwsDatabase")
         {
         }
 
