@@ -283,6 +283,7 @@
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Scripts\myscripts\favourite.js" />
     <Content Include="Scripts\myscripts\tasksearch.js" />
+    <Content Include="Scripts\myscripts\taskupdate.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.matchmedia.addListener.js" />
     <Content Include="Scripts\respond.matchmedia.addListener.min.js" />
