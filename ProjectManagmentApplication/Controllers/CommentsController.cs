@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Web.Mvc;
 using ProjectManagementApplication.Models;
+using ProjectManagmentApplication.Hubs;
 
 namespace ProjectManagementApplication.Controllers
 {
@@ -40,7 +41,8 @@ namespace ProjectManagementApplication.Controllers
 
                 db.Comments.Add(comment);
                 db.SaveChanges();
-                
+                TaskHub.TaskUpdated(comment.TaskId);
+
                 return RedirectToAction("Details", "Tasks", new { id = comment.TaskId});
             }
 
@@ -74,6 +76,7 @@ namespace ProjectManagementApplication.Controllers
             {
                 db.Entry(comment).State = EntityState.Modified;
                 db.SaveChanges();
+                TaskHub.TaskUpdated(comment.TaskId);
                 return RedirectToAction("Details", "Tasks", new { id = comment.TaskId });
             }
             return View(comment);
@@ -102,6 +105,7 @@ namespace ProjectManagementApplication.Controllers
             Comment comment = db.Comments.Find(id);
             db.Comments.Remove(comment);
             db.SaveChanges();
+            TaskHub.TaskUpdated(comment.TaskId);
             return RedirectToAction("Details", "Tasks", new { id = comment.TaskId });
         }
     }

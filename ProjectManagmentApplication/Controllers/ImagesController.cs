@@ -9,6 +9,7 @@ using System.Web;
 using System.Web.Mvc;
 using ProjectManagementApplication.Models;
 using ProjectManagementApplication.ViewModels;
+using ProjectManagmentApplication.Hubs;
 
 namespace ProjectManagementApplication.Controllers
 {
@@ -46,13 +47,13 @@ namespace ProjectManagementApplication.Controllers
             Image image = db.Images.Find(id);
             db.Images.Remove(image);
             db.SaveChanges();
-
+            TaskHub.TaskUpdated(image.TaskId);
             string filePath = Server.MapPath(image.Url);
             if (System.IO.File.Exists(filePath))
             {
                 System.IO.File.Delete(filePath);
             }
-
+            
             return RedirectToAction("Details", "Tasks", new { id = image.TaskId });
         }
 
@@ -100,6 +101,7 @@ namespace ProjectManagementApplication.Controllers
                 image.TaskId = model.TaskId;
                 db.Images.Add(image);
                 db.SaveChanges();
+                TaskHub.TaskUpdated(image.TaskId);
                 return RedirectToAction("Details","Tasks",new {id = image.TaskId});
             }
 
