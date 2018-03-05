@@ -176,6 +176,7 @@
     <Compile Include="Helpers\HashingHelper.cs" />
     <Compile Include="Helpers\TimeHelper.cs" />
     <Compile Include="Hubs\BoardHub.cs" />
+    <Compile Include="Hubs\TaskHub.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Board.cs" />
     <Compile Include="Models\BoardType.cs" />
@@ -330,6 +331,7 @@
     <Content Include="Views\TeamMembers\RemoveTeamMember.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\_Navigation.cshtml" />
+    <Content Include="Views\Tasks\PartialView\TaskDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Content\images\taskimages\" />

@@ -2,7 +2,9 @@
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
+using Microsoft.AspNet.SignalR;
 using ProjectManagementApplication.Models;
+using ProjectManagmentApplication.Hubs;
 
 namespace ProjectManagementApplication.Controllers
 {
@@ -17,8 +19,22 @@ namespace ProjectManagementApplication.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+            Task task = db.Tasks.Include(t => t.Images).SingleOrDefault(t => t.TaskId == id);
+
+            if (task == null)
+            {
+                return HttpNotFound();
+            }
+
+             return View(task);
+        }
+
+        // GET: Tasks/Details/5
+        [HttpGet]
+        public ActionResult DetailsGet(int id)
+        {
             Task task = db.Tasks.Include(t => t.Images)
-                .Include(t=> t.AssignedToUser)
+                .Include(t => t.AssignedToUser)
                 .Include(t => t.CreatedByUser)
                 .SingleOrDefault(t => t.TaskId == id);
 
@@ -29,7 +45,8 @@ namespace ProjectManagementApplication.Controllers
 
             task.Comments = db.Comments.Include(c => c.Author).Where(c => c.TaskId == task.TaskId).ToList();
             task.Column = db.Columns.Include(c => c.Board).SingleOrDefault(c => c.ColumnId == task.ColumnId);
-            return View(task);
+           
+            return PartialView("PartialView/TaskDetails", task);
         }
 
         // GET: Tasks/Create
@@ -94,6 +111,9 @@ namespace ProjectManagementApplication.Controllers
             {
                 db.Entry(task).State = EntityState.Modified;
                 db.SaveChanges();
+                var hubContext = GlobalHost.ConnectionManager.GetHubContext<TaskHub>();
+                hubContext.Clients.All.taskUpdated(task.TaskId);
+
                 return  RedirectToAction("Details", new { id = task.TaskId });
             }
             ViewBag.AssignedTo = new SelectList(db.Users, "UserId", "Email", task.AssignedTo);
