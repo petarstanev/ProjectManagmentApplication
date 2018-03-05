@@ -111,7 +111,7 @@ namespace ProjectManagementApplication.Controllers
             {
                 db.Entry(task).State = EntityState.Modified;
                 db.SaveChanges();
-                var hubContext = GlobalHost.ConnectionManager.GetHubContext<TaskHub>();
+                var hubContext = GlobalHost.ConnectionManager.GetHubContext<BoardHub>();
                 hubContext.Clients.All.taskUpdated(task.TaskId);
 
                 return  RedirectToAction("Details", new { id = task.TaskId });
