@@ -19,6 +19,7 @@ namespace ProjectManagementApplication.Models
         public int? UserId { get; set; }
         public User User { get; set; }
 
+        [Display(Name = "Board Type")]
         public BoardType BoardType { get; set; }
     }
 }

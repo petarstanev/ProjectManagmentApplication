@@ -14,23 +14,37 @@ namespace ProjectManagementApplication.Controllers
         private Context db = new Context();
 
         // GET: Boards
-        public ActionResult Index()
+        public ActionResult Index(string sortType)
         {
-            return View(db.Boards.Include(c => c.User).ToList());
-        }
+            ViewBag.TitleParm = sortType == "Title" ? "Title_desc" : "Title";
+            ViewBag.AdministratorSortParm = sortType == "Date" ? "date_desc" : "Date";
+            List<Board> boards = db.Boards.Include(c => c.User).ToList();
 
-        // GET: Boards
-        public ActionResult IndexJson()
-        {
-            try
+            switch (sortType)
             {
-                return Json(db.Boards.ToList(), JsonRequestBehavior.AllowGet);
+                case "Title":
+                    boards = boards.OrderBy(b => b.Title).ToList();
+                    break;
+                case "Title_desc":
+                    boards = boards.OrderByDescending(b => b.Title).ToList();
+                    break;
+                case "Administrator":
+                    boards = boards.OrderBy(b => b.User.Name).ToList();
+                    break;
+                case "Administrator_desc":
+                    boards = boards.OrderByDescending(b => b.User.Name).ToList();
+                    break;
+                case "Type":
+                    boards = boards.OrderBy(b => b.BoardType).ToList();
+                    break;
+                case "Type_desc":
+                    boards = boards.OrderByDescending(b => b.BoardType).ToList();
+                    break;
+                default:
+                    boards = boards.OrderBy(b => b.BoardId).ToList();
+                    break;
             }
-            catch (Exception ex)
-            {
-
-                throw ex;
-            }
+            return View(boards.ToList());
         }
 
         // GET: Boards/Details/5
@@ -161,6 +175,7 @@ namespace ProjectManagementApplication.Controllers
 
 
         // GET: Boards/Create
+        [Authorize]
         public ActionResult Create()
         {
             return View();
@@ -169,6 +184,7 @@ namespace ProjectManagementApplication.Controllers
         // POST: Boards/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "BoardId,Title,BoardType")] Board board)

@@ -336,7 +336,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Content\images\taskimages\" />
-    <Folder Include="Views\Favorites\" />
     <Folder Include="Views\Search\" />
   </ItemGroup>
   <ItemGroup>
