@@ -1,15 +1,17 @@
-﻿@using ProjectManagementApplication.Models
-@model IEnumerable<ProjectManagementApplication.Models.Board>
+﻿@model PagedList.IPagedList<ProjectManagementApplication.Models.Board>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
 <h2>Index</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("Index", "Boards", FormMethod.Get))
 {
     <p>
-        Search by board title or administrator: @Html.TextBox("SearchString")
+        Search by board title or administrator: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
         <input type="submit" value="Search"/>
     </p>
 }
@@ -17,13 +19,13 @@
 <table class="table">
     <tr>
         <th>
-            @Html.ActionLink("Title", "Index", new { sortType = ViewBag.TitleParm })
+            @Html.ActionLink("Title", "Index", new { sortType = ViewBag.TitleParm, currentFilter = ViewBag.CurrentFilter })
         </th>
         <th>
-            @Html.ActionLink("Administrator", "Index", new { sortType = ViewBag.AdministratorParm })
+            @Html.ActionLink("Administrator", "Index", new { sortType = ViewBag.AdministratorParm, currentFilter = ViewBag.CurrentFilter })
         </th>
         <th>
-            @Html.ActionLink("Board Type", "Index", new { sortType = ViewBag.Type })
+            @Html.ActionLink("Board Type", "Index", new { sortType = ViewBag.Type, currentFilter = ViewBag.CurrentFilter })
         </th>
         <th></th>
     </tr>
@@ -49,3 +51,9 @@
     }
 
 </table>
+
+<br />
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("Index",
+    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))

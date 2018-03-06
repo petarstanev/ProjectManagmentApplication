@@ -5,7 +5,7 @@ using System.Linq;
 using System.Net;
 using System.Web.Mvc;
 using ProjectManagementApplication.Models;
-using ProjectManagementApplication.ViewModels;
+using PagedList;
 
 namespace ProjectManagementApplication.Controllers
 {
@@ -13,11 +13,22 @@ namespace ProjectManagementApplication.Controllers
     {
         private Context db = new Context();
 
-        public ActionResult Index(string sortType, string searchString)
+        public ActionResult Index(string sortType, string currentFilter, string searchString, int? page)
         {
             ViewBag.TitleParm = sortType == "Title" ? "Title_desc" : "Title";
             ViewBag.AdministratorParm = sortType == "Administrator" ? "Administrator_desc" : "Administrator";
             ViewBag.Type = sortType == "Type" ? "Type_desc" : "Type";
+
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+            ViewBag.CurrentFilter = searchString;
+
             List<Board> boards = db.Boards.Include(c => c.User).ToList();
 
             if (!String.IsNullOrEmpty(searchString))
@@ -50,7 +61,10 @@ namespace ProjectManagementApplication.Controllers
                     boards = boards.OrderBy(b => b.BoardId).ToList();
                     break;
             }
-            return View(boards.ToList());
+
+            int pageSize = 3;
+            int pageNumber = (page ?? 1);
+            return View(boards.ToPagedList(pageNumber, pageSize));
         }
 
         // GET: Boards/Details/5
