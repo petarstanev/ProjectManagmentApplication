@@ -10,10 +10,10 @@
             @Html.ActionLink("Title", "Index", new { sortType = ViewBag.TitleParm })
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.UserId)
+            @Html.ActionLink("Administrator", "Index", new { sortType = ViewBag.AdministratorParm })
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.BoardType)
+            @Html.ActionLink("Board Type", "Index", new { sortType = ViewBag.Type })
         </th>
         <th></th>
     </tr>

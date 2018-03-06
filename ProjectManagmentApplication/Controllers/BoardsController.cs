@@ -17,7 +17,8 @@ namespace ProjectManagementApplication.Controllers
         public ActionResult Index(string sortType)
         {
             ViewBag.TitleParm = sortType == "Title" ? "Title_desc" : "Title";
-            ViewBag.AdministratorSortParm = sortType == "Date" ? "date_desc" : "Date";
+            ViewBag.AdministratorParm = sortType == "Administrator" ? "Administrator_desc" : "Administrator";
+            ViewBag.Type = sortType == "Type" ? "Type_desc" : "Type";
             List<Board> boards = db.Boards.Include(c => c.User).ToList();
 
             switch (sortType)
