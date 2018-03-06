@@ -13,14 +13,19 @@ namespace ProjectManagementApplication.Controllers
     {
         private Context db = new Context();
 
-        // GET: Boards
-        public ActionResult Index(string sortType)
+        public ActionResult Index(string sortType, string searchString)
         {
             ViewBag.TitleParm = sortType == "Title" ? "Title_desc" : "Title";
             ViewBag.AdministratorParm = sortType == "Administrator" ? "Administrator_desc" : "Administrator";
             ViewBag.Type = sortType == "Type" ? "Type_desc" : "Type";
             List<Board> boards = db.Boards.Include(c => c.User).ToList();
 
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                boards = boards.Where(b => b.Title.ToUpper().Contains(searchString.ToUpper()) ||
+                b.User.Name.ToUpper().Contains(searchString.ToUpper())).ToList();     
+            }
+            
             switch (sortType)
             {
                 case "Title":
@@ -65,9 +70,9 @@ namespace ProjectManagementApplication.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.Forbidden);
             }
             SessionContext sx = new SessionContext();
-            
+
             ViewBag.Administrator = board.UserId == sx.GetUserId();
-            
+
 
             return View(board);
         }
@@ -101,12 +106,12 @@ namespace ProjectManagementApplication.Controllers
 
                 foreach (Column boardColumn in board.Columns)
                 {
-                    boardColumn.Tasks = boardColumn.Tasks.Where(t => (t.AssignedTo != null && foundUsersIds.Contains((Int32)t.AssignedTo)) 
+                    boardColumn.Tasks = boardColumn.Tasks.Where(t => (t.AssignedTo != null && foundUsersIds.Contains((Int32)t.AssignedTo))
                     || (t.CreatedBy != null && foundUsersIds.Contains((Int32)t.CreatedBy))).ToList();
                 }
             }
         }
-        
+
         private void FilterBoardByTasksTime(Board board, string time)
         {
             if (time != "all")
@@ -222,7 +227,7 @@ namespace ProjectManagementApplication.Controllers
 
             List<User> members =
                 db.TeamMembers.Include(t => t.User).Where(t => t.BoardId == id).Select(t => t.User).ToList();
-           
+
             ViewBag.UserId = new SelectList(db.Users, "UserId", "Email", board.UserId);
             ViewBag.TeamMembers = members;
             return View(board);
@@ -239,7 +244,7 @@ namespace ProjectManagementApplication.Controllers
             {
                 db.Entry(board).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Details",new {id = board.BoardId});
+                return RedirectToAction("Details", new { id = board.BoardId });
             }
             List<User> members =
                db.TeamMembers.Include(t => t.User).Where(t => t.BoardId == board.BoardId).Select(t => t.User).ToList();
@@ -294,7 +299,7 @@ namespace ProjectManagementApplication.Controllers
                 case BoardType.Team:
                     if (currentUser == null)
                         return false;
-                    
+
                     TeamMember teamMember = db.TeamMembers.FirstOrDefault(u => u.UserId == currentUser.UserId && u.BoardId == board.BoardId);
                     result = teamMember != null || CheckAdministrator(board);
                     break;
