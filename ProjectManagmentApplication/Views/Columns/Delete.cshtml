@@ -7,14 +7,6 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.Board.Title)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Board.Title)
-        </dd>
-
-        <dt>
             @Html.DisplayNameFor(model => model.Title)
         </dt>
 
@@ -29,7 +21,7 @@
 
         <div class="form-actions no-color">
             <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
+            @Html.ActionLink("Back to edit", "Edit",new {id = Model.ColumnId })
         </div>
     }
 </div>

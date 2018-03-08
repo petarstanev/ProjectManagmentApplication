@@ -14,13 +14,7 @@ namespace ProjectManagementApplication.Controllers
     public class ColumnsController : Controller
     {
         private Context db = new Context();
-
-        // GET: Columns
-        public ActionResult Index()
-        {
-            var columns = db.Columns.Include(c => c.Board);
-            return View(columns.ToList());
-        }
+         
 
         // GET: Columns/Details/5
         public ActionResult Details(int? id)
@@ -39,19 +33,11 @@ namespace ProjectManagementApplication.Controllers
 
     
         // GET: Columns/Create
-        public ActionResult Create(int? boardId)
+        public ActionResult Create(int boardId)
         {
-
-            if (boardId != null)
-            {
-                ViewBag.BoardId = new SelectList(db.Boards, "BoardId", "Title", boardId);
-
-            }
-            else
-            {
-                ViewBag.BoardId  = new SelectList(db.Boards, "BoardId", "Title");
-            }
-            return View();
+            Column column = new Column();
+            column.Board = db.Boards.Find(boardId);
+            return View(column);
         }
 
         // POST: Columns/Create
@@ -84,7 +70,6 @@ namespace ProjectManagementApplication.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.BoardId = new SelectList(db.Boards, "BoardId", "Title", column.BoardId);
             return View(column);
         }
 
@@ -101,7 +86,6 @@ namespace ProjectManagementApplication.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Details", "Boards", new { id = column.BoardId });
             }
-            ViewBag.BoardId = new SelectList(db.Boards, "BoardId", "Title", column.BoardId);
             return View(column);
         }
 

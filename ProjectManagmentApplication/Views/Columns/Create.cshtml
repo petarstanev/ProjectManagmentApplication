@@ -1,10 +1,12 @@
 ﻿@model ProjectManagementApplication.Models.Column
-<h2>Create</h2>
+<h2>
+    Add column for @Model.Board.Title board
+</h2>
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>Column</h4>
         <hr />
@@ -16,14 +18,7 @@
                 @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
             </div>
         </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.BoardId, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("BoardId", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.BoardId, "", new { @class = "text-danger" })
-            </div>
-        </div>
+        @Html.HiddenFor(model => model.Board.BoardId)
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
@@ -34,5 +29,5 @@
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Back to board", "Details", "Boards", new { id = Model.Board.BoardId }, null)
 </div>

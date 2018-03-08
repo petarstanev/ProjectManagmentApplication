@@ -321,7 +321,6 @@
     <Content Include="Views\Columns\Delete.cshtml" />
     <Content Include="Views\Columns\Details.cshtml" />
     <Content Include="Views\Columns\Edit.cshtml" />
-    <Content Include="Views\Columns\Index.cshtml" />
     <Content Include="Views\Comments\Create.cshtml" />
     <Content Include="Views\Comments\Delete.cshtml" />
     <Content Include="Views\Comments\Edit.cshtml" />
