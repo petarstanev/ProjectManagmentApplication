@@ -19,8 +19,6 @@ namespace ProjectManagementApplication.Controllers
             ViewBag.AdministratorParm = sortType == "Administrator" ? "Administrator_desc" : "Administrator";
             ViewBag.Type = sortType == "Type" ? "Type_desc" : "Type";
             string[] boardTypes = { "Private", "Team", "Public" };
-
-
             if (searchString != null)
             {
                 page = 1;
@@ -29,10 +27,8 @@ namespace ProjectManagementApplication.Controllers
             {
                 searchString = currentFilter;
             }
-
             ViewBag.CurrentFilter = searchString;
-
-            List<Board> boards = db.Boards.Include(c => c.User).ToList();
+            List<Board> boards = GetVisibleBoards();
 
             if (!String.IsNullOrEmpty(searchString))
             {
@@ -76,6 +72,26 @@ namespace ProjectManagementApplication.Controllers
             int pageSize = 20;
             int pageNumber = (page ?? 1);
             return View(boards.ToPagedList(pageNumber, pageSize));
+        }
+
+        private List<Board> GetVisibleBoards()
+        {
+            SessionContext sx = new SessionContext();
+            int userId = sx.GetUserId();
+            List<Board> boards;
+            if (userId > 0)
+            {
+                List<int> teamMembersIds = db.TeamMembers.Where(u => u.UserId == userId).Select(b => b.BoardId).ToList();
+                boards = db.Boards.Include(c => c.User).Where(b => (b.BoardType == BoardType.Private && b.UserId == userId)
+                || (b.BoardType == BoardType.Team && (b.UserId == userId || teamMembersIds.Contains(b.BoardId)))
+                || b.BoardType == BoardType.Public).ToList();
+            }
+            else
+            {
+                boards = db.Boards.Include(c => c.User).Where(b => b.BoardType == BoardType.Public).ToList();
+            }
+
+            return boards;
         }
 
         // GET: Boards/Details/5

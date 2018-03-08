@@ -8,7 +8,7 @@
             Type: @Model.BoardType, Administrator: @Model.User.Name
             @if (ViewBag.Administrator)
             {
-                @Html.ActionLink("Board management", "Edit", new { id = Model.BoardId })
+                @Html.ActionLink("Edit board", "Edit", new { id = Model.BoardId })
             }
         </h4>
     </div>
