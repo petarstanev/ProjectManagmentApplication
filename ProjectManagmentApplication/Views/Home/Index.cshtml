@@ -28,6 +28,7 @@
                     {
                         <a href="@Url.Action("Details","Boards",new {id = board.BoardId})"><li class="list-group-item">@board.Title</li></a>
                     }
+                    <a href="@Url.Action("Index","Boards",new {currentFilter = "Private"})"><li class="list-group-item active">All private boards</li></a>
                 </ul>
             </div>
             <div class="col-md-3">
@@ -37,6 +38,7 @@
                     {
                         <a href="@Url.Action("Details","Boards",new {id = board.BoardId})"><li class="list-group-item">@board.Title</li></a>
                     }
+                    <a href="@Url.Action("Index","Boards",new {currentFilter = "Team"})"><li class="list-group-item active">All team boards</li></a>
                 </ul>
             </div>
             <div class="col-md-3">
@@ -46,6 +48,7 @@
                     {
                         <a href="@Url.Action("Details","Boards",new {id = board.BoardId})"><li class="list-group-item">@board.Title</li></a>
                     }
+                    <a href="@Url.Action("Index","Boards",new {currentFilter = "Public"})"><li class="list-group-item active">All public boards</li></a>
                 </ul>
             </div>
         </div>

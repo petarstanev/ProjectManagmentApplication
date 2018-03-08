@@ -18,6 +18,8 @@ namespace ProjectManagementApplication.Controllers
             ViewBag.TitleParm = sortType == "Title" ? "Title_desc" : "Title";
             ViewBag.AdministratorParm = sortType == "Administrator" ? "Administrator_desc" : "Administrator";
             ViewBag.Type = sortType == "Type" ? "Type_desc" : "Type";
+            string[] boardTypes = { "Private", "Team", "Public" };
+
 
             if (searchString != null)
             {
@@ -27,16 +29,25 @@ namespace ProjectManagementApplication.Controllers
             {
                 searchString = currentFilter;
             }
+
             ViewBag.CurrentFilter = searchString;
 
             List<Board> boards = db.Boards.Include(c => c.User).ToList();
 
             if (!String.IsNullOrEmpty(searchString))
             {
-                boards = boards.Where(b => b.Title.ToUpper().Contains(searchString.ToUpper()) ||
-                b.User.Name.ToUpper().Contains(searchString.ToUpper())).ToList();     
+                if (boardTypes.Contains(searchString))
+                {
+                    BoardType boardType = (BoardType)Enum.Parse(typeof(BoardType), searchString);
+                    boards = boards.Where(b => b.BoardType == boardType).ToList();
+                }
+                else
+                {
+                    boards = boards.Where(b => b.Title.ToUpper().Contains(searchString.ToUpper()) ||
+                    b.User.Name.ToUpper().Contains(searchString.ToUpper())).ToList();
+                }
             }
-            
+
             switch (sortType)
             {
                 case "Title":
@@ -62,7 +73,7 @@ namespace ProjectManagementApplication.Controllers
                     break;
             }
 
-            int pageSize = 3;
+            int pageSize = 20;
             int pageNumber = (page ?? 1);
             return View(boards.ToPagedList(pageNumber, pageSize));
         }
@@ -216,7 +227,7 @@ namespace ProjectManagementApplication.Controllers
 
                 db.Boards.Add(board);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Details",new {id = board.BoardId});
             }
 
             return View(board);

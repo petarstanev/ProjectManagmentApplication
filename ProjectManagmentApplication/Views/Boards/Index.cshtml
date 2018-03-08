@@ -11,7 +11,7 @@
 @using (Html.BeginForm("Index", "Boards", FormMethod.Get))
 {
     <p>
-        Search by board title or administrator: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
+        Search by board title, type or administrator: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
         <input type="submit" value="Search"/>
     </p>
 }
