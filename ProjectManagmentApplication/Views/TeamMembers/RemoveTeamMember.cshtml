@@ -1,9 +1,9 @@
 ﻿@model ProjectManagementApplication.Models.TeamMember
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>TeamMember</h4>
         @Html.HiddenFor(model => model.TeamMemberId)
@@ -18,5 +18,5 @@
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Back to board", "Edit", "Boards", new { id = Model.BoardId }, null)
 </div>

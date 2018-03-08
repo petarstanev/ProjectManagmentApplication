@@ -25,8 +25,9 @@ namespace ProjectManagementApplication.Controllers
             TeamMember teamMember = new TeamMember { BoardId = board.BoardId, Board = board };
 
             List<int> notAvailableUsersId = db.TeamMembers.Where(t => t.BoardId == id).Select(t => t.UserId).ToList();
-
-            List<User> availableUsers = db.Users.Where(b => !notAvailableUsersId.Contains(b.UserId)).ToList();
+            SessionContext sx = new SessionContext();
+            int userId = sx.GetUserId();
+            List<User> availableUsers = db.Users.Where(b => !(notAvailableUsersId.Contains(b.UserId) || b.UserId == userId)).ToList();
 
             ViewBag.UserId = new SelectList(availableUsers, "UserId", "Email");
             return View(teamMember);
