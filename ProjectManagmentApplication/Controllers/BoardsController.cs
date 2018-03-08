@@ -250,6 +250,7 @@ namespace ProjectManagementApplication.Controllers
         }
 
         // GET: Boards/Edit/5
+        [Authorize]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -279,6 +280,7 @@ namespace ProjectManagementApplication.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public ActionResult Edit(Board board)
         {
             if (ModelState.IsValid)
@@ -295,6 +297,7 @@ namespace ProjectManagementApplication.Controllers
         }
 
         // GET: Boards/Delete/5
+        [Authorize]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -316,6 +319,7 @@ namespace ProjectManagementApplication.Controllers
         // POST: Boards/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public ActionResult DeleteConfirmed(int id)
         {
             Board board = db.Boards.Include(p => p.Columns).SingleOrDefault(p => p.BoardId == id);

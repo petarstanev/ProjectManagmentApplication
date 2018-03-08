@@ -3,17 +3,17 @@
 @model ProjectManagementApplication.Models.Task
 
 <div class="row">
-    <div class="col-md-8">
+    <div class="col-sm-8">
         <h1>@Html.DisplayNameFor(model => model.Title)</h1>
     </div>
-    <div id="favorite-container" class="col-md-4">
+    <div id="favorite-container" class="col-sm-4">
         @Html.HiddenFor(t => t.Column.BoardId, new { @id = "board-id" })
     </div>
 </div>
 <div class="row">
-    <div class="col-md-8">
+    <div class="col-sm-8">
         <h2>Details</h2>
-        <table class="pull-left col-md-8 ">
+        <table class="pull-left col-sm-8 ">
             <tbody>
                 <tr>
                     <td><strong>@Html.DisplayNameFor(model => model.Title)</strong></td>
@@ -47,7 +47,7 @@
             </tbody>
         </table>
     </div>
-    <div class="col-md-4">
+    <div class="col-sm-4">
         <h2>Images</h2>
         @if (Model.Images.Count == 0)
         {
@@ -55,14 +55,14 @@
         }
         @foreach (Image image in Model.Images)
         {
-            <div class="task-image-container text-center col-md-4">
+            <div class="task-image-container text-center col-xs-4">
                 <a href="@image.Url" data-lightbox="task-set">
                     <img id="@image.ImageId" class="img-responsive" data-lightbox="image-@image.ImageId" src="@image.Url">
                 </a>
                 @Html.ActionLink("Remove image", "Delete", "Images", new { id = image.ImageId }, new { @class = "" })
             </div>
         }
-        <div class="col-md-4">
+        <div class="col-sm-4">
             @Html.ActionLink("Add image", "Upload", "Images", new { id = Model.TaskId }, new { @class = "btn btn-success" })
         </div>
     </div>
@@ -76,7 +76,7 @@
     @Html.ActionLink("Delete task", "Delete", new { id = Model.TaskId }, new { @class = "btn btn-danger" })
 </div>
 <div class="row">
-    <div class="col-md-8">
+    <div class="col-sm-8">
         <h2>Comments</h2>
         @foreach (Comment comment in Model.Comments)
         {

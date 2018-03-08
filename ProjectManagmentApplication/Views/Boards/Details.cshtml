@@ -25,9 +25,12 @@
                 </button>
             </div>
         </div>
-        <a class="add-column-btn btn btn-block btn-primary btn-sm" href="@Url.Action("Create", "Tasks", new {boardId = Model.BoardId})">
-            Add task
-        </a>
+        @if (Model.Columns.Count > 0)
+        {
+            <a class="add-column-btn btn btn-block btn-primary btn-sm" href="@Url.Action("Create", "Tasks", new {boardId = Model.BoardId})">
+                Add task
+            </a>
+        }
         <a class="add-column-btn btn btn-block btn-primary btn-sm" href="@Url.Action("Create", "Columns", new {boardId = Model.BoardId})">
             Add column
         </a>

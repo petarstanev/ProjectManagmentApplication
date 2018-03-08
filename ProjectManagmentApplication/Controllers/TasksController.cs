@@ -50,11 +50,11 @@ namespace ProjectManagementApplication.Controllers
         }
 
         // GET: Tasks/Create
-        public ActionResult Create(int? boardId)
+        [System.Web.Mvc.Authorize]
+        public ActionResult Create(int boardId)
         {
-            ViewBag.ColumnId = new SelectList(db.Columns, "ColumnId", "Title");
-
-
+            ViewBag.ColumnId = new SelectList(db.Columns.Where(c => c.BoardId == boardId), "ColumnId", "Title");
+            
             ViewBag.AssignedTo = new SelectList(db.Users, "UserId", "Email");
 
             ViewBag.CreatedBy = new SelectList(db.Users, "UserId", "Email");
@@ -66,6 +66,7 @@ namespace ProjectManagementApplication.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [System.Web.Mvc.Authorize]
         public ActionResult Create([Bind(Include = "TaskId,Title,Description,Deadline,Private,CreatedBy,AssignedTo,ColumnId")] Task task)
         {
             if (ModelState.IsValid)
@@ -83,6 +84,7 @@ namespace ProjectManagementApplication.Controllers
         }
 
         // GET: Tasks/Edit/5
+        [System.Web.Mvc.Authorize]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -105,6 +107,7 @@ namespace ProjectManagementApplication.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [System.Web.Mvc.Authorize]
         public ActionResult Edit([Bind(Include = "TaskId,Title,Description,Deadline,Private,CreatedBy,AssignedTo,ColumnId")] Task task)
         {
             if (ModelState.IsValid)
@@ -122,6 +125,7 @@ namespace ProjectManagementApplication.Controllers
         }
 
         // GET: Tasks/Delete/5
+        [System.Web.Mvc.Authorize]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -142,6 +146,7 @@ namespace ProjectManagementApplication.Controllers
         // POST: Tasks/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [System.Web.Mvc.Authorize]
         public ActionResult DeleteConfirmed(int id)
         {
             Task task = db.Tasks.Find(id);
