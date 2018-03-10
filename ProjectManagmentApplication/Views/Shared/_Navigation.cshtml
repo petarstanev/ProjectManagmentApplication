@@ -11,30 +11,20 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-                <li class="active"><a href="@Url.Action("Index","Home")">Home</a></li>  
-                <li><a href="@Url.Action("Index", "Boards")">Boards</a></li>
+                <li class="active"><a href="@Url.Action("Index", "Home")"><span class="glyphicon glyphicon-home" aria-hidden="true"></span> Home
+                </a></li>  
+                <li><a href="@Url.Action("Index", "Boards")"><span class="glyphicon glyphicon-th-large" aria-hidden="true"></span> Boards</a></li>
             </ul>
-            @*<div class="form-control">
-                <input type="text" class="form-control" />
-                <button type="submit" class="btn btn-success">Search</button>
-            </div>*@
-            @*<form class="navbar-form ">
-                <div class="form-group">
-                    <input type="text" placeholder="Board name" class="form-control">
-                </div>
-                <button type="submit" class="btn btn-info">Search</button>
-            </form>*@
-
             <ul class="nav navbar-nav navbar-right">
                 @if (User.Identity.IsAuthenticated)
                 {
-                    <li><a href="@Url.Action("Account","Users")">Account</a></li>
-                    <li><a href="@Url.Action("Logout","Users")">Logout</a></li>
+                    <li><a href="@Url.Action("Account","Users")"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Account</a></li>
+                    <li><a href="@Url.Action("Logout","Users")"><span class="glyphicon glyphicon-log-out" aria-hidden="true"></span> Logout</a></li>
                 }
                 else
                 {
-                    <li><a href="@Url.Action("Login","Users")">Login</a></li>
-                    <li><a href="@Url.Action("Register","Users")">Register</a></li>
+                    <li><a href="@Url.Action("Login","Users")"><span class="glyphicon glyphicon-log-in" aria-hidden="true"></span> Login</a></li>
+                    <li><a href="@Url.Action("Register","Users")"><span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>  Register</a></li>
                 }
             </ul>
         </div>
