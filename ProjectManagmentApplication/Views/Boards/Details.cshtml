@@ -1,7 +1,7 @@
 ﻿@model ProjectManagementApplication.Models.Board
 
 <div id="board-header" class="row">
-    <div class="col-md-9">
+    <div class="col-md-6">
         <h1>@Model.Title</h1>
         <input id="board-id" type="hidden" value="@Model.BoardId" />
         <h4>
@@ -25,6 +25,8 @@
                 </button>
             </div>
         </div>
+    </div>
+    <div class="col-md-3">
         @if (Model.Columns.Count > 0)
         {
             <a class="add-column-btn btn btn-block btn-success btn-sm" href="@Url.Action("Create", "Tasks", new {boardId = Model.BoardId})">
@@ -46,36 +48,35 @@
         </div>
     </div>
     <div class="col-md-3">
-        <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#board-search-details-container">Advanced search</button>
+        <button type="button" class="btn btn-info btn-block" data-toggle="collapse" data-target="#board-search-details-container">Advanced search</button>
     </div>
 </div>
 
 <div id="board-search-details-container" class="collapse row">
-    <div class="col-md-4">
+    <div class="col-md-3">
         <h3>Task name</h3>
         <form class="form-horizontal" role="form">
             <input id="task-name-search" placeholder="Enter task name" type="text" class="form-control">
         </form>
     </div>
-    <div class="col-md-4">
-        <h3>Deadline</h3>
-        <div id="deadline-bt-group" class="btn-group btn-group-sm btn-group-vertical">
-            <a href="#" id="all" class="btn btn-default active">All</a>
-            <a href="#" id="overdue" class="btn btn-default">Overdue</a>
-            <a href="#" id="tomorrow" class="btn btn-default">Due tomorrow</a>
-            <a href="#" id="due-next-week" class="btn btn-default">Due next week</a>
-            <a href="#" id="no-end-date" class="btn btn-default">No end date</a>
-        </div>
-    </div>
-    <div class="col-md-4">
+    <div class="col-md-3">
         <h3>Person</h3>
         <form class="form-horizontal" role="form">
             <input id="task-person-name-search" placeholder="Person created or working on the task" type="text" class="form-control">
         </form>
     </div>
+    <div class="col-md-6">
+        <h3>Deadline</h3>
+        <div id="deadline-bt-group" class="btn-group btn-group-sm ">
+            <a href="#" id="all" class="btn btn-default active">All</a>
+            <a href="#" id="overdue" class="btn btn-default">Overdue</a>
+            <a href="#" id="tomorrow" class="btn btn-default">Due tomorrow</a>
+            <a href="#" id="due-next-week" class="btn btn-default">Due next week</a>
+        </div>
+    </div>
 </div>
 
-<div id="board-column-container" class="row row-eq-height"/>
+<div id="board-column-container" class="row" />
 
 
 @section scripts {

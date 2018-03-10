@@ -1,6 +1,7 @@
 ﻿body {
     background-color: #F0F3F5;
 }
+
 #menu-column {
     background-color: #90C2C0;
 }
@@ -15,28 +16,29 @@
 }
 
 .board-column {
-    border: 1px solid;    
+    border: 1px solid;
     border-radius: 25px;
     margin-bottom: 10px;
 }
+
 .column-header {
     border-bottom: 1px solid;
 }
 
-.column-header a {
-    color: white;
-}
+    .column-header a {
+        color: white;
+    }
 
 .task-container {
-    border: 1px solid;    
+    border: 1px solid;
     border-radius: 5px;
     margin: 5px;
     padding: 10px;
 }
 
-.task-container:hover {
-    text-decoration: none;
-}
+    .task-container:hover {
+        text-decoration: none;
+    }
 
 .board-column-tasks {
     min-height: 200px;
@@ -46,12 +48,12 @@
     margin-bottom: 100px;
 }
 
-#board-column-container>:nth-child(6n+1) {  
-  clear:left;
+#board-column-container > :nth-child(6n+1) {
+    clear: left;
 }
 
 #board-column-container {
-        margin-top: 20px;
+    margin-top: 20px;
 }
 
 #board-header h1 {
@@ -59,7 +61,12 @@
     margin-bottom: 0;
 }
 
-
-.btn-favorite{
+.btn-favorite {
     background-color: yellow;
 }
+
+/*filterrow start*/
+#board-search-container {
+    margin-top: 20px;
+}
+/*filterrow end*/
