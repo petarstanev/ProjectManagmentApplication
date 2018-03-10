@@ -10,10 +10,7 @@
     background-color: #C39F9C;
 }
 
-.task-image {
-    max-height: 300px;
-    max-width: 300px;
-}
+
 
 .board-column {
     border: 1px solid;
@@ -70,3 +67,13 @@
     margin-top: 20px;
 }
 /*filterrow end*/
+
+
+.task-image {
+    height: auto;
+    overflow:hidden;
+}
+
+.task-image-remove {
+    margin-bottom: 10px;
+}
