@@ -4,26 +4,25 @@
 
 @foreach (var column in Model.Columns)
 {
-    <div id="column_container_@column.ColumnId" class="col-md-2 board-column">
-        <h3 class="text-center">
-            @Html.ActionLink(column.Title, "Edit", "Columns", new { id = column.ColumnId }, null)
-        </h3>
-        <div id="column_@column.ColumnId" class="board-column-tasks">
-            @foreach (Task task in column.Tasks)
-            {
-
-                <div id="task_@task.TaskId" class="well task-container">
-                    <a href="@Url.Action("Details", "Tasks", new { id = task.TaskId })">
-                        <div class="task-header">
-                            <div class="task-header">@task.Title</div>
-                        </div>
-                        <div class="task-content">
-                            @task.Description
+    <div class="col-md-2">
+        <div class="board-column btn-primary">
+            <h4 class="text-center column-header">
+                @Html.ActionLink(column.Title, "Edit", "Columns", new { id = column.ColumnId }, null)
+            </h4>
+            <div id="column_@column.ColumnId" class="board-column-tasks">
+                @foreach (Task task in column.Tasks)
+                {
+                    <a href="@Url.Action("Details", "Tasks", new {id = task.TaskId})">
+                        <div id="task_@task.TaskId" class="task-container btn-info">
+                            <div class="task-header">
+                                <div class="task-header">@task.Title</div>
+                            </div>
                         </div>
                     </a>
-                </div>
 
-            }
+
+                }
+            </div>
         </div>
     </div>
 }

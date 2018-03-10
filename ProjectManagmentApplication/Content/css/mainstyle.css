@@ -14,16 +14,28 @@
     max-width: 300px;
 }
 
-
-.row-eq-height {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display:         flex;
-}
-
 .board-column {
     border: 1px solid;    
+    border-radius: 25px;
+    margin-bottom: 10px;
+}
+.column-header {
+    border-bottom: 1px solid;
+}
+
+.column-header a {
+    color: white;
+}
+
+.task-container {
+    border: 1px solid;    
+    border-radius: 5px;
+    margin: 5px;
+    padding: 10px;
+}
+
+.task-container:hover {
+    text-decoration: none;
 }
 
 .board-column-tasks {
@@ -32,6 +44,10 @@
 
 .task-container .task-moving {
     margin-bottom: 100px;
+}
+
+#board-column-container>:nth-child(6n+1) {  
+  clear:left;
 }
 
 #board-column-container {
