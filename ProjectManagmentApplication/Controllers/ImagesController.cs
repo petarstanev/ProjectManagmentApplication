@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -10,6 +11,7 @@ using System.Web.Mvc;
 using ProjectManagementApplication.Models;
 using ProjectManagementApplication.ViewModels;
 using ProjectManagmentApplication.Hubs;
+using Image = ProjectManagementApplication.Models.Image;
 
 namespace ProjectManagementApplication.Controllers
 {
@@ -86,15 +88,15 @@ namespace ProjectManagementApplication.Controllers
             {
                 var image = new Image();
 
-
-                if (model.ImageUpload != null && model.ImageUpload.ContentLength > 0)
+                using (var img = System.Drawing.Image.FromStream(model.ImageUpload.InputStream))
                 {
                     string uploadDir = "/Content/images/taskimages";
                     string fileName = model.TaskId + "_" + Guid.NewGuid().ToString().Substring(0, 4) + Path.GetExtension(model.ImageUpload.FileName);
 
-                    var imagePath = Path.Combine(Server.MapPath(uploadDir), fileName);
+                    //var imagePath = Path.Combine(Server.MapPath(uploadDir), fileName);
                     var imageUrl = Path.Combine(uploadDir, fileName);
-                    model.ImageUpload.SaveAs(imagePath);
+                   
+                    SaveToFolder(img, new Size(1920, 1080), imageUrl);
                     image.Url = imageUrl;
                 }
 
@@ -102,10 +104,41 @@ namespace ProjectManagementApplication.Controllers
                 db.Images.Add(image);
                 db.SaveChanges();
                 TaskHub.TaskUpdated(image.TaskId);
+
+
                 return RedirectToAction("Details","Tasks",new {id = image.TaskId});
             }
 
             return View(model);
         }
+
+        private void SaveToFolder(System.Drawing.Image img, Size newSize, string pathToSave)
+        {
+            Size imgSize = NewImageSize(img.Size, newSize);
+            using (System.Drawing.Image newImg = new Bitmap(img, imgSize.Width, imgSize.Height))
+            {
+                newImg.Save(Server.MapPath(pathToSave), img.RawFormat);
+            }
+        }
+
+        private Size NewImageSize(Size imageSize, Size newSize)
+        {
+            Size finalSize;
+            double tempval;
+            if (imageSize.Height > newSize.Height || imageSize.Width > newSize.Width)
+            {
+                if (imageSize.Height > imageSize.Width)
+                    tempval = newSize.Height / (imageSize.Height * 1.0);
+                else
+                    tempval = newSize.Width / (imageSize.Width * 1.0);
+
+                finalSize = new Size((int)(tempval * imageSize.Width), (int)(tempval * imageSize.Height));
+            }
+            else
+                finalSize = imageSize; 
+
+            return finalSize;
+        }
+
     }
 }
