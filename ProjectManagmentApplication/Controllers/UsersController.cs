@@ -54,7 +54,7 @@ namespace ProjectManagementApplication.Controllers
         // POST: Users/Login
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Login([Bind(Include = "Email,Password")] LoginUser user)
+        public ActionResult Login(LoginUser user, string returnUrl)
         {
             if (ModelState.IsValid)
             {
@@ -65,7 +65,14 @@ namespace ProjectManagementApplication.Controllers
                 if (foundUser != null)
                 {
                     sessionContext.SetAuthenticationToken(foundUser.UserId.ToString(), foundUser);
-                    return RedirectToAction("Index", "Home");
+                    if (String.IsNullOrEmpty(returnUrl))
+                    {
+                        return RedirectToAction("Index", "Home");
+                    }
+                    else
+                    {
+                        return Redirect(returnUrl);
+                    }
                 }
                 ModelState.AddModelError("Password", "The email or password you entered are incorrect.");
 

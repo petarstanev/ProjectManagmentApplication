@@ -2,18 +2,18 @@
 @using PagedList.Mvc;
 <link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 
-<h2>Index</h2>
-
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Create new board", "Create", null, new { @class = "btn btn-lg btn-info" })
 </p>
 
-@using (Html.BeginForm("Index", "Boards", FormMethod.Get))
+@using (Html.BeginForm("Index", "Boards", FormMethod.Get, new { @class = "form-inline" }))
 {
-    <p>
-        Search by board title, type or administrator: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
-        <input type="submit" value="Search"/>
-    </p>
+    <div class="input-group">
+        @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, new { @class = "form-control input-lg", @placeholder = "Search by board title, type or administrator:" })
+        <span class="input-group-btn">
+            <input type="submit" class="btn btn-lg btn-primary " value="Search" />
+        </span>
+    </div>
 }
 
 <table class="table">
