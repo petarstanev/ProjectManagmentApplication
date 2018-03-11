@@ -15,6 +15,19 @@
                 </a></li>  
                 <li><a href="@Url.Action("Index", "Boards")"><span class="glyphicon glyphicon-th-large" aria-hidden="true"></span> Boards</a></li>
             </ul>
+            <div class="col-sm-3 col-md-4">
+                @using (Html.BeginForm("Index", "Boards", FormMethod.Get, new {@class = "navbar-form" }))
+                {
+                    
+                    <div class="input-group">
+                        @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, new { @class = "form-control", @placeholder = "Search" })
+                        @*<input type="text" class="form-control" placeholder="Search" name="q">*@
+                        <div class="input-group-btn">
+                            <button class="btn btn-success" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+                        </div>
+                    </div>
+                }
+            </div>
             <ul class="nav navbar-nav navbar-right">
                 @if (User.Identity.IsAuthenticated)
                 {
