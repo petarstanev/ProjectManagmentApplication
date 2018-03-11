@@ -13,14 +13,23 @@
                 @foreach (Task task in column.Tasks)
                 {
                     <a href="@Url.Action("Details", "Tasks", new {id = task.TaskId})">
-                        <div id="task_@task.TaskId" class="task-container btn-info">
-                            <div class="task-header">
-                                <div class="task-header">@task.Title</div>
+                        @if (task.Deadline < DateTime.UtcNow)
+                        {
+                            <div id="task_@task.TaskId" class="task-container btn-warning">
+                                <div class="task-header">
+                                    <div class="task-header">@task.Title</div>
+                                </div>
                             </div>
-                        </div>
+                        }
+                        else
+                        {
+                            <div id="task_@task.TaskId" class="task-container btn-info">
+                                <div class="task-header">
+                                    <div class="task-header">@task.Title</div>
+                                </div>
+                            </div>
+                        }
                     </a>
-
-
                 }
             </div>
         </div>
