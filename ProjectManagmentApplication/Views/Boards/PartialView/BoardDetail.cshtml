@@ -45,12 +45,8 @@
                 .sortable({
                     connectWith: ".board-column-tasks",
                     cancel: ".add-column-btn",
-                    start: function (event, ui) {
-                        ui.item.addClass('task-moving');
-                    },
-                    stop: function (event, ui) {
-                        ui.item.removeClass("task-moving");
-                    },
+                    helper: fixWidthHelper,
+
                     receive: function (event, ui) {
                         var taskId = ui.item[0].id.replace(/^\D+/g, '');//get id number from id
                         var columnId = this.id.replace(/^\D+/g, ''); // column
@@ -75,6 +71,8 @@
                             console.log(columnId + " " + taskId + " " + this.id);
                         }
                     }
+
+
                 });
         });
 
@@ -85,5 +83,12 @@
         $(".modal").on('hide.bs.modal', function () {
             $(".board-column-tasks").sortable("enable");
         });
+
+        function fixWidthHelper(e, ui) {
+            ui.children().each(function () {
+                $(this).width($(this).width());
+            });
+            return ui;
+        }
     });
 </script>
