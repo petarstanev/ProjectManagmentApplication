@@ -10,21 +10,20 @@
     background-color: #C39F9C;
 }
 
-
-
 .board-column {
     border: 1px solid;
     border-radius: 25px;
     margin-bottom: 10px;
+    padding-bottom: 10px;
 }
 
 .column-header {
     border-bottom: 1px solid;
 }
 
-    .column-header a {
-        color: white;
-    }
+.column-header a {
+    color: white;
+}
 
 .task-container {
     border: 1px solid;
@@ -43,7 +42,15 @@
 
 .task-container .task-moving {
     margin-bottom: 100px;
+    background-color: red;
 }
+
+.task-moving {
+    background-color: red !important;
+    height: 300px;
+    width: 300px;
+}
+
 
 #board-column-container > :nth-child(6n+1) {
     clear: left;

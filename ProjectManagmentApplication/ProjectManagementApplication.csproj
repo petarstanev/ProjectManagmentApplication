@@ -269,6 +269,7 @@
     <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\css\mainstyle.css" />
+    <Content Include="index.html" />
     <Content Include="Models\ClassDiagram1.cd" />
     <None Include="Scripts\jquery-3.2.1.intellisense.js" />
     <Content Include="Scripts\bootstrap-datepicker.min.js" />

@@ -9,23 +9,23 @@ namespace ProjectManagementApplication
         public static void RegisterBundles(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
-                        "~/Scripts/jquery-{version}.js",
-                        "~/Scripts/jquery-ui-{version}.js"));
+                        "~/Scripts/jquery-3.2.1.min.js",
+                        "~/Scripts/jquery-ui-1.12.1.min.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
-                        "~/Scripts/jquery.validate.js"));
+                        "~/Scripts/jquery.validate.min.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
                         "~/Scripts/modernizr-*"));
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
-                      "~/Scripts/bootstrap.js",
+                      "~/Scripts/bootstrap.min.js",
                       "~/Scripts/bootstrap-datepicker.min.js",
-                      "~/Scripts/respond.js",
+                      "~/Scripts/respond.min.js",
                       "~/Scripts/lightbox.js"));
 
             bundles.Add(new StyleBundle("~/bundles/appcss").Include(
-                      "~/Content/css/bootstrap.css",
+                      "~/Content/css/bootstrap.min.css",
                       "~/Content/css/bootstrap-datepicker.min.css",
                       "~/Content/css/mainstyle.css",
                       "~/Content/css/lightbox.css"));

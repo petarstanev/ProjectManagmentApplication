@@ -191,5 +191,25 @@ namespace ProjectManagementApplication.Controllers
 
             return new HttpStatusCodeResult(HttpStatusCode.OK);
         }
+
+        [HttpGet]
+        public ActionResult TestLoad()
+        {
+            ////Board b = db.Boards.Find(23);
+            ////db.Boards.Remove(b);
+            //for (int i = 31; i < 40; i++)
+            //{
+            //    for (int y = 0; y < 100; y++)
+            //    {
+            //        Task task = new Task();
+            //        task.ColumnId = i;
+            //        task.Title = y + " " + i;
+            //        db.Tasks.Add(task);
+            //        db.SaveChanges();
+            //    }
+            //}
+
+            return null;
+        } 
     }
 }

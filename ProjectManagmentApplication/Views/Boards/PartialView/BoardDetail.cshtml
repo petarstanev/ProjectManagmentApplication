@@ -12,10 +12,10 @@
             <div id="column_@column.ColumnId" class="board-column-tasks">
                 @foreach (Task task in column.Tasks)
                 {
-                    <a href="@Url.Action("Details", "Tasks", new {id = task.TaskId})">
+                    <a id="task_@task.TaskId" href="@Url.Action("Details", "Tasks", new {id = task.TaskId})">
                         @if (task.Deadline < DateTime.UtcNow)
                         {
-                            <div id="task_@task.TaskId" class="task-container btn-warning">
+                            <div class="task-container btn-warning">
                                 <div class="task-header">
                                     <div class="task-header">@task.Title</div>
                                 </div>
@@ -23,7 +23,7 @@
                         }
                         else
                         {
-                            <div id="task_@task.TaskId" class="task-container btn-info">
+                            <div class="task-container btn-info">
                                 <div class="task-header">
                                     <div class="task-header">@task.Title</div>
                                 </div>
@@ -53,7 +53,8 @@
                     },
                     receive: function (event, ui) {
                         var taskId = ui.item[0].id.replace(/^\D+/g, '');//get id number from id
-                        var columnId = this.id.replace(/^\D+/g, '');
+                        var columnId = this.id.replace(/^\D+/g, ''); // column
+                        console.log(ui.id + " " + columnId);
                         if (columnId > 0 && taskId > 0) {
                             $.ajax({
                                 url: '/Tasks/ChangeTaskColumn',
