@@ -9,6 +9,7 @@ namespace ProjectManagementApplication.Models
     {
         public int ImageId { get; set; }
         public string Url { get; set; }
+        public byte[] Content { get; set; }
 
         public int TaskId { get; set; }
         public Task Task { get; set; }

@@ -7,7 +7,6 @@
     @Html.ValidationSummary(true)
 
     <div>
-        @Html.LabelFor(m => m.ImageUpload)
        @Html.TextBoxFor(m => m.ImageUpload, new { type = "file" })
     </div>
     <button type="submit">Upload</button>

@@ -95,9 +95,10 @@ namespace ProjectManagementApplication.Controllers
 
                     //var imagePath = Path.Combine(Server.MapPath(uploadDir), fileName);
                     var imageUrl = Path.Combine(uploadDir, fileName);
-                   
-                    SaveToFolder(img, new Size(1920, 1080), imageUrl);
+
+                    System.Drawing.Image finalImange = SaveToFolder(img, new Size(1920, 1080), imageUrl);
                     image.Url = imageUrl;
+                    image.Content = imageToByteArray(finalImange);
                 }
 
                 image.TaskId = model.TaskId;
@@ -112,13 +113,13 @@ namespace ProjectManagementApplication.Controllers
             return View(model);
         }
 
-        private void SaveToFolder(System.Drawing.Image img, Size newSize, string pathToSave)
+        private System.Drawing.Image SaveToFolder(System.Drawing.Image img, Size newSize, string pathToSave)
         {
             Size imgSize = NewImageSize(img.Size, newSize);
-            using (System.Drawing.Image newImg = new Bitmap(img, imgSize.Width, imgSize.Height))
-            {
-                newImg.Save(Server.MapPath(pathToSave), img.RawFormat);
-            }
+
+            System.Drawing.Image newImg = new Bitmap(img, imgSize.Width, imgSize.Height);
+
+            return newImg;
         }
 
         private Size NewImageSize(Size imageSize, Size newSize)
@@ -140,5 +141,18 @@ namespace ProjectManagementApplication.Controllers
             return finalSize;
         }
 
+        public byte[] imageToByteArray(System.Drawing.Image imageIn)
+        {
+            MemoryStream ms = new MemoryStream();
+            imageIn.Save(ms, System.Drawing.Imaging.ImageFormat.Gif);
+            return ms.ToArray();
+        }
+
+        public System.Drawing.Image byteArrayToImage(byte[] byteArrayIn)
+        {
+            MemoryStream ms = new MemoryStream(byteArrayIn);
+            System.Drawing.Image returnImage = System.Drawing.Image.FromStream(ms);
+            return returnImage;
+        }
     }
 }

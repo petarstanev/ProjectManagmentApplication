@@ -1,4 +1,5 @@
-﻿using System.Data.Entity;
+﻿using System;
+using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
@@ -45,7 +46,16 @@ namespace ProjectManagementApplication.Controllers
 
             task.Comments = db.Comments.Include(c => c.Author).Where(c => c.TaskId == task.TaskId).ToList();
             task.Column = db.Columns.Include(c => c.Board).SingleOrDefault(c => c.ColumnId == task.ColumnId);
-           
+
+            foreach (Image taskImage in task.Images)
+            {
+                var base64 = Convert.ToBase64String(taskImage.Content);
+                var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+
+                taskImage.Url = imgSrc;
+            }
+
+
             return PartialView("PartialView/TaskDetails", task);
         }
 
